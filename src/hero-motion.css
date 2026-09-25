@@ -1,0 +1,69 @@
+/* Independent wrappers keep ambient movement separate from LED power/hover transforms. */
+.az-hero { --hero-x: 0px; --hero-y: 0px; }
+.az-sign-motion { position: relative; display: flex; justify-content: center; width: 100%; }
+.az-sign-motion::before {
+  content: ''; position: absolute; inset: 5% 12% 10%; z-index: -1; pointer-events: none;
+  background: radial-gradient(ellipse, rgba(40,209,124,.15), transparent 68%);
+  opacity: .65;
+}
+.az-hero-text-motion { width: 100%; }
+.az-hero-ambient { position: absolute; inset: -20px; z-index: -1; pointer-events: none; }
+.az-hero-ambient::before, .az-hero-ambient::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 45% 42% at 35% 32%, rgba(40,209,124,.065), transparent 80%);
+}
+.az-hero-ambient::after { background: radial-gradient(ellipse 35% 35% at 67% 53%, rgba(57,181,177,.045), transparent 80%); }
+.az-hero-primary { position: relative; overflow: hidden; isolation: isolate; }
+.az-hero-primary::after {
+  content: ''; position: absolute; inset: -30% auto -30% -45%; width: 35%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.24), transparent);
+  transform: translateX(-100%) skewX(-18deg); opacity: 0;
+}
+.az-hero .az-hero-button:focus-visible { outline: 2px solid #77f1b1; outline-offset: 5px; }
+[data-theme='light'] .az-hero .az-hero-button:focus-visible { outline-color: #087b47; }
+@media (prefers-reduced-motion: no-preference) {
+  .az-sign-motion {
+    translate: var(--hero-x) var(--hero-y);
+    animation: heroEnter 700ms cubic-bezier(.22,1,.36,1) 100ms both, heroSignFloat 8s ease-in-out 800ms infinite;
+  }
+  .az-sign-motion::before { animation: heroBreathe 6s ease-in-out infinite; }
+  .az-hero-text-motion { translate: calc(var(--hero-x) * .5) calc(var(--hero-y) * .5); animation: heroTextFloat 11s ease-in-out 1400ms infinite; }
+  .az-hero-heading { animation: heroEnter 700ms cubic-bezier(.22,1,.36,1) 240ms both; }
+  .az-hero-assets { animation: heroEnter 800ms cubic-bezier(.22,1,.36,1) 360ms both; }
+  .az-hero-description { animation: heroEnter 800ms cubic-bezier(.22,1,.36,1) 440ms both; }
+  .az-hero-actions { animation: heroEnter 700ms cubic-bezier(.22,1,.36,1) 560ms both; }
+  .az-hero-ambient { translate: calc(var(--hero-x) * -1.5) calc(var(--hero-y) * -1.5); animation: heroAmbientEnter 650ms ease-out both; }
+  .az-hero-ambient::before { animation: heroAmbientDrift 16s ease-in-out infinite; }
+  .az-hero-ambient::after { animation: heroAmbientDrift 20s ease-in-out -7s infinite reverse; }
+  .az-hero-primary::after { animation: heroCtaSweep 5.5s ease-in-out 1.3s infinite; }
+  .az-product-badge:not([data-power-active]):not([data-power-rest]) .az-sign-sweep { animation: heroSignShimmer 9s ease-in-out 1.6s infinite; }
+  .az-hero .az-hero-button { transition-duration: 220ms; }
+  @media (hover: hover) and (pointer: fine) {
+    .az-hero .az-hero-button:hover { transform: translateY(-2px); }
+  }
+  .az-hero .az-hero-button:active { transform: translateY(0); }
+  .az-hero[data-motion-paused='true'] *,
+  .az-hero[data-motion-paused='true'] *::before,
+  .az-hero[data-motion-paused='true'] *::after { animation-play-state: paused !important; }
+}
+@keyframes heroEnter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes heroAmbientEnter { from { opacity: 0; } to { opacity: 1; } }
+@keyframes heroSignFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes heroTextFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
+@keyframes heroBreathe { 0%, 100% { opacity: .5; transform: scale(.98); } 50% { opacity: .8; transform: scale(1.02); } }
+@keyframes heroAmbientDrift { 0%, 100% { transform: translate(-6px, 0); opacity: .65; } 50% { transform: translate(8px, -12px); opacity: 1; } }
+@keyframes heroCtaSweep { 0%, 72%, 100% { opacity: 0; transform: translateX(-100%) skewX(-18deg); } 76% { opacity: .65; } 90% { opacity: 0; transform: translateX(540%) skewX(-18deg); } }
+@keyframes heroSignShimmer { 0%, 84%, 100% { opacity: 0; transform: translateX(-130%) skewX(-14deg); } 88% { opacity: .3; } 96% { opacity: 0; transform: translateX(730%) skewX(-14deg); } }
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .az-sign-motion { animation-name: heroEnter, heroSignFloatMobile; }
+  .az-hero-text-motion { animation: none; }
+  .az-hero-ambient::after { display: none; }
+  .az-hero-ambient::before { animation: none; opacity: .65; }
+  .az-hero-primary::after { animation: none; }
+  .az-product-badge:not([data-power-active]):not([data-power-rest]) .az-sign-sweep { animation: none; }
+}
+@keyframes heroSignFloatMobile { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) {
+  .az-hero .az-sign-motion, .az-hero .az-hero-text-motion, .az-hero .az-hero-ambient { translate: none; transform: none; animation: none; }
+  .az-hero-primary::after { display: none; }
+}

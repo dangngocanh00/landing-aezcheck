@@ -1,0 +1,53 @@
+/* Coral exists only in clipped interaction layers. The original accents remain brand green. */
+.challenge-journey { --challenge-wave: linear-gradient(90deg, #ff8a7a, #ff6f91 52%, #f59bb2); }
+.challenge-number { position: relative; }
+.challenge-number-wave { position: absolute; inset: 0; display: grid; place-items: center; background: var(--challenge-wave); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.challenge-icon .challenge-icon-wave { position: absolute; left: 12px; top: 12px; }
+.challenge-number::after, .challenge-icon::after, .challenge-card::after {
+  content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+  background: var(--challenge-wave); pointer-events: none;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+.challenge-card::after { opacity: .48; }
+.challenge-icon::after { opacity: .65; }
+.challenge-connector::after { content: ''; position: absolute; inset: 0; background: var(--challenge-wave); pointer-events: none; }
+.challenge-connector i::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--challenge-wave); }
+.challenge-number-wave, .challenge-icon-wave,
+.challenge-number::after, .challenge-icon::after, .challenge-card::after,
+.challenge-connector::after, .challenge-connector i::after {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 500ms cubic-bezier(.22,1,.36,1), opacity 500ms ease;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .challenge-journey > li:hover :is(.challenge-number-wave,.challenge-icon-wave),
+  .challenge-journey > li:hover :is(.challenge-number,.challenge-icon,.challenge-card,.challenge-connector,.challenge-connector i)::after {
+    clip-path: inset(0);
+    transition-duration: 650ms;
+  }
+  .challenge-journey > li:hover .challenge-icon-wave,
+  .challenge-journey > li:hover .challenge-icon::after { transition-delay: 60ms; }
+  .challenge-journey > li:hover .challenge-card::after { transition-delay: 120ms; }
+  .challenge-journey > li:hover .challenge-connector i::after { transition-delay: 150ms; }
+  .challenge-card:hover .challenge-icon { box-shadow: 0 0 16px rgba(255,111,145,.10); transition-duration: 650ms; transition-delay: 60ms; }
+  @media (max-width: 1199px) {
+    .challenge-card:hover .challenge-icon { box-shadow: 0 0 14px rgba(255,111,145,.08); }
+    .challenge-card::after { opacity: .4; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .challenge-number-wave, .challenge-icon-wave,
+  .challenge-number::after, .challenge-icon::after, .challenge-card::after,
+  .challenge-connector::after, .challenge-connector i::after {
+    clip-path: none; opacity: 0;
+    transition: opacity 300ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .challenge-journey > li:hover :is(.challenge-number-wave,.challenge-icon-wave),
+    .challenge-journey > li:hover :is(.challenge-number,.challenge-icon,.challenge-connector,.challenge-connector i)::after {
+      clip-path: none; opacity: 1; transition: opacity 300ms ease;
+    }
+    .challenge-journey > li:hover .challenge-card::after { clip-path: none; opacity: .45; transition: opacity 300ms ease; }
+  }
+}

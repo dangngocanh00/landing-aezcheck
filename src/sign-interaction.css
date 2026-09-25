@@ -1,0 +1,232 @@
+﻿/* All lighting and motion here are scoped to the Hero sign. */
+@property --az-led-power { syntax: '<number>'; inherits: false; initial-value: 1; }
+@property --az-border-level { syntax: '<number>'; inherits: false; initial-value: .5; }
+
+.az-product-badge.az-product-badge {
+  --az-idle-gain: 1;
+  --az-led-power: .32;
+  --az-border-level: .5;
+  filter: brightness(calc(.85 * var(--az-idle-gain)));
+  transform: perspective(1200px) translateY(0) rotateX(0deg) rotateZ(-1deg) scale(1);
+  transition: none;
+  background: radial-gradient(ellipse at 50% 48%, #0c1915, #070c0a 78%) padding-box,
+    linear-gradient(105deg, rgb(40 209 124 / var(--az-border-level)), rgb(79 227 154 / var(--az-border-level))) border-box;
+  animation: boardPowerIdle 5s linear infinite;
+  box-shadow: 0 0 10px rgb(40 209 124 / calc(.55 * var(--az-led-power))),
+    0 0 26px rgb(40 209 124 / calc(.30 * var(--az-led-power))),
+    0 0 52px rgb(40 209 124 / calc(.14 * var(--az-led-power))),
+    inset 0 0 22px rgb(40 209 124 / calc(.09 * var(--az-led-power)));
+}
+.az-product-badge.az-product-badge::before { content: none; }
+.az-product-badge .az-product-aez,
+.az-product-badge .az-product-check {
+  display: inline-block;
+  --az-led-power: .16;
+  opacity: .76;
+  filter: brightness(.82);
+  animation: aezPowerIdle 5s linear infinite;
+  transition: none;
+}
+.az-product-badge .az-product-aez {
+  color: #f5f7f6;
+  text-shadow: 0 0 7px rgb(245 247 246 / calc(.30 * var(--az-led-power))),
+    0 0 18px rgb(119 241 177 / calc(.10 * var(--az-led-power)));
+}
+.az-product-badge .az-product-check {
+  filter: brightness(.78);
+  background-image: linear-gradient(90deg, #28d17c 0%, #4fe39a 55%, #77f1b1 100%);
+  animation-name: checkPowerIdle;
+  text-shadow: 0 0 7px rgb(79 227 154 / calc(.65 * var(--az-led-power))),
+    0 0 19px rgb(40 209 124 / calc(.34 * var(--az-led-power))),
+    0 0 36px rgb(40 209 124 / calc(.16 * var(--az-led-power)));
+}
+.az-product-badge .az-product-pro {
+  --az-led-power: .12;
+  background-color: #0d0f0a;
+  border-color: rgb(244 200 74 / calc(.2 + .45 * var(--az-led-power)));
+  animation: proPowerIdle 5s linear infinite;
+  transition: none;
+  box-shadow: 0 0 10px rgb(244 200 74 / calc(.40 * var(--az-led-power))),
+    0 0 26px rgb(244 200 74 / calc(.18 * var(--az-led-power))),
+    inset 0 0 16px rgb(244 200 74 / calc(.08 * var(--az-led-power)));
+}
+.az-product-badge .az-product-pro-text {
+  --az-led-power: .15;
+  opacity: .8;
+  filter: brightness(.75);
+  background-image: linear-gradient(135deg, #ffe38a, #f4c84a 55%, #d6a51f);
+  animation: proTextIdle 5s linear infinite;
+  transition: none;
+  text-shadow: 0 0 6px rgb(244 200 74 / calc(.4 * var(--az-led-power))),
+    0 0 18px rgb(244 200 74 / calc(.18 * var(--az-led-power)));
+}
+
+/* Effects never intercept the pointer or change the sign's dimensions. */
+.az-sign-spark-track, .az-sign-sweep-track {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+.az-sign-sweep-track { inset: 0; }
+.az-sign-spark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgb(119 241 177 / .95), transparent);
+  box-shadow: 0 0 6px rgb(40 209 124 / .6);
+  opacity: 0;
+  animation: borderSparkIdle 5s linear infinite;
+}
+.az-sign-energy-wave {
+  position: absolute;
+  inset: -2px;
+  border: 1px solid rgb(79 227 154 / .7);
+  border-radius: inherit;
+  box-shadow: 0 0 14px rgb(40 209 124 / .18);
+  opacity: 0;
+  pointer-events: none;
+}
+.az-sign-sweep {
+  position: absolute;
+  top: 0;
+  left: -25%;
+  height: 100%;
+  width: 18%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / .12), transparent);
+  transform: skewX(-15deg);
+  opacity: 0;
+}
+
+/* Standby occupies 68% of the cycle; idle power is ~30% below hover. */
+@keyframes boardPowerIdle {
+  0%, 68%, 100% { filter: brightness(calc(.85 * var(--az-idle-gain))); --az-led-power: .32; --az-border-level: .5; }
+  70% { filter: brightness(calc(.45 * var(--az-idle-gain))); --az-led-power: .16; --az-border-level: .3; }
+  71% { filter: brightness(calc(.65 * var(--az-idle-gain))); }
+  72% { filter: brightness(calc(.5 * var(--az-idle-gain))); --az-led-power: .3; --az-border-level: .45; }
+  74%, 84%, 88% { filter: brightness(calc(.94 * var(--az-idle-gain))); --az-led-power: .7; --az-border-level: .8; }
+}
+@keyframes aezPowerIdle {
+  0%, 68%, 100% { opacity: .76; filter: brightness(.82); --az-led-power: .16; }
+  70%, 74% { opacity: .55; filter: brightness(.7); --az-led-power: .12; }
+  76%, 84%, 88% { opacity: .94; filter: brightness(1.08); --az-led-power: .7; }
+}
+@keyframes checkPowerIdle {
+  0%, 68%, 100% { opacity: .76; filter: brightness(.78); --az-led-power: .16; }
+  70%, 76% { opacity: .55; filter: brightness(.7); --az-led-power: .12; }
+  79%, 84%, 88% { opacity: .94; filter: brightness(1.12); --az-led-power: .7; }
+}
+@keyframes proPowerIdle {
+  0%, 68%, 100% { opacity: 1; --az-led-power: .12; background-color: #0d0f0a; }
+  70%, 79% { opacity: .6; --az-led-power: .1; background-color: #0b0d09; }
+  82%, 84%, 88% { opacity: 1; --az-led-power: .7; background-color: #211b0f; }
+}
+@keyframes proTextIdle {
+  0%, 79%, 100% { opacity: .8; filter: brightness(.75); --az-led-power: .15; }
+  82%, 84%, 88% { opacity: .94; filter: brightness(1.1); --az-led-power: .7; }
+}
+@keyframes borderSparkIdle {
+  0%, 73% { opacity: 0; transform: translateX(-100%); }
+  74% { opacity: .7; transform: translateX(-100%); }
+  85% { opacity: .7; transform: translateX(460%); }
+  86%, 100% { opacity: 0; transform: translateX(460%); }
+}
+
+/* 800ms shared electrical clock. Final frames hold while the pointer stays. */
+@keyframes boardPowerFast {
+  0% { filter: brightness(.85); --az-led-power: .32; --az-border-level: .5; }
+  7.5% { filter: brightness(.42); --az-led-power: .16; --az-border-level: .3; }
+  10% { filter: brightness(.55); --az-led-power: .55; --az-border-level: .55; }
+  12% { filter: brightness(1); --az-led-power: 1.15; --az-border-level: 1; }
+  14% { filter: brightness(.85); --az-led-power: .75; --az-border-level: .75; }
+  16.25%, 100% { filter: brightness(1); --az-led-power: 1; --az-border-level: .95; }
+}
+@keyframes aezPowerFast {
+  0%, 16.25% { opacity: .55; filter: brightness(.8); --az-led-power: .16; }
+  25% { opacity: 1; filter: brightness(1.2); --az-led-power: 1.1; }
+  28.75%, 100% { opacity: 1; filter: brightness(1.1); --az-led-power: 1; }
+}
+@keyframes checkPowerFast {
+  0%, 28.75% { opacity: .55; filter: brightness(.78); --az-led-power: .16; }
+  40% { opacity: 1; filter: brightness(1.45); --az-led-power: 1.2; }
+  47.5%, 100% { opacity: 1; filter: brightness(1.2); --az-led-power: 1; }
+}
+@keyframes proPowerFast {
+  0%, 47.5% { opacity: .6; --az-led-power: .12; background-color: #0d0f0a; }
+  60% { opacity: 1; --az-led-power: 1.2; background-color: #282010; }
+  65%, 100% { opacity: 1; --az-led-power: 1; background-color: #211b0f; }
+}
+@keyframes proTextFast {
+  0%, 47.5% { opacity: .8; filter: brightness(.75); --az-led-power: .15; }
+  60% { opacity: 1; filter: brightness(1.4); --az-led-power: 1.2; }
+  65%, 100% { opacity: 1; filter: brightness(1.2); --az-led-power: 1; }
+}
+@keyframes borderSparkFast {
+  0%, 12% { opacity: 0; transform: translateX(-100%); }
+  14% { opacity: 1; transform: translateX(-100%); }
+  82% { opacity: 1; transform: translateX(460%); }
+  84%, 100% { opacity: 0; transform: translateX(460%); }
+}
+@keyframes signEnergyWave {
+  0% { transform: scale(.98); opacity: 0; }
+  25% { opacity: .65; }
+  100% { transform: scale(1.08); opacity: 0; }
+}
+@keyframes signLightSweep {
+  0% { left: -25%; opacity: 0; }
+  15% { opacity: .7; }
+  85% { opacity: .7; }
+  100% { left: 115%; opacity: 0; }
+}
+@keyframes signElasticLift {
+  0%, 10% { transform: perspective(1200px) translateY(0) rotateX(0deg) rotateZ(-1deg) scale(1); }
+  30% { transform: perspective(1200px) translateY(-8px) rotateX(1.6deg) rotateZ(2.2deg) scale(1.015); }
+  50% { transform: perspective(1200px) translateY(-4px) rotateX(.3deg) rotateZ(.15deg) scale(1.006); }
+  70% { transform: perspective(1200px) translateY(-5.5px) rotateX(.9deg) rotateZ(1.05deg) scale(1.009); }
+  100% { transform: perspective(1200px) translateY(-5px) rotateX(.7deg) rotateZ(.75deg) scale(1.008); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .az-product-badge.az-product-badge[data-power-active] {
+    animation: boardPowerFast 800ms linear both, signElasticLift 800ms cubic-bezier(.20, .90, .22, 1) both;
+  }
+  .az-product-badge[data-power-active] .az-product-aez { animation-name: aezPowerFast; }
+  .az-product-badge[data-power-active] .az-product-check { animation-name: checkPowerFast; }
+  .az-product-badge[data-power-active] .az-product-pro { animation-name: proPowerFast; }
+  .az-product-badge[data-power-active] .az-product-pro-text { animation-name: proTextFast; }
+  .az-product-badge[data-power-active] .az-sign-spark { animation-name: borderSparkFast; }
+  .az-product-badge[data-power-active] :is(.az-product-aez, .az-product-check, .az-product-pro, .az-product-pro-text, .az-sign-spark) {
+    animation-duration: 800ms;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+  }
+  .az-product-badge[data-power-active] .az-sign-energy-wave { animation: signEnergyWave 650ms ease-out 100ms both; }
+  .az-product-badge[data-power-active] .az-sign-sweep { animation: signLightSweep 700ms ease-in-out 130ms both; }
+}
+
+/* WAAPI captures the current pose/light only for interruption-safe pointer exit. */
+.az-product-badge.az-product-badge[data-power-rest],
+.az-product-badge[data-power-rest] :is(.az-product-aez, .az-product-check, .az-product-pro, .az-product-pro-text, .az-sign-spark, .az-sign-energy-wave, .az-sign-sweep) {
+  animation: none;
+}
+@media (hover: none), (pointer: coarse) {
+  .az-product-badge.az-product-badge { --az-idle-gain: .83; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .az-product-badge.az-product-badge,
+  .az-product-badge.az-product-badge[data-power-active] {
+    --az-led-power: .55; --az-border-level: .65;
+    transform: none; filter: brightness(.95); animation: none;
+  }
+  .az-product-badge :is(.az-product-aez, .az-product-check, .az-product-pro-text) {
+    --az-led-power: .4; opacity: .9; filter: brightness(.95); animation: none;
+  }
+  .az-product-badge .az-product-pro { --az-led-power: .4; animation: none; }
+  .az-product-badge :is(.az-sign-spark, .az-sign-energy-wave, .az-sign-sweep) { display: none; animation: none; }
+}
+@media (prefers-reduced-motion: reduce) and (hover: hover) and (pointer: fine) {
+  .az-product-badge.az-product-badge:hover { filter: brightness(1.02); }
+}

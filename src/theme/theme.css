@@ -1,0 +1,121 @@
+:root, [data-theme='dark'] {
+  --bg-main: #07110f;
+  --bg-secondary: #0b1714;
+  --surface: #0e1e1a;
+  --surface-soft: #040907;
+  --surface-highlight: rgba(255, 255, 255, .045);
+  --text-primary: #f5f7f6;
+  --text-secondary: #9fb0aa;
+  --text-muted: #7f958c;
+  --border: rgba(255, 255, 255, .08);
+  --green: #28d17c;
+  --green-bright: #77f1b1;
+  --green-soft: #77f1b1;
+  --cyan-accent: #3de0d1;
+  --on-accent: #04130e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --header-bg: rgba(5, 13, 17, .94);
+  --popup-shadow: 0 12px 32px rgba(0, 0, 0, .2);
+}
+[data-theme='light'] {
+  --bg-main: #f5faf7;
+  --bg-secondary: #edf6f1;
+  --surface: #ffffff;
+  --surface-soft: #f1f8f4;
+  --surface-highlight: rgba(16, 70, 44, .045);
+  --text-primary: #10231c;
+  --text-secondary: #52655d;
+  --text-muted: #63786c;
+  --border: rgba(16, 35, 28, .12);
+  --green: #087f4c;
+  --green-bright: #11965b;
+  --green-soft: #21794f;
+  --cyan-accent: #087d72;
+  --on-accent: #ffffff;
+  --danger: #b91c1c;
+  --warning: #946200;
+  --header-bg: rgba(248, 252, 250, .94);
+  --popup-shadow: 0 12px 32px rgba(16, 65, 40, .09);
+}
+
+/* A frame token is shared by the dashboard previews, independent of the LED object. */
+.az-browser-frame { box-shadow: 0 20px 36px rgba(0, 0, 0, .2); }
+[data-theme='light'] .az-browser-frame { box-shadow: 0 12px 30px rgba(16, 65, 40, .07); }
+
+.az-language-selector { position: relative; }
+.az-language-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  min-width: 165px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--popup-shadow);
+  color: var(--text-primary);
+  z-index: 60;
+}
+.az-language-menu button { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; padding: 10px 12px; border-radius: 8px; font-size: 14px; cursor: pointer; text-align: left; }
+.az-language-menu button:hover, .az-language-menu button:focus-visible { background: var(--surface-highlight); }
+.az-language-menu button[aria-checked='true'] { color: var(--green); font-weight: 600; }
+.az-theme-button, .az-language-button { cursor: pointer; }
+.az-theme-button svg { animation: az-theme-icon 200ms ease-out; }
+@keyframes az-theme-icon { from { opacity: .3; transform: rotate(-20deg); } to { opacity: 1; transform: rotate(0); } }
+@media (max-width: 959px) {
+  .az-mobile-utilities .az-language-menu { top: auto; bottom: calc(100% + 10px); left: 0; right: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .az-theme-button svg { animation: none; } }
+
+/* Light-mode treatments are scoped to the surrounding landing, never the LED sign. */
+[data-theme='light'] .az-navbar { background: var(--header-bg); border-color: var(--border); }
+[data-theme='light'] .az-brand-wordmark { color: var(--text-primary); text-shadow: none; }
+[data-theme='light'] .az-brand-dot { color: var(--green); text-shadow: none; }
+[data-theme='light'] .az-nav-link { color: var(--text-secondary); }
+[data-theme='light'] .az-nav-link[aria-current], [data-theme='light'] .az-nav-link:hover { color: var(--text-primary); }
+[data-theme='light'] .az-contact { color: var(--text-primary); border-color: rgba(8, 127, 76, .4); }
+[data-theme='light'] .az-theme-button, [data-theme='light'] .az-menu-toggle { color: var(--text-secondary); border-color: var(--border); background: var(--surface); }
+[data-theme='light'] .az-language-button { color: var(--text-primary); }
+[data-theme='light'] .az-navbar :focus-visible, [data-theme='light'] .az-hero :focus-visible { outline-color: var(--green); }
+[data-theme='light'] .az-nav-separator { background: var(--border); }
+[data-theme='light'] .az-mobile-navigation { background: var(--bg-main); border-color: var(--border); }
+[data-theme='light'] .az-mobile-utilities { border-color: var(--border); }
+[data-theme='light'] .az-hero {
+  background: radial-gradient(ellipse 65% 45% at 50% 29%, rgba(40, 209, 124, .07), transparent 75%),
+    linear-gradient(180deg, #f5faf7, #eff8f2 72%, #f5faf7);
+}
+[data-theme='light'] .az-hero::before {
+  background-image: linear-gradient(rgba(54, 99, 72, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(54, 99, 72, .045) 1px, transparent 1px);
+}
+[data-theme='light'] .az-hero-eyebrow { color: var(--green); background: rgba(8, 127, 76, .04); border-color: rgba(8, 127, 76, .22); }
+[data-theme='light'] .az-hero-heading { color: var(--text-primary); }
+[data-theme='light'] .az-hero-heading-intro { text-shadow: none; }
+[data-theme='light'] .az-hero-heading-main { text-shadow: 0 3px 20px rgba(40, 209, 124, .09); }
+[data-theme='light'] .az-hero-heading-main::after { opacity: .6; }
+[data-theme='light'] .az-hero-assets { color: var(--text-primary); }
+[data-theme='light'] .az-hero-asset-dot { color: var(--green); }
+[data-theme='light'] .az-hero-description { color: var(--text-secondary); }
+[data-theme='light'] .az-hero-secondary { color: var(--green); border-color: rgba(8, 127, 76, .45); background: rgba(255, 255, 255, .5); }
+[data-theme='light'] .text-yellow-400 { color: var(--warning); }
+[data-theme='light'] .text-red-400 { color: var(--danger); }
+[data-theme='light'] .bg-az-card { box-shadow: 0 6px 20px rgba(16, 65, 40, .035); }
+
+/* Content may grow in translation; containment is local to existing previews. */
+.az-page section > div { min-width: 0; }
+.az-page section { overflow-x: clip; }
+.az-browser-frame table { min-width: max-content; }
+.az-table-scroll { overflow-x: auto; max-width: 100%; }
+.az-ad-tabs { flex-wrap: wrap; }
+.az-asset-tabs { flex-wrap: wrap; }
+html[lang='en'] .az-hero-heading { font-size: clamp(44px, 4.3vw, 80px); }
+@media (max-width: 767px) {
+  html[lang='en'] .az-hero-heading { font-size: clamp(32px, 10.7vw, 50px); }
+}
+@media (max-height: 780px) and (min-width: 768px) {
+  html[lang='en'] .az-hero-heading { font-size: clamp(40px, 4vw, 60px); }
+}
+@media (min-width: 960px) and (max-width: 1199px) {
+  html[lang='en'] .az-nav-links { gap: 18px; }
+  html[lang='en'] .az-navbar-desktop { gap: 24px; }
+}

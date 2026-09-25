@@ -1,0 +1,85 @@
+/* Independent translate/transform channels let idle motion pause without snapping on hover. */
+.eco-stage {
+  --card-delay: 0s;
+  --card-float: -2px;
+  --card-edge: #69d995;
+  --card-halo: rgba(40, 209, 124, .075);
+  isolation: isolate;
+  transition: transform 300ms cubic-bezier(.22,1,.36,1), border-color 180ms ease;
+}
+.eco-stage-source { --card-edge: #8aecac; --card-halo: rgba(40,209,124,.10); }
+.eco-stage-destination { --card-edge: #b2ffca; --card-halo: rgba(79,227,154,.15); }
+.eco-stage::before, .eco-stage::after {
+  content: ''; position: absolute; inset: -1px; border-radius: inherit;
+  pointer-events: none; z-index: -1; border: 1px solid var(--card-edge);
+}
+.eco-stage::before {
+  opacity: .12;
+  background: radial-gradient(ellipse at 50% 0, rgba(119,241,177,.085), transparent 72%);
+  box-shadow: 0 0 18px var(--card-halo), inset 0 0 16px rgba(119,241,177,.04);
+}
+.eco-stage::after {
+  opacity: 0;
+  background: radial-gradient(ellipse at 50% 0, rgba(167,255,198,.08), transparent 75%);
+  box-shadow: 0 0 30px var(--card-halo), inset 0 1px 0 rgba(204,255,221,.12);
+  transition: opacity 240ms ease;
+}
+.eco-card-light { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
+.eco-card-light::before {
+  content: ''; position: absolute; inset: -20% auto -20% -45%; width: 35%; opacity: 0;
+  background: linear-gradient(100deg, transparent, rgba(210,255,226,.13), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+}
+.eco-stage > svg { transition: transform 300ms cubic-bezier(.22,1,.36,1), filter 240ms ease; }
+.eco-stage h3, .eco-stage p { transition: color 220ms ease; }
+.eco-stage:focus-visible { outline: 2px solid #a4efc0; outline-offset: 5px; }
+.eco-stage:focus-visible::after { opacity: 1; }
+.eco-stage:focus-visible h3 { color: #f6fff8; }
+.eco-stage:focus-visible p { color: #c3dbcc; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .eco-stage { animation: ecoCardFloat 7.8s ease-in-out var(--card-delay) infinite; }
+  .eco-stage::before { animation: ecoCardBreathe 6.2s ease-in-out var(--card-delay) infinite; }
+  .eco-stage > svg { animation: ecoIconFloat 5.2s ease-in-out calc(var(--card-delay) + .3s) infinite; }
+  .eco-stage:focus-visible { transform: translateY(-4px) scale(1.015); animation-play-state: paused; }
+  .eco-stage:focus-visible > svg { transform: translateY(-1px) scale(1.06); animation-play-state: paused; }
+  .eco-stage:focus-visible .eco-card-light::before { animation: ecoCardSweep 650ms ease-out 80ms both; }
+  @media (hover: hover) and (pointer: fine) {
+    .eco-stage:hover { transform: translateY(-4px) scale(1.015); animation-play-state: paused; }
+    .eco-stage:hover > svg { transform: translateY(-1px) scale(1.06); animation-play-state: paused; }
+    .eco-stage:hover .eco-card-light::before { animation: ecoCardSweep 650ms ease-out 80ms both; }
+  }
+  @media (max-width: 1199px) { .eco-stage { --card-float: -1.25px; } }
+  @media (hover: none), (pointer: coarse) {
+    .eco-stage { --card-float: -1px; }
+    .eco-stage > svg { animation: none; }
+    .eco-card-light { display: none; }
+    .eco-stage:active { transform: translateY(-2px) scale(1.008); }
+    .eco-stage:active::after { opacity: .7; }
+  }
+  .eco-stages[data-motion-paused='true'] .eco-stage,
+  .eco-stages[data-motion-paused='true'] .eco-stage::before,
+  .eco-stages[data-motion-paused='true'] .eco-stage > svg,
+  .eco-stages[data-motion-paused='true'] .eco-card-light::before { animation-play-state: paused; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .eco-stage:hover { border-color: var(--card-edge); }
+  .eco-stage:hover::after { opacity: 1; }
+  .eco-stage:hover > svg { filter: drop-shadow(0 0 9px rgba(79,227,154,.25)); }
+  .eco-stage:hover h3 { color: #f6fff8; }
+  .eco-stage:hover p { color: #c3dbcc; }
+}
+@keyframes ecoCardFloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 var(--card-float); } }
+@keyframes ecoCardBreathe { 0%, 100% { opacity: .12; } 50% { opacity: .32; } }
+@keyframes ecoIconFloat { 0%, 100% { translate: 0 0; opacity: .92; } 50% { translate: 0 -1.25px; opacity: 1; } }
+@keyframes ecoCardSweep {
+  0% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+  20% { opacity: .8; }
+  100% { transform: translateX(530%) skewX(-15deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eco-stage, .eco-stage > svg, .eco-stage::before { animation: none; transform: none; translate: none; }
+  .eco-card-light { display: none; }
+  .eco-stage { transition: border-color 180ms ease; }
+  .eco-stage:is(:hover, :focus-visible)::after { opacity: .35; }
+}
