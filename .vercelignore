@@ -1,0 +1,26 @@
+node_modules/
+dist/
+build/
+.git/
+.env*
+.qa/
+artifacts/
+artifacts.zip
+.vercel/
+.cache/
+.vite/
+logs/
+*.log
+*.tsbuildinfo
+vite.config.*.timestamp-*
+.tmp-*
+.plugins/
+.opencode-skills/
+.figma/design-context/
+docs/reference/
+docs/guide/
+scripts/qa-*
+scripts/normalize-guide.mjs
+scripts/build-guide-en.mjs
+scripts/verify-guide-content.mjs
+# Keep .figma/make/site.json: imported by vite.config.ts at build time.

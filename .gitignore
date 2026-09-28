@@ -19,3 +19,15 @@ logs/
 # beside it.
 /.plugins/
 /.opencode-skills/
+
+# Local QA and deployment state; keep runtime assets under assets/ and public/.
+/.qa/
+/artifacts/
+/.vercel/
+/docs/reference/
+/docs/guide/source-map.json
+/docs/guide/content-qa.json
+/docs/guide/browser-qa.json
+/docs/guide/language-qa.json
+/docs/guide/site-locales-qa.json
+/artifacts.zip

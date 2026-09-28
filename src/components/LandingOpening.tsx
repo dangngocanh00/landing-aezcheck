@@ -1,25 +1,19 @@
 import { useLanguage } from '../i18n/LanguageContext'
 import { useEffect, useRef, useState } from 'react'
 import { Brand } from './Brand'
-import { useTheme } from '../theme/ThemeContext'
+import { supportedLocales, localeNames } from '../i18n/locales'
 import { useHeroMotion } from './useHeroMotion'
-
-const links = [
-  ['Tính năng', '#features'], ['Lợi ích', '#benefits'],
-  ['Shield', '#shield'], ['Bảng giá', '#contact'],
-]
+import { landingHome, landingNavItems, landingExperienceDestination, pricingDestination, getHeaderActiveNav, getSiteRoute, localizedHref } from '../landing-navigation'
 
 function ContactArrow() {
   return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
 }
 
 function NavbarUtilities() {
-  const { t: translate, language, setLanguage } = useLanguage()
-  const { theme, toggleTheme } = useTheme()
+  const { t: translate, locale: language, setLanguage } = useLanguage()
   const [languageOpen, setLanguageOpen] = useState(false)
   const selector = useRef<HTMLDivElement>(null)
   const trigger = useRef<HTMLButtonElement>(null)
-  const themeLabel = translate(theme === 'dark' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối')
   useEffect(() => {
     if (!languageOpen) return
     selector.current?.querySelector<HTMLButtonElement>('[aria-checked="true"]')?.focus()
@@ -31,12 +25,6 @@ function NavbarUtilities() {
   }, [languageOpen])
   return (
     <div className="az-nav-utilities">
-      <button type="button" className="az-theme-button" aria-label={themeLabel} title={themeLabel} onClick={toggleTheme}>
-        <svg key={theme} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-          {theme === 'dark' ? <><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" strokeLinecap="round" /></> : <path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z" />}
-        </svg>
-      </button>
-      <span className="az-nav-separator" aria-hidden="true" />
       <div ref={selector} className="az-language-selector" onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node)) setLanguageOpen(false)
       }} onKeyDown={(event) => {
@@ -52,13 +40,15 @@ function NavbarUtilities() {
           options[next]?.focus()
         }
       }}>
-        <button ref={trigger} type="button" className="az-language-button" aria-label={translate('Chọn ngôn ngữ')} aria-haspopup="menu" aria-expanded={languageOpen} onClick={() => setLanguageOpen(!languageOpen)}>
+        <button ref={trigger} type="button" className="az-language-button" aria-label={`${language.toUpperCase()} — ${translate('Chọn ngôn ngữ')}`} aria-haspopup="menu" aria-expanded={languageOpen} onClick={() => setLanguageOpen(!languageOpen)}>
           {language.toUpperCase()}<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="m5 7.5 5 5 5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
         {languageOpen && <div className="az-language-menu" role="menu" aria-label={translate('Chọn ngôn ngữ')}>
-          {(['vi', 'en'] as const).map((locale) => <button key={locale} type="button" role="menuitemradio" aria-checked={language === locale} lang={locale} onClick={() => {
+          {supportedLocales.map((locale) => <button key={locale} type="button" role="menuitemradio" aria-checked={language === locale} lang={locale} onClick={() => {
             setLanguage(locale); setLanguageOpen(false); trigger.current?.focus()
-          }}><span>{locale === 'vi' ? 'Tiếng Việt' : 'English'}</span><span aria-hidden="true">{language === locale ? '✓' : ''}</span></button>)}
+          }}><span><svg width="18" height="12" viewBox="0 0 30 20" aria-hidden="true" style={{ display: 'inline-block', marginRight: 8, verticalAlign: 'middle' }}>
+            {locale === 'en' ? <><rect width="30" height="20" fill="white" /><path d="M12 0h6v20h-6zM0 7h30v6H0z" fill="#CE1124" /></> : <><rect width="30" height="20" fill="#DA251D" /><path d="m15 3 1.6 4.9h5.2l-4.2 3 1.6 4.9-4.2-3-4.2 3 1.6-4.9-4.2-3h5.2z" fill="#FFDF00" /></>}
+          </svg>{localeNames[locale]}</span><span aria-hidden="true">{language === locale ? '✓' : ''}</span></button>)}
         </div>}
       </div>
     </div>
@@ -66,9 +56,49 @@ function NavbarUtilities() {
 }
 
 export function Navbar() {
-  const { t: translate } = useLanguage()
+  const { t: translate, locale } = useLanguage()
   const [open, setOpen] = useState(false)
-  const [active, setActive] = useState('Tính năng')
+  const [location, setLocation] = useState(() => ({ pathname: window.location.pathname, hash: window.location.hash }))
+  const [scrollActive, setScrollActive] = useState<string | null>(null)
+  const matchedRoute = getSiteRoute(location.hash, location.pathname)
+  const isHome = matchedRoute.found && matchedRoute.page === 'home'
+  const active = isHome ? scrollActive ?? getHeaderActiveNav(location) : getHeaderActiveNav(location)
+  const destination = (href: string) => localizedHref(href, locale)
+  useEffect(() => {
+    const syncNavigation = () => {
+      setLocation({ pathname: window.location.pathname, hash: window.location.hash })
+      setOpen(false)
+    }
+    window.addEventListener('hashchange', syncNavigation)
+    window.addEventListener('popstate', syncNavigation)
+    return () => {
+      window.removeEventListener('hashchange', syncNavigation)
+      window.removeEventListener('popstate', syncNavigation)
+    }
+  }, [])
+  useEffect(() => {
+    if (!isHome) { setScrollActive(null); return }
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const threshold = (document.querySelector('.az-navbar')?.getBoundingClientRect().bottom ?? 75) + 40
+      const sections = landingNavItems.flatMap(item => {
+        if (!item.href.startsWith('#') || item.href.startsWith('#/')) return []
+        const section = document.getElementById(item.href.slice(1))
+        return section ? [{ label: item.label, top: section.getBoundingClientRect().top }] : []
+      }).sort((a, b) => a.top - b.top)
+      setScrollActive(sections.filter(section => section.top <= threshold).at(-1)?.label ?? sections[0]?.label ?? null)
+    }
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update) }
+    schedule()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
+  }, [isHome, location.pathname, location.hash])
   useEffect(() => {
     const desktop = window.matchMedia('(min-width: 960px)')
     const closeOnDesktop = () => { if (desktop.matches) setOpen(false) }
@@ -76,9 +106,8 @@ export function Navbar() {
     return () => desktop.removeEventListener('change', closeOnDesktop)
   }, [])
 
-  const navigation = links.map(([label, href]) => (
-    <a key={label} href={href} className="az-nav-link" aria-current={active === label ? 'location' : undefined} onClick={() => {
-      setActive(label)
+  const navigation = landingNavItems.map(({ label, href }) => (
+    <a key={label} href={destination(href)} className="az-nav-link" aria-current={active === label ? (href === pricingDestination ? 'page' : 'location') : undefined} onClick={() => {
       setOpen(false)
     }}>{translate(label)}</a>
   ))
@@ -91,11 +120,11 @@ export function Navbar() {
       }
     }}>
       <div className="az-navbar-inner">
-        <a href="#hero" className="az-navbar-brand" onClick={() => setOpen(false)} aria-label={translate("AezCheck — Trang chủ")}><Brand /></a>
+        <a href={destination(landingHome.href)} className="az-navbar-brand" onClick={() => setOpen(false)} aria-label={translate("AezCheck — Trang chủ")}><Brand /></a>
         <div className="az-navbar-desktop">
           <div className="az-nav-links">{navigation}</div>
           <div className="az-nav-actions">
-            <a href="#contact" className="az-contact">{translate("Liên hệ")}<ContactArrow /></a>
+            <a href={destination('#contact')} className="az-contact">{translate("Liên hệ")}<ContactArrow /></a>
             <NavbarUtilities />
           </div>
         </div>
@@ -105,12 +134,15 @@ export function Navbar() {
       </div>
       <div id="mobile-navigation" hidden={!open} className="az-mobile-navigation">
         <div className="az-mobile-links">{navigation}</div>
-        <a href="#contact" className="az-contact" onClick={() => setOpen(false)}>{translate("Liên hệ")}<ContactArrow /></a>
+        <a href={destination('#contact')} className="az-contact" onClick={() => setOpen(false)}>{translate("Liên hệ")}<ContactArrow /></a>
         <div className="az-mobile-utilities">{open && <NavbarUtilities />}</div>
       </div>
     </nav>
   )
 }
+
+// Keep in sync with the always-on media query in sign-interaction.css.
+const mobileSignMedia = '(max-width: 767px), (hover: none), (pointer: coarse), (max-width: 959px) and (max-height: 479px)'
 
 export function Hero() {
   const heroRef = useHeroMotion()
@@ -124,14 +156,31 @@ export function Hero() {
     releaseAnimations.current = []
   }
 
+  useEffect(() => {
+    const query = window.matchMedia(mobileSignMedia)
+    const resetMobilePower = () => {
+      if (!query.matches) return
+      cancelRelease()
+      const board = heroRef.current?.querySelector<HTMLElement>('.az-product-badge')
+      if (board) {
+        delete board.dataset.powerActive
+        delete board.dataset.powerRest
+      }
+    }
+    query.addEventListener('change', resetMobilePower)
+    return () => query.removeEventListener('change', resetMobilePower)
+  }, [heroRef])
+
   useEffect(() => () => {
     clearTimeout(releaseTimer.current)
     releaseAnimations.current.forEach((animation) => animation.cancel())
   }, [])
 
   function settlePower(board: HTMLDivElement) {
-    if (!window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) {
+    if (window.matchMedia(mobileSignMedia).matches || !window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) {
+      cancelRelease()
       delete board.dataset.powerActive
+      delete board.dataset.powerRest
       return
     }
     cancelRelease()
@@ -165,22 +214,21 @@ export function Hero() {
   }
 
   return (
-    <section ref={heroRef} id="hero" className="az-hero" aria-labelledby="hero-heading">
+    <section ref={heroRef} id="hero" className="az-hero az-landing-section" aria-labelledby="hero-heading">
       <div className="az-hero-ambient" aria-hidden="true" />
       <div className="az-hero-intro">
-        <div className="az-hero-eyebrow"><span aria-hidden="true" />{translate("META ADS OPERATIONS PLATFORM")}</div>
         <div className="az-sign-motion">
         <div className="az-product-badge" onPointerEnter={(event) => {
           cancelRelease()
           delete event.currentTarget.dataset.powerRest
-          if (window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) {
+          if (!window.matchMedia(mobileSignMedia).matches && window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) {
             event.currentTarget.dataset.powerActive = 'true'
           }
         }} onPointerLeave={(event) => settlePower(event.currentTarget)}>
           <span className="az-sign-energy-wave" aria-hidden="true" />
           <span className="az-sign-spark-track" aria-hidden="true"><span className="az-sign-spark" /></span>
           <span className="az-sign-sweep-track" aria-hidden="true"><span className="az-sign-sweep" /></span>
-          <span className="az-product-name">
+          <span className="az-product-name az-sign-content">
             <span className="az-product-brand"><span className="az-product-aez">AEZ</span><span className="az-product-check">CHECK</span></span>
             {' '}<span className="az-product-pro"><span className="az-product-pro-text">PRO</span></span>
           </span>
@@ -201,8 +249,7 @@ export function Hero() {
         <p className="az-hero-description">{translate("Tất cả được quản lý trên một nền tảng duy nhất.")}</p>
         </div>
         <div className="az-hero-actions">
-          <a href="#contact" className="az-hero-button az-hero-primary">{translate("BẮT ĐẦU TRẢI NGHIỆM")}<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
-          <a href="#hero-dashboard" className="az-hero-button az-hero-secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" strokeLinejoin="round" /></svg>{translate("XEM DEMO")}</a>
+          <a href={landingExperienceDestination} className="az-hero-button az-hero-primary">{translate("BẮT ĐẦU TRẢI NGHIỆM")}<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
         </div>
       </div>
     </section>

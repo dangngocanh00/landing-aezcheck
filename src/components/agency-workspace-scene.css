@@ -1,0 +1,74 @@
+.aw-scene { position: relative; isolation: isolate; padding-top: 28px; }
+.aw-scene::before { content: ''; position: absolute; inset: 0 0 12%; z-index: -1; background: radial-gradient(ellipse at 50% 45%, #3ce6aa1a, transparent 68%); pointer-events: none; }
+.aw-main { width: 90%; margin-inline: auto; container-type: inline-size; }
+.aw-product { overflow: hidden; border-radius: 24px; border: 1px solid #70edcf75; background: radial-gradient(ellipse at 30% 0, #164b403d, transparent 65%), linear-gradient(145deg,#0c2927,#061b1c 75%); box-shadow: 0 18px 38px #00110f52, 0 0 16px #56eac719, inset 0 1px 0 #aeffe747, inset 0 0 24px #59dfbc09; color: #d9eee7; }
+.aw-product-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 22px 18px 18px; }
+.aw-product-header h3 { display: flex; align-items: center; gap: 9px; margin: 0; font-size: clamp(14px,2.5cqi,20px); font-weight: 700; letter-spacing: -.025em; }
+.aw-product-header h3 i { width: 7px; height: 7px; border-radius: 50%; background: #78ead0; box-shadow: 0 0 9px #78ead03d; }
+.aw-admin { display: flex; align-items: center; gap: 6px; color: #7ba99c; font-size: 9px; }
+.aw-admin > span { display: grid; place-items: center; width: 23px; height: 23px; border-radius: 50%; background: #67d7b41c; color: #a4e6cf; }
+.aw-product-tabs { display: flex; justify-content: flex-start; align-items: center; gap: 28px; overflow-x: auto; margin-inline: 16px; border-bottom: 1px solid #85dcc320; }
+.aw-product-tabs > span { flex: 0 0 auto; white-space: nowrap; padding: 11px 0; font-size: 10px; color: #82a89b; }
+.aw-product-tabs .is-selected { color: #b2f4df; border-bottom: 2px solid #70eacb; text-shadow: 0 0 9px #70eacb26; }
+.aw-product-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; padding: 16px; font-size: 9px; }
+.aw-search { display: flex; align-items: center; gap: 7px; flex: 1 1 150px; color: #70988d; padding: 8px; border: 1px solid #81c7b31f; border-radius: 7px; background: #02171566; }
+.aw-search svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 1.5; }
+.aw-toolbar-action { padding: 8px; border: 1px solid #81c7b329; border-radius: 7px; color: #a1c7ba; }
+.aw-toolbar-actions { display: flex; flex-wrap: wrap; gap: 5px; }
+.aw-toolbar-action { white-space: nowrap; font-size: 8px; padding: 7px 6px; }
+.aw-tag { display: inline-block; padding: 2px 5px; border: 1px solid #80bdb326; border-radius: 4px; color: #99bfb3; background: #80bdb308; }
+.aw-table-wrap { overflow-x: auto; margin: 0 12px; }
+.aw-product table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 9px; text-align: left; }
+.aw-product caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.aw-product th { padding: 11px 4px; color: #80a99d; background: #7ce5c707; font-size: 8px; font-weight: 500; line-height: 1.5; }
+.aw-product td { padding: 16px 4px; border-top: 1px solid #8fe1c611; line-height: 1.5; color: #aecbc0; overflow-wrap: anywhere; }
+.aw-product th:first-child { width: 21%; }.aw-product th:nth-child(2) { width: 15%; }.aw-product th:nth-child(3) { width: 12%; }.aw-product th:nth-child(4) { width: 16%; }.aw-product th:nth-child(5) { width: 9%; }.aw-product th:last-child { width: 16%; }
+.aw-product td:first-child { color: #e0f1e9; font-weight: 550; }
+.aw-product th:nth-child(3), .aw-product td:nth-child(3) { text-align: right; font-variant-numeric: tabular-nums; }
+.aw-product td:nth-child(5) { color: #b2cfc5; }.aw-product td:nth-child(7) { color: #7f9f93; }
+.aw-product tbody tr:nth-child(even) { background: #83dec603; }
+.aw-checkbox { display: inline-block; width: 7px; height: 7px; border: 1px solid #729e8e75; border-radius: 2px; margin-right: 5px; }
+.aw-initial { display: inline-grid; place-items: center; width: 17px; height: 17px; margin-right: 4px; border-radius: 50%; background: #78d8b813; color: #9bcebc; font-size: 6px; }
+.aw-status { display: inline-block; padding: 3px 5px; border: 1px solid #6adbb72b; border-radius: 999px; color: #93d6bc; background: #6adbb70a; font-size: 8px; }
+.aw-status--review { color: #d3ba83; border-color: #d3ba832b; background: #d3ba830a; }
+.aw-status--paused { color: #d39e8d; border-color: #d39e8d2b; background: #d39e8d0a; }
+.aw-product-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 14px 16px 48px; font-size: 8px; color: #759f90; }
+.aw-pagination { display: flex; align-items: center; gap: 8px; }.aw-pagination b { padding: 3px 6px; border-radius: 4px; background: #78e6c420; color: #a3ead3; font-weight: 500; }
+.aw-floating-cards { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin: -26px 1% 0; }
+.aw-floating-cards > div { width: min(42%,340px); }.aw-reconcile { margin-top: 20px; }
+.aw-metric-card { position: relative; isolation: isolate; min-height: 154px; padding: 18px 16px 22px; border: 1px solid #70edcfa6; border-radius: 21px; background: radial-gradient(ellipse at 90% 70%,#1e79674d,transparent 65%), linear-gradient(140deg,#123b33,#061f20 80%); box-shadow: 0 12px 28px #001b1740, 0 0 12px #45e0bc24, inset 0 1px 0 #c2fff15c, inset 0 0 18px #65e5c312; rotate: -1.5deg; transition: transform 220ms ease, box-shadow 220ms ease; }
+.aw-metric-card--reconcile { rotate: 1.5deg; }
+.aw-metric-heading { position: relative; z-index: 1; display: flex; align-items: center; gap: 7px; }
+.aw-metric-heading svg { flex: 0 0 22px; width: 22px; height: 22px; fill: none; stroke: #86f3d8; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px #63edc638); }
+.aw-metric-heading h4 { margin: 0; color: #c6ebe0; font-size: 12px; font-weight: 600; }
+.aw-metric-value { position: relative; z-index: 1; display: block; margin-top: 13px; font-size: clamp(20px,2vw,28px); font-weight: 750; line-height: 1.2; letter-spacing: -.04em; color: #e0fff5; text-shadow: 0 0 10px #79ecc529; white-space: nowrap; }
+.aw-metric-card p { position: relative; z-index: 1; max-width: 78%; margin: 8px 0 0; font-size: 10px; line-height: 1.5; color: #9ed6c3; }
+.aw-metric-card--spend p { color: #86e7bb; }
+.aw-spend-chart { position: absolute; right: 8px; bottom: 12px; width: 90px; height: 54px; z-index: 0; opacity: .65; }
+.aw-chart-bars { fill: #48cfa42e; stroke: #73e7c365; stroke-width: 1; }
+.aw-chart-trend { fill: none; stroke: #83f1d0; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px #68f3c63d); }
+.aw-reconcile-shield { position: absolute; right: 4px; bottom: 7px; width: 72px; height: 80px; z-index: 0; filter: drop-shadow(0 0 8px #60eac32b); }
+.aw-shield-back { fill: #236f5d44; stroke: #78e9c94d; }
+.aw-shield-panel { fill: #114b3f; stroke: #78e9c980; }
+.aw-shield-body { fill: #67ddba; stroke: #b2ffe5; stroke-width: 1.3; }
+.aw-shield-check { fill: none; stroke: #074838; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+@media (prefers-reduced-motion: no-preference) {
+  .spot-scene.is-active .aw-main { animation: awEnter 420ms ease-out both; }
+  .spot-scene.is-active .aw-product { animation: awMainFloat 10s ease-in-out 420ms infinite; }
+  .spot-scene.is-active .aw-spend { animation: awEnter 420ms ease-out 100ms both; }
+  .spot-scene.is-active .aw-reconcile { animation: awEnter 420ms ease-out 200ms both; }
+  .aw-spend .aw-metric-card { animation: awSpendFloat 7.5s ease-in-out -1s infinite; }
+  .aw-reconcile .aw-metric-card { animation: awReconcileFloat 8.5s ease-in-out -2s infinite; }
+}
+@keyframes awEnter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes awMainFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -1.5px; } }
+@keyframes awSpendFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -4px; } }
+@keyframes awReconcileFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+@media (max-width: 1199px) { .aw-main { width: 96%; }.aw-floating-cards > div { width: min(45%,300px); } }
+@media (max-width: 639px) {
+  .aw-main { width: 100%; }.aw-product { border-radius: 20px; }
+  .aw-floating-cards { flex-direction: column; align-items: center; margin-top: 18px; gap: 18px; }
+  .aw-floating-cards > div { width: 90%; max-width: 320px; }.aw-reconcile { margin-top: 0; }
+}
+
+@media (max-width: 959px) { .aw-product table { min-width: 740px; font-size: 12px; }.aw-product th { font-size: 11px; }.aw-product-tabs > span { font-size: 12px; }.aw-product-header { flex-wrap: wrap; }.aw-product-tabs { gap: 20px; } }

@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
 @import 'tailwindcss';
+
 @import './sign-interaction.css';
 @import './theme/theme.css';
 @import './hero-motion.css';
+
+.az-skip-link { position: fixed; z-index: 10000; top: 8px; left: 8px; padding: 12px 20px; background: #0a2224; color: #f3f7f6; border: 1px solid #49d692; border-radius: 8px; transform: translateY(-160%); }
+.az-skip-link:focus { transform: translateY(0); }
+#page-content { scroll-margin-top: 80px; }
 
 :root { --header-height: 75px; }
 
@@ -75,10 +80,11 @@ body {
   top: 0;
   z-index: 50;
   width: 100%;
-  background: rgba(5, 13, 17, .94);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, .06);
-  box-shadow: 0 1px 0 rgba(40, 209, 124, .03);
+  background: rgba(7, 27, 34, .88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(73,214,146,.14);
+  box-shadow: 0 8px 30px rgba(0,0,0,.16), 0 0 18px rgba(73,214,146,.025);
 }
 .az-navbar-inner { max-width: 1200px; height: calc(var(--header-height) - 1px); margin-inline: auto; padding-inline: 24px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
 .az-navbar-brand { display: inline-flex; flex-shrink: 0; }
@@ -90,7 +96,7 @@ body {
 .az-nav-utilities { gap: 14px; }
 .az-nav-link {
   position: relative;
-  color: rgba(245, 247, 246, .64);
+  color: rgba(185,205,196,.72);
   font-size: 14px;
   font-weight: 500;
   line-height: 22px;
@@ -105,13 +111,13 @@ body {
   width: 36px;
   height: 2px;
   border-radius: 999px;
-  background: #28d17c;
-  box-shadow: 0 0 8px rgba(40, 209, 124, .35);
+  background: #49d692;
+  box-shadow: 0 0 8px rgba(73,214,146,.18);
   transform: translateX(-50%) scaleX(0);
   opacity: 0;
   transition: transform 230ms, opacity 230ms;
 }
-.az-nav-link[aria-current] { color: #f5f7f6; font-weight: 600; }
+.az-nav-link[aria-current] { color: #49d692; font-weight: 600; }
 .az-nav-link[aria-current]::after { transform: translateX(-50%) scaleX(1); opacity: 1; }
 .az-contact {
   display: inline-flex;
@@ -120,7 +126,7 @@ body {
   gap: 10px;
   height: 46px;
   padding-inline: 22px;
-  border: 1px solid rgba(40, 209, 124, .46);
+  border: 1px solid rgba(73,214,146,.34);
   border-radius: 15px;
   background: transparent;
   color: #f3f7f6;
@@ -130,9 +136,9 @@ body {
   transition: border-color 230ms, background-color 230ms, transform 230ms, box-shadow 230ms;
 }
 .az-contact svg { transition: transform 230ms; }
-.az-theme-button, .az-menu-toggle {
-  width: 42px;
-  height: 42px;
+.az-menu-toggle {
+  width: 44px;
+  height: 44px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -144,15 +150,15 @@ body {
   transition: color 230ms, border-color 230ms, background-color 230ms;
 }
 .az-menu-toggle { display: none; border-radius: 12px; cursor: pointer; }
-.az-nav-separator { width: 1px; height: 24px; background: rgba(255, 255, 255, .08); }
-.az-language-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 42px; color: #bac6c0; font-size: 14px; font-weight: 600; transition: color 230ms; }
+.az-language-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; color: #bac6c0; font-size: 14px; font-weight: 600; transition: color 230ms; }
 .az-mobile-navigation { display: none; }
 @media (hover: hover) and (pointer: fine) {
   .az-nav-link:hover { color: #f5f7f6; }
+  .az-nav-link[aria-current]:hover { color: #49d692; }
   .az-nav-link:hover::after { transform: translateX(-50%) scaleX(1); opacity: .65; }
-  .az-contact:hover { border-color: rgba(40, 209, 124, .75); background: rgba(40, 209, 124, .06); transform: translateY(-1px); box-shadow: 0 0 12px rgba(40, 209, 124, .06); }
+  .az-contact:hover { border-color: rgba(73,214,146,.52); background: rgba(73,214,146,.08); color: #49d692; transform: translateY(-1px); box-shadow: 0 0 14px rgba(73,214,146,.08); }
   .az-contact:hover svg { transform: translateX(3px); }
-  .az-theme-button:hover, .az-menu-toggle:hover { color: #f5f7f6; border-color: rgba(40, 209, 124, .3); background: rgba(40, 209, 124, .04); }
+  .az-menu-toggle:hover { color: #f5f7f6; border-color: rgba(73,214,146,.3); background: rgba(73,214,146,.04); }
   .az-language-button:hover { color: #f5f7f6; }
 }
 @media (min-width: 960px) and (max-width: 1199px) {
@@ -162,10 +168,11 @@ body {
   .az-navbar .az-brand-wordmark { font-size: 28px; }
 }
 @media (max-width: 959px) {
+  .az-navbar { backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px); }
   .az-navbar-desktop { display: none; }
   .az-menu-toggle { display: inline-flex; }
   .az-navbar .az-brand-image { height: 36px; }
-  .az-mobile-navigation:not([hidden]) { display: flex; flex-direction: column; align-items: stretch; gap: 24px; position: absolute; top: 100%; left: 0; right: 0; max-height: calc(100dvh - 74px); overflow-y: auto; padding: 20px 24px 24px; border-bottom: 1px solid rgba(255, 255, 255, .08); background: #070f13; }
+  .az-mobile-navigation:not([hidden]) { display: flex; flex-direction: column; align-items: stretch; gap: 24px; position: absolute; top: 100%; left: 0; right: 0; max-height: calc(100dvh - 74px); overflow-y: auto; padding: 20px 24px 24px; border-bottom: 1px solid rgba(73,214,146,.14); background: rgba(7,27,34,.98); }
   .az-mobile-links { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
   .az-mobile-links .az-nav-link { display: inline-flex; align-items: center; min-height: 44px; }
   .az-mobile-links .az-nav-link::after { bottom: 0; }
@@ -189,18 +196,6 @@ body {
   isolation: isolate;
   overflow: hidden;
   padding: clamp(24px, 4svh, 44px) 24px clamp(60px, 10svh, 104px);
-  background: radial-gradient(ellipse 65% 45% at 50% 29%, #0d272b66, transparent 75%),
-    linear-gradient(180deg, #070d15 0%, #080f18 72%, #07110f 100%);
-}
-.az-hero::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  pointer-events: none;
-  background-image: linear-gradient(#8bcfc408 1px, transparent 1px), linear-gradient(90deg, #8bcfc408 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 65% 55% at 50% 30%, #000, transparent);
 }
 .az-hero-intro {
   display: flex;
@@ -212,27 +207,16 @@ body {
   padding: 0;
   text-align: center;
 }
-.az-hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 8px 14px;
-  border: 1px solid #42bba12e;
-  border-radius: 999px;
-  background: #173e3329;
-  color: #8ccdbd;
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1.5;
-  letter-spacing: .17em;
-}
-.az-hero-eyebrow > span { width: 5px; height: 5px; border-radius: 50%; background: #4bcc9d; }
 .az-product-badge {
   position: relative;
   isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: min(900px, 78vw);
-  margin: 24px 0 36px;
-  padding: 24px 32px;
+  min-height: 180px;
+  margin: 0 0 36px;
+  padding: 40px 32px;
   border: 2px solid transparent;
   border-radius: 24px;
   background: radial-gradient(ellipse at 50% 48%, #102027, #080e16 78%) padding-box,
@@ -348,6 +332,8 @@ body {
 }
 .az-hero-assets {
   max-width: 820px;
+  margin-inline: auto;
+  text-align: center;
   margin-top: 26px;
   font-size: clamp(16px, 1.5vw, 20px);
   font-weight: 500;
@@ -358,13 +344,15 @@ body {
 .az-hero-asset-dot { margin-inline: .45em; color: rgba(40, 209, 124, .95); }
 .az-hero-description {
   max-width: 800px;
+  margin-inline: auto;
+  text-align: center;
   margin-top: 12px;
   color: rgba(245, 247, 246, .68);
   font-size: clamp(16px, 1.35vw, 18px);
   line-height: 1.65;
   text-wrap: balance;
 }
-.az-hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 24px; margin-top: 34px; }
+.az-hero-actions { margin-inline: auto; display: flex; justify-content: center; align-items: center; margin-top: 34px; }
 .az-hero-button {
   display: inline-flex;
   justify-content: center;
@@ -381,12 +369,9 @@ body {
 }
 .az-hero-button svg { flex-shrink: 0; transition: transform 250ms cubic-bezier(.22, 1, .36, 1); }
 .az-hero-primary { background: linear-gradient(180deg, #4fe39a, #28d17c); color: #04130e; box-shadow: 0 10px 28px rgba(40, 209, 124, .20); }
-.az-hero-secondary { background: rgba(255, 255, 255, .01); border-color: rgba(40, 209, 124, .45); color: #d8f5e8; min-width: 210px; }
 @media (hover: hover) and (pointer: fine) {
   .az-hero-primary:hover { filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 12px 32px rgba(40, 209, 124, .26); }
   .az-hero-primary:hover svg { transform: translateX(3px); }
-  .az-hero-secondary:hover { background: rgba(40, 209, 124, .06); border-color: rgba(40, 209, 124, .75); }
-  .az-hero-secondary:hover svg { transform: translateX(2px); }
 }
 .az-section-anchor { scroll-margin-top: 72px; }
 
@@ -395,21 +380,20 @@ body {
 }
 @media (max-width: 767px) {
   .az-hero { padding: 40px 20px 56px; }
-  .az-product-badge { width: 100%; margin: 24px 0 32px; padding: 22px 16px; border-radius: 22px; }
+  .az-product-badge { width: 100%; min-height: 112px; margin: 0 0 32px; padding: 32px 16px; border-radius: 22px; }
   .az-product-name { font-size: clamp(20px, 7vw, 54px); }
   .az-hero-heading { font-size: clamp(36px, 11.7vw, 54px); line-height: 1.12; }
   .az-hero-heading-intro { margin-bottom: 6px; }
   .az-hero-description { font-size: 16px; }
-  .az-hero-eyebrow { font-size: 8px; letter-spacing: .12em; gap: 7px; }
 }
 @media (max-width: 479px) {
-  .az-hero-actions { flex-direction: column; width: 100%; max-width: 340px; gap: 16px; margin-top: 32px; }
+  .az-hero-actions { flex-direction: column; width: 100%; max-width: 340px; margin-top: 32px; }
   .az-hero-button { min-height: 64px; padding-inline: 22px; font-size: 13px; }
   .az-product-badge { transform: none; }
 }
 @media (max-height: 780px) and (min-width: 768px) {
   .az-hero { padding-block: 24px 68px; }
-  .az-product-badge { width: min(820px, 78vw); margin: 20px 0 28px; padding-block: 20px; }
+  .az-product-badge { width: min(820px, 78vw); min-height: 170px; margin: 0 0 28px; padding-block: 36px; }
   .az-product-name { font-size: clamp(54px, min(7vw, 9.6svh), 80px); }
   .az-hero-heading { font-size: clamp(42px, 4.2vw, 64px); line-height: 1.08; }
   .az-hero-heading-intro { margin-bottom: 6px; }
@@ -429,3 +413,5 @@ body {
   .az-navbar *, .az-hero * { scroll-behavior: auto; transition: none; animation: none; }
   .az-hero-button:hover, .az-hero-button:hover svg { transform: none; }
 }
+
+@media (prefers-reduced-motion: reduce) { .az-page .animate-pulse { animation: none; } }

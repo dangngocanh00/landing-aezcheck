@@ -1,8 +1,7 @@
-.challenge-section { padding: 104px 24px 92px; background: var(--bg-main); color: var(--text-primary); }
+.challenge-section { padding: 104px 24px 92px; color: var(--text-primary); }
 .challenge-inner { max-width: 1200px; margin: auto; }
 .challenge-header { text-align: center; }
-.challenge-eyebrow { display: inline-flex; padding: 7px 14px; border: 1px solid color-mix(in srgb, var(--green) 20%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--green) 3%, transparent); color: color-mix(in srgb, var(--green) 78%, transparent); font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
-.challenge-header h2 { margin: 22px 0 0; font-size: clamp(32px, 3.4vw, 48px); line-height: 1.16; font-weight: 800; letter-spacing: -.035em; }
+.challenge-header h2 { margin: 0; font-size: clamp(32px, 3.4vw, 48px); line-height: 1.16; font-weight: 800; letter-spacing: -.035em; }
 .challenge-header h2 > span { display: block; }
 .challenge-header h2 > span + span {
   margin-top: 6px;
@@ -78,7 +77,6 @@
 @media (prefers-reduced-motion:no-preference) {
   .challenge-section[data-entered='false'] :is(.challenge-header,.challenge-journey) { opacity: 0; }
   .challenge-convergence[data-entered='false'] { opacity: 0; }
-  .challenge-section[data-entered='true'] .challenge-eyebrow { animation: challengeEnter 450ms ease both; }
   .challenge-section[data-entered='true'] .challenge-header h2 > span { animation: challengeEnter 550ms ease 80ms both; }
   .challenge-section[data-entered='true'] .challenge-header h2 > span + span { animation-delay: 210ms; }
   .challenge-section[data-entered='true'] .challenge-journey > li { animation: challengeEnter 550ms ease calc(320ms + var(--step) * 90ms) both; }
@@ -124,7 +122,7 @@
   .challenge-journey { grid-template-columns: 1fr; gap: 34px; margin-top: 40px; }
   .challenge-journey > li { padding-left: 32px; }
   .challenge-number { margin-left: -32px; margin-bottom: 12px; }
-  .challenge-card { padding: 24px; }
+  .challenge-card { padding: 24px; }.challenge-card p { font-size: 15px; }
   .challenge-connector { top: 47px; left: 17px; width: 1px; height: calc(100% - 25px); background: linear-gradient(color-mix(in srgb, var(--green) 31%, transparent),color-mix(in srgb, var(--green) 16%, transparent)); }
   .challenge-connector i { left: -1px; top: 0; animation-name: challengeEnergyVertical; }
   .challenge-convergence { margin-top: 42px; }
@@ -133,7 +131,7 @@
   .challenge-assets li:not(:last-child)::after { content: ''; position: absolute; top: 100%; left: 50%; width: 1px; height: 18px; background: #4c937a50; }
   .challenge-asset { font-size: 12px; padding: 10px 8px; width: 100%; }
   .challenge-streams { display: none; }
-  .challenge-solution { padding-inline: 18px; margin-top: 40px; }
+  .challenge-solution-glow { inset-inline: 0; }.challenge-solution { padding-inline: 18px; margin-top: 40px; }
   .challenge-solution::before { content: ''; position: absolute; top: -40px; left: 50%; height: 27px; width: 1px; background: linear-gradient(#609d8c60,#4fe39a90); }
   .challenge-solution .az-brand-image { height: 40px; }.challenge-solution .az-brand-wordmark { font-size: 30px; }
   .challenge-icon, .challenge-icon::before { animation: none; }
@@ -146,3 +144,5 @@
   .challenge-asset-dot, .challenge-connector i { display: none; }
   .challenge-card, .challenge-icon, .challenge-asset { transform: none; translate: none; }
 }
+
+@media (max-width: 479px) { .challenge-section { padding-inline: 16px; } }

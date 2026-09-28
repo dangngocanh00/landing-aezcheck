@@ -2,32 +2,31 @@
 .eco-stage {
   --card-delay: 0s;
   --card-float: -2px;
-  --card-edge: #69d995;
-  --card-halo: rgba(40, 209, 124, .075);
+  --card-edge: rgba(73,214,146,.40);
+  --card-halo: rgba(73,214,146,.04);
   isolation: isolate;
-  transition: transform 300ms cubic-bezier(.22,1,.36,1), border-color 180ms ease;
+  transition: transform 260ms cubic-bezier(.22,1,.36,1), border-color 260ms ease, box-shadow 260ms ease;
 }
-.eco-stage-source { --card-edge: #8aecac; --card-halo: rgba(40,209,124,.10); }
-.eco-stage-destination { --card-edge: #b2ffca; --card-halo: rgba(79,227,154,.15); }
+.eco-stage-destination { --card-edge: rgba(123,230,178,.74); --card-halo: rgba(73,214,146,.025); --card-hover-scale: 1.012; }
 .eco-stage::before, .eco-stage::after {
   content: ''; position: absolute; inset: -1px; border-radius: inherit;
   pointer-events: none; z-index: -1; border: 1px solid var(--card-edge);
 }
 .eco-stage::before {
   opacity: .12;
-  background: radial-gradient(ellipse at 50% 0, rgba(119,241,177,.085), transparent 72%);
-  box-shadow: 0 0 18px var(--card-halo), inset 0 0 16px rgba(119,241,177,.04);
+  background: radial-gradient(ellipse at 50% 0, rgba(73,214,146,.06), transparent 72%);
+  box-shadow: 0 0 18px var(--card-halo), inset 0 0 16px rgba(73,214,146,.04);
 }
 .eco-stage::after {
   opacity: 0;
-  background: radial-gradient(ellipse at 50% 0, rgba(167,255,198,.08), transparent 75%);
-  box-shadow: 0 0 30px var(--card-halo), inset 0 1px 0 rgba(204,255,221,.12);
+  background: radial-gradient(ellipse at 50% 0, rgba(73,214,146,.06), transparent 75%);
+  box-shadow: 0 0 30px var(--card-halo), inset 0 1px 0 rgba(73,214,146,.08);
   transition: opacity 240ms ease;
 }
 .eco-card-light { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
 .eco-card-light::before {
   content: ''; position: absolute; inset: -20% auto -20% -45%; width: 35%; opacity: 0;
-  background: linear-gradient(100deg, transparent, rgba(210,255,226,.13), transparent);
+  background: linear-gradient(100deg, transparent, rgba(142,240,192,.10), transparent);
   transform: translateX(-100%) skewX(-15deg);
 }
 .eco-stage > svg { transition: transform 300ms cubic-bezier(.22,1,.36,1), filter 240ms ease; }
@@ -41,11 +40,11 @@
   .eco-stage { animation: ecoCardFloat 7.8s ease-in-out var(--card-delay) infinite; }
   .eco-stage::before { animation: ecoCardBreathe 6.2s ease-in-out var(--card-delay) infinite; }
   .eco-stage > svg { animation: ecoIconFloat 5.2s ease-in-out calc(var(--card-delay) + .3s) infinite; }
-  .eco-stage:focus-visible { transform: translateY(-4px) scale(1.015); animation-play-state: paused; }
+  .eco-stage:focus-visible { transform: translateY(-4px) scale(var(--card-hover-scale, 1.01)); animation-play-state: paused; }
   .eco-stage:focus-visible > svg { transform: translateY(-1px) scale(1.06); animation-play-state: paused; }
   .eco-stage:focus-visible .eco-card-light::before { animation: ecoCardSweep 650ms ease-out 80ms both; }
   @media (hover: hover) and (pointer: fine) {
-    .eco-stage:hover { transform: translateY(-4px) scale(1.015); animation-play-state: paused; }
+    .eco-stage:hover { transform: translateY(-4px) scale(var(--card-hover-scale, 1.01)); animation-play-state: paused; }
     .eco-stage:hover > svg { transform: translateY(-1px) scale(1.06); animation-play-state: paused; }
     .eco-stage:hover .eco-card-light::before { animation: ecoCardSweep 650ms ease-out 80ms both; }
   }
@@ -64,14 +63,16 @@
 }
 @media (hover: hover) and (pointer: fine) {
   .eco-stage:hover { border-color: var(--card-edge); }
+  .eco-stage:not(.eco-stage-destination):hover { background: linear-gradient(145deg, #0b2230, #0d3029); box-shadow: 0 10px 22px rgba(0,12,18,.20); }
+  .eco-stage-destination:hover { box-shadow: 0 0 28px rgba(73,214,146,.20), inset 0 0 24px rgba(73,214,146,.07); }
   .eco-stage:hover::after { opacity: 1; }
-  .eco-stage:hover > svg { filter: drop-shadow(0 0 9px rgba(79,227,154,.25)); }
+  .eco-stage:hover > svg { filter: drop-shadow(0 0 9px rgba(73,214,146,.16)); }
   .eco-stage:hover h3 { color: #f6fff8; }
   .eco-stage:hover p { color: #c3dbcc; }
 }
 @keyframes ecoCardFloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 var(--card-float); } }
 @keyframes ecoCardBreathe { 0%, 100% { opacity: .12; } 50% { opacity: .32; } }
-@keyframes ecoIconFloat { 0%, 100% { translate: 0 0; opacity: .92; } 50% { translate: 0 -1.25px; opacity: 1; } }
+@keyframes ecoIconFloat { 0%, 100% { translate: 0 0; opacity: .8; } 50% { translate: 0 -1.25px; opacity: .9; } }
 @keyframes ecoCardSweep {
   0% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
   20% { opacity: .8; }

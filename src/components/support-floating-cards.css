@@ -1,0 +1,63 @@
+/* Shared interaction for finance and monitoring supporting cards only. */
+.spot-scene .spot-float.spot-support-card {
+  --support-tilt: -4deg;
+  --support-offset: 2px;
+  --support-border: #70edcf75;
+  --support-glow: #56eac719;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  rotate: var(--support-tilt);
+  transform: translateY(var(--support-offset));
+  background: radial-gradient(ellipse at 45% 25%,#164b403d,transparent 65%),linear-gradient(145deg,#0c2927,#061b1c 75%);
+  border-color: var(--support-border);
+  box-shadow: 0 20px 40px #00110f52,0 0 16px var(--support-glow),inset 0 1px 0 #aeffe747;
+  animation: supportCardFloat 8s ease-in-out -1s infinite;
+  transition: transform 260ms cubic-bezier(.22,1,.36,1),border-color 260ms ease,box-shadow 260ms ease;
+}
+.spot-scene .spot-support-card.spot-float-1 { --support-tilt: 4deg; --support-offset: 0px; animation-duration: 9s; animation-delay: -4s; }
+.spot-scene[data-scene='monitoring'] .spot-support-card { --support-border: #70edcf65; --support-glow: #56eac715; animation-duration: 7s; animation-delay: -2.5s; }
+.spot-scene[data-scene='monitoring'] .spot-support-card.spot-float-1 { animation-duration: 8.5s; animation-delay: -6s; }
+.spot-scene .spot-support-card::before {
+  content: ''; position: absolute; inset-block: 0; left: -25%; width: 18%;
+  pointer-events: none; opacity: 0;
+  background: linear-gradient(90deg,transparent,#c5ffec15,transparent);
+  transform: skewX(-18deg);
+}
+.spot-scene .spot-support-card > span:not(.spot-float-symbol) { color: #96bbae; }
+.spot-scene .spot-support-card strong { color: #d6f4e6; }
+.spot-scene .spot-support-card small { color: #759f90; }
+.spot-scene .spot-support-card .spot-float-symbol { color: #b2f4df; transition: transform 260ms ease,text-shadow 260ms ease,color 260ms ease; }
+@keyframes supportCardFloat { 0%,100% { translate: 0 2px; } 50% { translate: 0 -2px; } }
+@keyframes supportCardSweep { 0% { left: -25%; opacity: 0; } 15%,75% { opacity: 1; } 100% { left: 110%; opacity: 0; } }
+@keyframes supportIconPulse { 0%,100% { opacity: 1; } 45% { opacity: .7; text-shadow: 0 0 10px #a4f8cd55; } }
+@media (hover: hover) and (pointer: fine) {
+  .spot-scene .spot-support-card:hover {
+    animation-play-state: paused;
+    transform: translateY(-5px) scale(1.015);
+    border-color: #70edcf90;
+    box-shadow: 0 25px 46px #00110f66,0 0 20px var(--support-glow),inset 0 1px 0 #aeffe755;
+  }
+  .spot-scene .spot-support-card:hover::before { animation: supportCardSweep 650ms ease-out both; }
+  .spot-scene .spot-support-card:hover .spot-float-symbol { color: #d0ffef; text-shadow: 0 0 8px #a4f8cd35; }
+  .spot-scene[data-scene='finance'] .spot-support-card.spot-float-1:hover .spot-float-symbol { transform: translate(2px,-2px); }
+  .spot-scene[data-scene='monitoring'] .spot-support-card.spot-float-0:hover .spot-float-symbol { animation: supportIconPulse 600ms ease-out; }
+}
+@media (hover: none), (pointer: coarse) {
+  .spot-scene .spot-support-card:active { border-color: #70edcf90; box-shadow: 0 20px 40px #00110f52,0 0 20px var(--support-glow),inset 0 1px 0 #aeffe747; }
+}
+@media (max-width: 1199px) {
+  .spot-scene .spot-float.spot-support-card { --support-tilt: -2deg; }
+  .spot-scene .spot-support-card.spot-float-1 { --support-tilt: 2deg; }
+}
+@media (max-width: 767px) {
+  .spot-scene .spot-float.spot-support-card, .spot-scene .spot-support-card.spot-float-1 { --support-tilt: 0deg; }
+}
+.spot-scene:not(.is-active) .spot-support-card,
+.spot-section[data-paused='true'] .spot-support-card { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .spot-scene .spot-support-card,
+  .spot-scene .spot-support-card:hover { animation: none; translate: none; transform: none; }
+  .spot-scene .spot-support-card::before { display: none; animation: none; }
+  .spot-scene .spot-support-card .spot-float-symbol { animation: none; transform: none !important; }
+}

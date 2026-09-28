@@ -43,10 +43,9 @@ export function ChallengeSection() {
     return () => { observer.disconnect(); convergenceObserver.disconnect(); document.removeEventListener('visibilitychange', update) }
   }, [])
 
-  return <section ref={sectionRef} className="challenge-section" aria-labelledby="challenge-heading" data-entered="false" data-paused="true">
+  return <section ref={sectionRef} className="challenge-section az-landing-section" aria-labelledby="challenge-heading" data-entered="false" data-paused="true">
     <div className="challenge-inner">
       <header className="challenge-header">
-        <p className="challenge-eyebrow">{t('Vấn đề thực tế')}</p>
         <h2 id="challenge-heading">
           <span>{t('Quản lý quảng cáo càng nhiều,')}</span>
           <span>{t('mọi thứ càng dễ mất kiểm soát.')}</span>
@@ -60,7 +59,7 @@ export function ChallengeSection() {
               {pain.icon}
               <svg className="challenge-icon-wave" viewBox="0 0 24 24" fill="none" stroke={`url(#${gradientId}-icon-${index})`}>
                 <defs><linearGradient id={`${gradientId}-icon-${index}`} x1="0" y1="0" x2="1" y2="0">
-                  <stop stopColor="#ff8a7a" /><stop offset=".5" stopColor="#ff6f91" /><stop offset="1" stopColor="#f59bb2" />
+                  <stop stopColor="#49d692" /><stop offset=".5" stopColor="#48e098" /><stop offset="1" stopColor="#8ef0c0" />
                 </linearGradient></defs>
                 {pain.icon.props.children}
               </svg>

@@ -1,0 +1,478 @@
+{
+  "source": "docs/reference/Hướng dẫn sử dụng aezcheck.com. (2).pdf",
+  "sha256": "3330fb37708601d9b875949ee326bca35f78b0a2783e5bc22cbc33dacc5b5ee9",
+  "pageCount": 39,
+  "assetCount": 20,
+  "occurrenceCount": 31,
+  "sections": [
+    {
+      "order": 1,
+      "id": "getting-started",
+      "title": "Bắt đầu với aezcheck.com",
+      "firstPage": 1,
+      "lastPage": 3
+    },
+    {
+      "order": 2,
+      "id": "dashboard-overview",
+      "title": "Dashboard tổng quan TKQC",
+      "firstPage": 3,
+      "lastPage": 5
+    },
+    {
+      "order": 3,
+      "id": "finance-dashboard",
+      "title": "Dashboard tổng quan tài chính & thanh toán",
+      "firstPage": 5,
+      "lastPage": 8
+    },
+    {
+      "order": 4,
+      "id": "assets-via",
+      "title": "Quản lý tài sản · VIA · Tài khoản quảng cáo · BM · Fanpage",
+      "firstPage": 8,
+      "lastPage": 12
+    },
+    {
+      "order": 5,
+      "id": "ads-manager",
+      "title": "Quản lý Tài khoản quảng cáo · Chiến dịch · Nhóm quảng cáo · Bài viết",
+      "firstPage": 13,
+      "lastPage": 16
+    },
+    {
+      "order": 6,
+      "id": "payment-cards",
+      "title": "Quản lý thẻ thanh toán",
+      "firstPage": 16,
+      "lastPage": 18
+    },
+    {
+      "order": 7,
+      "id": "rental-customers",
+      "title": "Quản lý khách hàng thuê TKQC",
+      "firstPage": 18,
+      "lastPage": 22
+    },
+    {
+      "order": 8,
+      "id": "currency",
+      "title": "Quy đổi tiền tệ",
+      "firstPage": 23,
+      "lastPage": 24
+    },
+    {
+      "order": 9,
+      "id": "users",
+      "title": "Quản lý người dùng",
+      "firstPage": 24,
+      "lastPage": 26
+    },
+    {
+      "order": 10,
+      "id": "roles",
+      "title": "Quản lý vai trò",
+      "firstPage": 26,
+      "lastPage": 27
+    },
+    {
+      "order": 11,
+      "id": "permission-groups",
+      "title": "Nhóm quyền hạn",
+      "firstPage": 27,
+      "lastPage": 29
+    },
+    {
+      "order": 12,
+      "id": "permissions",
+      "title": "Phân quyền",
+      "firstPage": 29,
+      "lastPage": 31
+    },
+    {
+      "order": 13,
+      "id": "shield",
+      "title": "Tường lửa bảo vệ (Shield)",
+      "firstPage": 31,
+      "lastPage": 33
+    },
+    {
+      "order": 14,
+      "id": "tags",
+      "title": "Cài đặt tag",
+      "firstPage": 33,
+      "lastPage": 35
+    },
+    {
+      "order": 15,
+      "id": "audit-log",
+      "title": "Lịch sử hành động",
+      "firstPage": 35,
+      "lastPage": 37
+    },
+    {
+      "order": 16,
+      "id": "admin-bm",
+      "title": "Cảnh báo Admin BM",
+      "firstPage": 37,
+      "lastPage": 39
+    }
+  ],
+  "assets": [
+    {
+      "file": "guide-getting-started.webp",
+      "url": "/assets/guide/guide-getting-started.webp",
+      "width": 1280,
+      "height": 668,
+      "bytes": 197204,
+      "pixelHash": "0df1c13270e68e86b522278f4609a150547f016d2027f8352e61c2a6b2985e34",
+      "occurrences": [
+        {
+          "page": 1,
+          "imageIndex": 1,
+          "operatorIndex": 792
+        }
+      ]
+    },
+    {
+      "file": "guide-dashboard-overview.webp",
+      "url": "/assets/guide/guide-dashboard-overview.webp",
+      "width": 1280,
+      "height": 672,
+      "bytes": 218266,
+      "pixelHash": "dc8414c934b292b4a65de8e407ec69770daca1cb27eff146f691f705448a915a",
+      "occurrences": [
+        {
+          "page": 3,
+          "imageIndex": 1,
+          "operatorIndex": 2432
+        }
+      ]
+    },
+    {
+      "file": "guide-dashboard-overview-detail.webp",
+      "url": "/assets/guide/guide-dashboard-overview-detail.webp",
+      "width": 1280,
+      "height": 672,
+      "bytes": 219538,
+      "pixelHash": "39a0cd84500e87f7ab092199ea42604bc8f94e752a6bc9e9dec30e0a9908473a",
+      "occurrences": [
+        {
+          "page": 4,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        }
+      ]
+    },
+    {
+      "file": "guide-finance-dashboard.webp",
+      "url": "/assets/guide/guide-finance-dashboard.webp",
+      "width": 1280,
+      "height": 663,
+      "bytes": 399908,
+      "pixelHash": "d4cd2ab6443aaf967dbbdb096afa97b053714c2f7e750811b4b6b2f9881a6b77",
+      "occurrences": [
+        {
+          "page": 6,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        }
+      ]
+    },
+    {
+      "file": "guide-finance-dashboard-detail.webp",
+      "url": "/assets/guide/guide-finance-dashboard-detail.webp",
+      "width": 1280,
+      "height": 670,
+      "bytes": 404526,
+      "pixelHash": "2043dee72280de2d108b46760241c6fcfc18dae8ffbd2ae8331ca753ae6aeb5c",
+      "occurrences": [
+        {
+          "page": 6,
+          "imageIndex": 2,
+          "operatorIndex": 700
+        }
+      ]
+    },
+    {
+      "file": "guide-assets-via.webp",
+      "url": "/assets/guide/guide-assets-via.webp",
+      "width": 1916,
+      "height": 990,
+      "bytes": 113324,
+      "pixelHash": "f0e0ee8d0f605727dd2f5d560e6b97b1e038ffc125cc8d408b976f2eeb3eba20",
+      "occurrences": [
+        {
+          "page": 8,
+          "imageIndex": 1,
+          "operatorIndex": 2622
+        }
+      ]
+    },
+    {
+      "file": "guide-assets-via-detail.webp",
+      "url": "/assets/guide/guide-assets-via-detail.webp",
+      "width": 1915,
+      "height": 1001,
+      "bytes": 182346,
+      "pixelHash": "a8bef99e73c25f7bc20f71c49bb8390e15acb3d57e687a9d2251d422592f5ba4",
+      "occurrences": [
+        {
+          "page": 9,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        }
+      ]
+    },
+    {
+      "file": "guide-ads-manager.webp",
+      "url": "/assets/guide/guide-ads-manager.webp",
+      "width": 1919,
+      "height": 993,
+      "bytes": 161156,
+      "pixelHash": "48a3a3b3cfec04a70be20a274da797f790240086f1b8206445de30e4b84bfbfc",
+      "occurrences": [
+        {
+          "page": 13,
+          "imageIndex": 1,
+          "operatorIndex": 586
+        }
+      ]
+    },
+    {
+      "file": "guide-ads-manager-detail.webp",
+      "url": "/assets/guide/guide-ads-manager-detail.webp",
+      "width": 1916,
+      "height": 997,
+      "bytes": 165462,
+      "pixelHash": "b87d845fd400f0673a01c2423463d9da88179791ae5e1c98ad0efeddb15f7eac",
+      "occurrences": [
+        {
+          "page": 13,
+          "imageIndex": 2,
+          "operatorIndex": 1528
+        }
+      ]
+    },
+    {
+      "file": "guide-payment-cards.webp",
+      "url": "/assets/guide/guide-payment-cards.webp",
+      "width": 1908,
+      "height": 994,
+      "bytes": 553338,
+      "pixelHash": "01def6a66bd6b6f0640d0fc0419347b222c48b765dff06169587d06edd34d3a8",
+      "occurrences": [
+        {
+          "page": 16,
+          "imageIndex": 1,
+          "operatorIndex": 2618
+        },
+        {
+          "page": 17,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        }
+      ]
+    },
+    {
+      "file": "guide-rental-customers.webp",
+      "url": "/assets/guide/guide-rental-customers.webp",
+      "width": 1919,
+      "height": 999,
+      "bytes": 404360,
+      "pixelHash": "474e81e5b406b4c8a087d7c7ae6e51821d6953694c99c161384b5129234205ff",
+      "occurrences": [
+        {
+          "page": 19,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        },
+        {
+          "page": 19,
+          "imageIndex": 2,
+          "operatorIndex": 809
+        }
+      ]
+    },
+    {
+      "file": "guide-currency.webp",
+      "url": "/assets/guide/guide-currency.webp",
+      "width": 1899,
+      "height": 993,
+      "bytes": 198626,
+      "pixelHash": "b13322fdf2de17c28edf2441401f225aa8ec2ffcbc8d1bf0cfed6dd7d2ecceb4",
+      "occurrences": [
+        {
+          "page": 23,
+          "imageIndex": 1,
+          "operatorIndex": 485
+        },
+        {
+          "page": 23,
+          "imageIndex": 2,
+          "operatorIndex": 1166
+        }
+      ]
+    },
+    {
+      "file": "guide-users.webp",
+      "url": "/assets/guide/guide-users.webp",
+      "width": 1913,
+      "height": 988,
+      "bytes": 221028,
+      "pixelHash": "91128fb6f6926e8e3dc93436ec900e33f1ec44efe1ef81b68c72dbd018934d7e",
+      "occurrences": [
+        {
+          "page": 25,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        },
+        {
+          "page": 25,
+          "imageIndex": 2,
+          "operatorIndex": 614
+        }
+      ]
+    },
+    {
+      "file": "guide-roles.webp",
+      "url": "/assets/guide/guide-roles.webp",
+      "width": 1916,
+      "height": 998,
+      "bytes": 408806,
+      "pixelHash": "4a1b2614234d6b5d88c4b784e4054ffa6e19f13c50a04e050f08331c62b8ba8d",
+      "occurrences": [
+        {
+          "page": 26,
+          "imageIndex": 1,
+          "operatorIndex": 3295
+        },
+        {
+          "page": 27,
+          "imageIndex": 1,
+          "operatorIndex": 685
+        }
+      ]
+    },
+    {
+      "file": "guide-permission-groups.webp",
+      "url": "/assets/guide/guide-permission-groups.webp",
+      "width": 1904,
+      "height": 1002,
+      "bytes": 174724,
+      "pixelHash": "0688f078d0e33c2c1df6189b752373e29d4a8b21947a3d80cf736fc986cb6e22",
+      "occurrences": [
+        {
+          "page": 28,
+          "imageIndex": 1,
+          "operatorIndex": 311
+        },
+        {
+          "page": 28,
+          "imageIndex": 2,
+          "operatorIndex": 1194
+        }
+      ]
+    },
+    {
+      "file": "guide-permissions.webp",
+      "url": "/assets/guide/guide-permissions.webp",
+      "width": 1906,
+      "height": 995,
+      "bytes": 129876,
+      "pixelHash": "10212b4adcca4d974ba188ebdffdc04054d5d64121c89cd6e1a38d5c380466c2",
+      "occurrences": [
+        {
+          "page": 30,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        },
+        {
+          "page": 30,
+          "imageIndex": 2,
+          "operatorIndex": 670
+        }
+      ]
+    },
+    {
+      "file": "guide-shield.webp",
+      "url": "/assets/guide/guide-shield.webp",
+      "width": 1918,
+      "height": 990,
+      "bytes": 441348,
+      "pixelHash": "fbcfa3549376786383299dff2cf43cc1cdffe0a3de1eda85d299e124eae047c3",
+      "occurrences": [
+        {
+          "page": 32,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        },
+        {
+          "page": 32,
+          "imageIndex": 2,
+          "operatorIndex": 730
+        }
+      ]
+    },
+    {
+      "file": "guide-tags.webp",
+      "url": "/assets/guide/guide-tags.webp",
+      "width": 1919,
+      "height": 998,
+      "bytes": 495268,
+      "pixelHash": "c6ea78ea1108a33679f04374c215d916011179d27bf143c407ed99633c529f6e",
+      "occurrences": [
+        {
+          "page": 34,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        },
+        {
+          "page": 34,
+          "imageIndex": 2,
+          "operatorIndex": 847
+        }
+      ]
+    },
+    {
+      "file": "guide-audit-log.webp",
+      "url": "/assets/guide/guide-audit-log.webp",
+      "width": 1908,
+      "height": 986,
+      "bytes": 139832,
+      "pixelHash": "41e789e6ec469cf854707e0e252911eda8e6e040867ea3c838bd782a03715eae",
+      "occurrences": [
+        {
+          "page": 35,
+          "imageIndex": 1,
+          "operatorIndex": 2565
+        },
+        {
+          "page": 36,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        }
+      ]
+    },
+    {
+      "file": "guide-admin-bm.webp",
+      "url": "/assets/guide/guide-admin-bm.webp",
+      "width": 1907,
+      "height": 988,
+      "bytes": 148698,
+      "pixelHash": "a45ff8134b432e47bb636a4b47768ce09f24265141682f82324aa7cdec81c02b",
+      "occurrences": [
+        {
+          "page": 37,
+          "imageIndex": 1,
+          "operatorIndex": 1796
+        },
+        {
+          "page": 38,
+          "imageIndex": 1,
+          "operatorIndex": 42
+        }
+      ]
+    }
+  ]
+}

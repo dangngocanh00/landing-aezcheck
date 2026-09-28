@@ -1,4 +1,4 @@
-import logo from '../../assets/logo-removebg.png'
+import logo from '../../assets/logo-removebg-128.png'
 
 type BrandProps = {
   variant?: 'navbar' | 'footer' | 'compact'

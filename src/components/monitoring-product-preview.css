@@ -1,0 +1,65 @@
+.monitor-preview { container-type: inline-size; width: 100%; max-width: 860px; min-width: 0; margin-inline: auto; padding: 22px 16px 70px; border: 1px solid #70edcf65; border-radius: 24px; background: radial-gradient(ellipse at 45% 20%,#164b403d,transparent 65%),linear-gradient(145deg,#0c2927,#061b1c 75%); box-shadow: 0 18px 38px #00110f42,0 0 16px #56eac715,inset 0 1px 0 #aeffe73d; color: #aecbc0; }
+.monitor-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.monitor-header h3 { margin: 0; font-size: clamp(21px,3cqi,28px); color: #d9eee7; font-weight: 700; letter-spacing: -.025em; }
+.monitor-header > span { color: #759c8e; font-size: 8px; }.monitor-header p { width: 100%; margin: 0 0 18px; font-size: 10px; color: #91b5a8; }
+.monitor-tabs { display: flex; justify-content: flex-start; align-items: center; gap: 26px; overflow-x: auto; border-bottom: 1px solid #85dcc320; }
+.monitor-tabs > span { flex: 0 0 auto; padding: 10px 0; font-size: 10px; white-space: nowrap; color: #82a89b; }.monitor-tabs .is-active { color: #b2f4df; border-bottom: 2px solid #70eacb; }
+.monitor-search { display: flex; align-items: center; gap: 8px; width: 46%; margin: 14px 0; padding: 9px 10px; border: 1px solid #81c7b326; border-radius: 7px; background: #03191655; color: #8bafa0; font-size: 10px; }
+.monitor-search svg { flex: 0 0 14px; width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.monitor-table-wrap { border: 1px solid #85dcc31c; border-radius: 10px; overflow-x: auto; }
+.monitor-preview table { width: 100%; min-width: 540px; table-layout: fixed; border-collapse: collapse; font-size: 9px; text-align: left; }
+.monitor-preview caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.monitor-preview th { padding: 11px 4px; color: #81a99a; font-weight: 500; font-size: 8px; line-height: 1.5; background: #7ce5c707; }
+.monitor-preview td { padding: 12px 4px; border-top: 1px solid #8fe1c611; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; line-height: 1.5; }
+.monitor-preview tbody tr { transition: background 220ms ease; }.monitor-preview tbody tr:nth-child(even) { background: #83dec603; }
+.monitor-preview td:nth-child(2), .monitor-preview td:nth-child(7) { text-align: center; }
+.monitor-via-name { display: flex; gap: 5px; align-items: center; margin-bottom: 3px; }.monitor-via-name strong { font-size: 9px; font-weight: 600; color: #d4ece0; }
+.monitor-avatar { display: inline-grid; place-items: center; flex: 0 0 19px; width: 19px; height: 19px; border-radius: 50%; background: linear-gradient(135deg,#21634f,#0d342e); color: #a3deca; font-size: 7px; }
+.monitor-preview small { display: block; font-size: 8px; line-height: 1.6; color: #769e8f; }
+.monitor-2fa { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 3px; font-size: 8px; }.monitor-2fa svg { width: 15px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; }.monitor-2fa.is-enabled { color: #8cceac; }.monitor-2fa.is-disabled { color: #d79c99; }
+.monitor-expiry { color: #bbd5c9; }.monitor-expiry > span { display: inline-block; }.monitor-preview .monitor-remaining { margin-top: 4px; color: #8bccaa; }.monitor-preview .monitor-remaining.is-warning { color: #dcc085; }
+.monitor-status { display: inline-block; padding: 3px 5px; border: 1px solid #6adbb72b; border-radius: 999px; color: #93d6bc; background: #6adbb70a; font-size: 8px; transition: border-color 220ms ease; }
+.monitor-status--attention { color: #ddc18c; background: #ddc18c0a; border-color: #ddc18c2b; }.monitor-status--review { color: #dca3a1; background: #dca3a10a; border-color: #dca3a12b; }
+.monitor-permissions { display: flex; flex-wrap: wrap; gap: 3px; }.monitor-permissions span { display: inline-block; padding: 2px 4px; border: 1px solid #81c7b326; border-radius: 4px; font-size: 7px; color: #9dc5b5; background: #69cda407; transition: border-color 220ms ease; }
+.monitor-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 14px; font-size: 8px; color: #759f90; }.monitor-pagination { display: flex; gap: 8px; align-items: center; margin-left: auto; }.monitor-pagination b { padding: 3px 6px; border-radius: 4px; background: #78e6c420; color: #a3ead3; font-weight: 500; }
+@media (hover: hover) and (pointer: fine) {
+  .monitor-preview tbody tr:hover { background: #83dec60a; }
+  .monitor-permissions span:hover { border-color: #81c7b366; }
+}
+
+/* Supporting cards belong only to the monitoring scene. */
+.spot-scene[data-scene='monitoring'] .spot-floating-cards { margin: -28px 5% 0; gap: 16px; }
+.spot-scene[data-scene='monitoring'] .spot-float {
+  flex: 0 1 280px;
+  width: 36%;
+  max-width: 36%;
+  min-width: 0;
+  padding: 15px 14px;
+  border: 1px solid #70edcf50;
+  background: radial-gradient(ellipse at 45% 20%,#164b403d,transparent 65%),linear-gradient(145deg,#0c2927,#061b1c 75%);
+  box-shadow: 0 8px 18px #00110f30,0 0 12px #56eac712,inset 0 1px 0 #aeffe72b;
+}
+.spot-scene[data-scene='monitoring'] .spot-float-1 { margin-top: 14px; }
+.spot-scene[data-scene='monitoring'] .spot-float strong { font-size: 22px; margin: 8px 0 5px; }
+.spot-scene[data-scene='monitoring'] .spot-float-label { font-size: 10px; }
+@media (max-width: 1199px) {
+  .spot-scene[data-scene='monitoring'] .spot-float { flex-basis: 240px; width: 43%; max-width: 43%; }
+}
+@media (max-width: 767px) {
+  .spot-scene[data-scene='monitoring'] .spot-floating-cards { flex-direction: column; align-items: center; margin: 12px 5% 0; }
+  .spot-scene[data-scene='monitoring'] .spot-float { flex: 0 0 auto; width: 100%; max-width: 280px; }
+  .spot-scene[data-scene='monitoring'] .spot-float-1 { margin-top: 0; }
+}
+@media (max-width: 1199px) {
+  .monitor-preview { width: 100%; }
+}
+@container (max-width: 620px) {
+  .monitor-tabs { gap: 18px; }
+}
+@container (max-width: 380px) {
+  .monitor-search { width: 100%; }
+  .monitor-tabs { gap: 14px; }.monitor-tabs > span { font-size: 9px; }
+  .monitor-header > span { display: none; }.monitor-header p { font-size: 9px; }
+}
+
+@media (max-width: 959px) { .monitor-preview table { min-width: 680px; font-size: 12px; }.monitor-preview th { font-size: 11px; }.monitor-tabs > span { font-size: 12px; } }

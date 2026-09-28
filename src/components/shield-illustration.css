@@ -1,0 +1,109 @@
+.shield-section-heading { margin-bottom: 0; }
+.shield-section-heading span { color: var(--card-brand); }
+.shield-illustration { --shield-green: var(--card-brand,#49d692); --shield-risk: #df8b79; position: relative; isolation: isolate; }
+.shield-description { max-width: 650px; margin: 24px auto 58px; text-align: center; color: var(--text-secondary); font-size: 16px; line-height: 1.75; text-wrap: balance; }
+.shield-stage { position: relative; display: grid; grid-template-columns: 26% 48% 26%; align-items: center; }
+.shield-connections { position: absolute; inset: 0; width: 100%; height: 448px; pointer-events: none; z-index: -1; overflow: visible; }
+.shield-risk-line { stroke: var(--shield-risk); stroke-opacity: .28; stroke-width: 1; }
+.shield-safe-line { stroke: var(--shield-green); stroke-opacity: .34; stroke-width: 1; }
+.shield-risk-particle,.shield-safe-particle { stroke-width: 2; stroke-linecap: round; stroke-dasharray: 3 97; stroke-dashoffset: 100; opacity: 0; }
+.shield-risk-particle { stroke: #f1ad86; }.shield-safe-particle { stroke: #83edba; }
+.shield-block-impact { stroke: var(--shield-risk); stroke-opacity: .5; fill: #df8b7910; transform-box: fill-box; transform-origin: center; }
+.shield-column { display: grid; gap: 16px; position: relative; }
+.shield-risk-card,.shield-asset-card { display: flex; align-items: center; gap: 13px; height: 100px; padding: 16px; min-width: 0; border: 1px solid; border-radius: 16px; backdrop-filter: blur(8px); transition: transform 260ms cubic-bezier(.22,1,.36,1),box-shadow 260ms ease,border-color 260ms ease; }
+.shield-risk-card { background: linear-gradient(145deg,#221e29e8,#201e24ed); border-color: #df8b7942; box-shadow: inset 0 1px 0 #f0ad9009,0 0 18px #df8b7908; }
+.shield-asset-card { background: var(--card-bg); border-color: var(--card-border); box-shadow: 0 0 22px rgba(73,214,146,.07),inset 0 1px 0 rgba(73,214,146,.05); }
+.shield-card-icon { display: grid; place-items: center; flex: 0 0 38px; height: 42px; color: var(--shield-green); transition: filter 260ms ease; }
+.shield-risk-card .shield-card-icon { color: var(--shield-risk); }
+.shield-card-icon svg { width: 30px; height: 30px; }
+.shield-column h3 { font-size: 13px; font-weight: 650; line-height: 1.4; color: #eef8f3; margin: 0 0 6px; }
+.shield-column p { font-size: 11px; line-height: 1.6; color: #9aafa9; margin: 0; }
+.shield-risk-card p { color: #b3a5a4; }
+.shield-asset-card > div { flex: 1; min-width: 0; }
+.shield-verified { flex: 0 0 22px; width: 22px; height: 22px; color: #8ef0c0; stroke: currentColor; stroke-width: 1.5; }
+.shield-verified circle { stroke-opacity: .4; fill: #49d6920a; }
+.shield-core { position: relative; display: grid; place-items: center; height: 448px; min-width: 0; }
+.shield-core-halo { position: absolute; inset: 2% -5%; background: radial-gradient(ellipse,rgba(73,214,146,.16),rgba(40,154,131,.06) 42%,transparent 68%); z-index: -1; }
+.shield-radar { position: absolute; width: 84%; aspect-ratio: 1; border: 1px solid #49d69224; border-radius: 50%; box-shadow: inset 0 0 24px #49d69205; pointer-events: none; }
+.shield-radar-outer::after { content: ''; position: absolute; inset: 12px; border: 1px dashed #49d69225; border-radius: 50%; }
+.shield-radar-inner { width: 68%; border-color: #49d69238; }
+.shield-core-art { width: min(100%,360px); height: 420px; position: relative; filter: drop-shadow(0 0 14px #49d69220); transition: filter 300ms ease; }
+.shield-core-wordmark { position: absolute; top: 60%; left: 50%; transform: translateX(-50%); text-align: center; color: #e1f9ef; }
+.shield-core-wordmark strong { display: block; font-size: clamp(15px,1.6vw,22px); font-weight: 850; letter-spacing: .06em; }
+.shield-core-wordmark span { font-size: 10px; letter-spacing: .28em; color: #80deb5; }
+.shield-block-label { position: absolute; left: 5%; top: 46%; font-size: 8px; letter-spacing: .12em; color: #e5a391; padding: 4px 6px; border-radius: 5px; background: #261e23; border: 1px solid #df8b7925; }
+.shield-core-labels { position: absolute; bottom: -8px; display: flex; justify-content: center; flex-wrap: wrap; gap: 7px; max-width: 100%; }
+.shield-core-labels span { padding: 5px 9px; background: #0a2424d9; border: 1px solid #49d69226; border-radius: 99px; color: #9accb7; font-size: 9px; }
+.shield-status { position: relative; overflow: hidden; display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 16px; width: min(100%,600px); margin: 40px auto 0; padding: 12px 18px; border: 1px solid rgba(73,214,146,.25); border-radius: 8px; background: linear-gradient(110deg,rgba(8,27,33,.90),rgba(10,39,32,.82)); color: #d5efe3; box-shadow: 0 0 20px rgba(73,214,146,.05),inset 0 1px 0 rgba(142,240,192,.04); transition: border-color 280ms ease,box-shadow 280ms ease; }
+.shield-status::after { content: ''; position: absolute; bottom: 0; left: -30%; width: 30%; height: 1px; background: linear-gradient(90deg,transparent,rgba(142,240,192,.32),transparent); pointer-events: none; }
+.shield-status-signal { display: flex; align-items: center; gap: 9px; color: var(--shield-green); }
+.shield-status-signal i { width: 6px; height: 6px; flex-shrink: 0; border-radius: 50%; background: var(--shield-green); box-shadow: 0 0 8px rgba(73,214,146,.3); }
+.shield-status-signal svg { width: 23px; height: 23px; }
+.shield-status-copy strong { display: block; font-size: 13px; line-height: 1.5; font-weight: 600; }
+.shield-status-copy > span { display: block; margin-top: 2px; font-size: 10px; line-height: 1.5; color: #89aa9d; }
+.shield-status-state { display: flex; align-items: center; gap: 5px; padding-left: 14px; border-left: 1px solid rgba(73,214,146,.18); color: #8edcb3; font-size: 10px; font-weight: 500; white-space: nowrap; }
+.shield-status-state svg { width: 14px; height: 14px; }
+.shield-caption { margin: 14px 0 0; text-align: center; color: var(--text-muted); font-size: 12px; }
+.shield-mobile-label { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .shield-status:hover { border-color: rgba(73,214,146,.36); box-shadow: 0 0 22px rgba(73,214,146,.08),inset 0 1px 0 rgba(142,240,192,.05); }
+  .shield-risk-card:hover { border-color: #df8b7980; box-shadow: 0 0 24px #df8b7918; }
+  .shield-risk-card:hover .shield-card-icon { filter: drop-shadow(0 0 5px #df8b7940); }
+  .shield-asset-card:hover { border-color: #49d69299; box-shadow: 0 0 26px #49d69220; }
+  .shield-core:hover .shield-core-art { filter: drop-shadow(0 0 20px #49d69238); }
+  .shield-core:hover .shield-radar { border-color: #49d69266; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .shield-status-signal i { animation: shieldVerified 5s ease-in-out infinite; }
+  .shield-status::after { animation: shieldStatusScan 9s linear infinite; }
+  .shield-core-halo { animation: shieldBreathe 6s ease-in-out infinite; }
+  .shield-radar-outer::after { animation: shieldRadar 48s linear infinite; }
+  .shield-risk-particle { animation: shieldSignal 3.8s linear var(--signal-delay) infinite; }
+  .shield-safe-particle { animation: shieldSignal 4.4s linear var(--signal-delay) infinite; }
+  .shield-block-impact { animation: shieldImpact 3.8s ease-out var(--signal-delay) infinite; }
+  .shield-verified { animation: shieldVerified 5s ease-in-out var(--signal-delay) infinite; }
+  @media (hover: hover) and (pointer: fine) { .shield-asset-card:hover { transform: translateY(-4px); } }
+}
+.shield-illustration[data-paused='true'] *, .shield-illustration[data-paused='true'] *::after { animation-play-state: paused; }
+@keyframes shieldSignal { 0% { stroke-dashoffset: 100; opacity: 0; } 12%,75% { opacity: .8; } 88%,100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes shieldImpact { 0%,65%,100% { opacity: .2; transform: scale(.7); } 82% { opacity: .7; transform: scale(1.4); } }
+@keyframes shieldBreathe { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
+@keyframes shieldRadar { to { transform: rotate(360deg); } }
+@keyframes shieldVerified { 0%,70%,100% { opacity: .65; } 80% { opacity: 1; } }
+@keyframes shieldStatusScan { 0%,20% { left: -30%; opacity: 0; } 30%,80% { opacity: .6; } 100% { left: 100%; opacity: 0; } }
+@media (min-width: 768px) and (max-width: 1100px) {
+  .shield-risk-card,.shield-asset-card { padding: 10px; gap: 7px; }
+  .shield-card-icon { flex-basis: 26px; }.shield-card-icon svg { width: 24px; }
+  .shield-column h3 { font-size: 11px; }.shield-column p { font-size: 10px; }
+  .shield-verified { flex-basis: 17px; width: 17px; }
+  .shield-core-labels { gap: 4px; }.shield-core-labels span { font-size: 8px; padding: 5px 7px; }
+}
+@media (max-width: 767px) {
+  .shield-description { margin-bottom: 12px; font-size: 14px; }
+  .shield-stage { grid-template-columns: minmax(0,1fr); gap: 30px; max-width: 520px; margin: auto; }
+  .shield-core { grid-row: auto; height: 390px; }
+  .shield-core-art { height: 380px; width: 326px; max-width: 100%; }
+  .shield-radar { width: min(86%,360px); }.shield-radar-inner { width: min(68%,290px); }
+  .shield-connections { display: none; }
+  .shield-core-labels { bottom: 0; }
+  .shield-column { gap: 10px; }.shield-column .shield-mobile-label { display: block; color: var(--text-secondary); margin: 0 0 2px; font-size: 11px; letter-spacing: .06em; }
+  .shield-risk-card,.shield-asset-card { height: auto; min-height: 84px; }
+  .shield-status { margin-top: 30px; padding: 12px; gap: 10px; }
+  .shield-status-copy strong { font-size: 11px; }
+  .shield-caption { font-size: 11px; }
+}
+@media (max-width: 479px) {
+  .shield-status { grid-template-columns: auto minmax(0,1fr); }
+  .shield-status-state { grid-column: 2; padding-left: 0; border-left: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shield-illustration *, .shield-illustration *::after { animation: none !important; transition: none !important; }
+  .shield-risk-particle,.shield-safe-particle { display: none; }
+}
+
+@media (max-width: 767px) {
+ .shield-column { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+ .shield-mobile-label { grid-column: 1 / -1; }
+ .shield-risk-card, .shield-asset-card { flex-wrap: wrap; padding: 12px; }
+ .shield-column h3 { font-size: 13px; }.shield-column p { font-size: 12px; }
+}

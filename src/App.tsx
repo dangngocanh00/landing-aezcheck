@@ -1,30 +1,43 @@
+import './landing-background.css'
+import './card-system.css'
+import './components/benefit-glass-cards.css'
+import { LandingBackground } from './components/LandingBackground'
+import { ControlCenterBenefits } from './components/ControlCenterBenefits'
+import { ControlCenterIllustrationStack } from './components/ControlCenterIllustrationStack'
 import { ChallengeSection } from './components/ChallengeSection'
 import { FeatureSpotlight } from './components/FeatureSpotlight'
 import { ProductEcosystemSection } from './components/ProductEcosystemSection'
 import { useLanguage } from './i18n/LanguageContext'
-import { useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Navbar, Hero } from './components/LandingOpening'
 import { Brand } from './components/Brand'
+import { AdsManagementPreview } from './components/AdsManagementPreview'
+import { ShieldIllustration } from './components/ShieldIllustration'
+import { landingFooterItems, landingSupportItems, landingNavItems, getLegalPage, getSiteRoute, localizedHref } from './landing-navigation'
+import { TermsPage } from './components/TermsPage'
+import { PrivacyPage } from './components/PrivacyPage'
+import { footerSupportCopy } from './i18n/footer-support'
+import { PricingPage } from './components/PricingPage'
+import { PageMetadata } from './components/PageMetadata'
+
+const GuidePage = lazy(() => import('./pages/GuidePage').then(module => ({ default: module.GuidePage })))
 
 // ─── Layout primitives ────────────────────────────────────────────────────────
 
 function Container({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <div className={`max-w-[1200px] mx-auto ${className}`}>{children}</div>
+  return <div className={`max-w-[1200px] min-w-0 mx-auto ${className}`}>{children}</div>
 }
 
 function Section({
   children,
   className = '',
-  bg,
 }: {
   children: React.ReactNode
   className?: string
-  bg?: string
 }) {
   return (
     <section
-      className={`py-24 px-6 ${className}`}
-      style={bg ? { background: bg } : undefined}
+      className={`az-landing-section py-24 px-4 min-[480px]:px-6 ${className}`}
     >
       {children}
     </section>
@@ -32,14 +45,6 @@ function Section({
 }
 
 // ─── Design system atoms ──────────────────────────────────────────────────────
-
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-az-green/30 bg-az-green/10 text-az-green text-[11px] font-semibold tracking-[0.15em] uppercase">
-      {children}
-    </span>
-  )
-}
 
 function Heading({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
@@ -57,10 +62,12 @@ function Btn({
   children,
   variant = 'primary',
   className = '',
+  href,
 }: {
   children: React.ReactNode
   variant?: 'primary' | 'outline'
   className?: string
+  href?: string
 }) {
   const base =
     'inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 cursor-pointer'
@@ -68,7 +75,7 @@ function Btn({
     variant === 'primary'
       ? 'bg-az-green text-[var(--on-accent)] hover:bg-az-bright'
       : 'border border-az-green/40 text-az-green hover:border-az-green hover:bg-az-green/10'
-  return <button className={`${base} ${v} ${className}`}>{children}</button>
+  return href ? <a href={href} className={`${base} ${v} ${className}`}>{children}</a> : <button className={`${base} ${v} ${className}`}>{children}</button>
 }
 
 function Chip({ label, dot = 'var(--green)' }: { label: string; dot?: string }) {
@@ -85,7 +92,7 @@ function BrowserFrame({ children, className = '' }: { children: React.ReactNode;
   return (
     <div
       className={`az-browser-frame rounded-2xl border border-[var(--border)] overflow-hidden ${className}`}
-      style={{ background: 'var(--surface)' }}
+
     >
       <div
         className="flex items-center gap-1.5 px-4 py-2.5 border-b border-[var(--border)]"
@@ -163,155 +170,18 @@ function TableMockup({ headers, rows }: { headers: string[]; rows: string[][] })
 
 // ─── S4: Control Center ───────────────────────────────────────────────────────
 
-function ControlDashboard() {
-  const { t: translate } = useLanguage()
-  return (
-    <div className="p-4" style={{ minHeight: 320 }}>
-      <div className="grid grid-cols-4 gap-2 mb-4">
-        {[
-          { l: 'Live Accounts', v: '192', c: 'var(--green)' },
-          { l: 'Campaigns', v: '847', c: 'var(--text-primary)' },
-          { l: 'Active Ads', v: '3.2K', c: 'var(--cyan-accent)' },
-          { l: 'Total Spend', v: '$412K', c: 'var(--green-soft)' },
-        ].map((m) => (
-          <div
-            key={m.l}
-            className="rounded-lg p-3 border border-[var(--border)]"
-            style={{ background: 'var(--surface-soft)' }}
-          >
-            <div className="text-[8px] text-az-muted">{translate(m.l)}</div>
-            <div className="text-base font-bold mt-1" style={{ color: m.c }}>
-              {translate(m.v)}
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="rounded-xl border border-[var(--border)] p-4 mb-3" style={{ background: 'var(--surface-soft)' }}>
-        <div className="flex justify-between items-center mb-3">
-          <span className="text-xs text-az-text font-medium">{translate("Spend & Revenue — 30 ngày")}</span>
-          <div className="flex gap-3 text-[9px] text-az-muted">
-            <span className="flex items-center gap-1">
-              <span className="w-2.5 h-0.5 bg-az-green inline-block rounded" />{translate("Spend")}</span>
-            <span className="flex items-center gap-1">
-              <span className="w-2.5 h-0.5 bg-az-cyan inline-block rounded" />{translate("Revenue")}</span>
-          </div>
-        </div>
-        <svg viewBox="0 0 400 90" className="w-full h-20" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="cg1" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--green)" stopOpacity="0.22" />
-              <stop offset="100%" stopColor="var(--green)" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="cg2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--cyan-accent)" stopOpacity="0.16" />
-              <stop offset="100%" stopColor="var(--cyan-accent)" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M0,70 C50,65 80,52 120,42 C160,32 190,40 230,35 C270,30 300,18 350,12 C370,9 385,15 400,10"
-            fill="none"
-            stroke="var(--cyan-accent)"
-            strokeWidth="1.5"
-            opacity="0.7"
-          />
-          <path
-            d="M0,70 C50,65 80,52 120,42 C160,32 190,40 230,35 C270,30 300,18 350,12 C370,9 385,15 400,10 L400,90 L0,90Z"
-            fill="url(#cg2)"
-          />
-          <path
-            d="M0,75 C50,70 80,60 120,52 C160,44 190,53 230,47 C270,41 300,28 350,22 C370,18 385,24 400,19"
-            fill="none"
-            stroke="var(--green)"
-            strokeWidth="2"
-          />
-          <path
-            d="M0,75 C50,70 80,60 120,52 C160,44 190,53 230,47 C270,41 300,28 350,22 C370,18 385,24 400,19 L400,90 L0,90Z"
-            fill="url(#cg1)"
-          />
-        </svg>
-      </div>
-      <div className="grid grid-cols-3 gap-2">
-        {[
-          { l: 'Risk Score', v: 'Low', c: 'var(--green)', bg: 'rgba(40,209,124,0.08)' },
-          { l: 'Anomalies', v: '3 found', c: 'var(--warning)', bg: 'rgba(245,158,11,0.08)' },
-          { l: 'Assets OK', v: '98.2%', c: 'var(--cyan-accent)', bg: 'rgba(61,224,209,0.08)' },
-        ].map((r) => (
-          <div
-            key={r.l}
-            className="rounded-lg p-2.5 border border-[var(--border)]"
-            style={{ background: r.bg }}
-          >
-            <div className="text-[9px] text-az-muted">{translate(r.l)}</div>
-            <div className="text-sm font-bold mt-0.5" style={{ color: r.c }}>
-              {translate(r.v)}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 function ControlCenter() {
   const { t: translate } = useLanguage()
   return (
-    <Section bg="var(--bg-secondary)">
+    <Section>
       <Container>
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-2 gap-16 items-center">
           <div>
-            <Eyebrow>{translate("Control Center")}</Eyebrow>
-            <Heading className="mt-4 mb-8">{translate("Một màn hình để nhìn thấy ")}<Green>{translate("tình trạng toàn bộ hệ thống.")}</Green>
+            <Heading className="mb-8">{translate("Một màn hình để nhìn thấy ")}<Green>{translate("tình trạng toàn bộ hệ thống.")}</Green>
             </Heading>
-            <div className="flex flex-col gap-1">
-              {[
-                {
-                  n: '01',
-                  title: 'Live Status',
-                  desc: 'Xem trạng thái thực tế của từng tài khoản, từng VIA — không cần refresh thủ công.',
-                },
-                {
-                  n: '02',
-                  title: 'Trend Monitoring',
-                  desc: 'Phát hiện xu hướng chi tiêu, hiệu suất và rủi ro trước khi chúng trở thành sự cố.',
-                },
-                {
-                  n: '03',
-                  title: 'Risk Overview',
-                  desc: 'Tổng hợp cảnh báo và chỉ số nguy cơ trên một dashboard duy nhất.',
-                },
-                {
-                  n: '04',
-                  title: 'Asset Distribution',
-                  desc: 'Phân bổ tài sản quảng cáo theo nhóm, nhân sự và khách hàng.',
-                },
-              ].map((f) => (
-                <div
-                  key={f.title}
-                  className="flex items-start gap-4 p-4 rounded-xl hover:bg-[var(--surface-highlight)] transition-colors group cursor-default"
-                >
-                  <div className="w-9 h-9 rounded-lg bg-az-green/10 border border-az-green/20 flex items-center justify-center text-az-green text-xs font-bold flex-shrink-0 group-hover:bg-az-green/15">
-                    {translate(f.n)}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-az-text text-sm">{translate(f.title)}</div>
-                    <div className="text-az-muted text-xs mt-0.5 leading-relaxed">{translate(f.desc)}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ControlCenterBenefits />
           </div>
-          <div className="relative">
-            <div
-              className="absolute -inset-8 rounded-3xl opacity-[0.14]"
-              style={{
-                background: 'radial-gradient(ellipse, var(--cyan-accent), transparent 70%)',
-                filter: 'blur(40px)',
-              }}
-            />
-            <BrowserFrame>
-              <ControlDashboard />
-            </BrowserFrame>
-          </div>
+          <ControlCenterIllustrationStack />
         </div>
       </Container>
     </Section>
@@ -363,8 +233,7 @@ function AssetManagement() {
     <Section>
       <Container>
         <div className="text-center mb-10">
-          <Eyebrow>{translate("Asset Management")}</Eyebrow>
-          <Heading className="mt-4">{translate("VIA, TKQC, BM và Fanpage.")}<br />
+          <Heading>{translate("VIA, TKQC, BM và Fanpage.")}<br />
             <Green>{translate("Tất cả ở đúng nơi của nó.")}</Green>
           </Heading>
         </div>
@@ -395,41 +264,14 @@ function AdsManagement() {
   const { t: translate } = useLanguage()
   const [tab, setTab] = useState(0)
   return (
-    <Section bg="var(--bg-secondary)">
+    <Section>
       <Container>
         <div className="text-center mb-10">
-          <Eyebrow>{translate("Ads Management")}</Eyebrow>
-          <Heading className="mt-4">{translate("Theo dõi và vận hành quảng cáo")}<br />
+          <Heading>{translate("Theo dõi và vận hành quảng cáo")}<br />
             <Green>{translate("mà không cần nhảy qua nhiều tài khoản.")}</Green>
           </Heading>
         </div>
-        <BrowserFrame>
-          <div
-            className="az-ad-tabs border-b border-[var(--border)] px-4 flex gap-0"
-            style={{ background: 'var(--bg-secondary)' }}
-          >
-            {['Tài khoản', 'Campaigns', 'Ad Sets', 'Ads'].map((t, i) => (
-              <button
-                key={t}
-                onClick={() => setTab(i)}
-                className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-all -mb-px ${tab === i ? 'border-az-green text-az-green' : 'border-transparent text-az-muted hover:text-az-text'}`}
-              >
-                {translate(t)}
-              </button>
-            ))}
-          </div>
-          <div className="p-4">
-            <TableMockup
-              headers={['Tên', 'Trạng thái', 'Ngân sách', 'Reach', 'Impressions', 'Chi tiêu', 'Tags']}
-              rows={[
-                ['Campaign: Summer Sale', 'Active', '$1,000/ngày', '84.2K', '1.2M', '$12,400', 'brand, summer'],
-                ['Campaign: Lead Gen Q3', 'Active', '$500/ngày', '42.1K', '890K', '$8,200', 'lead, q3'],
-                ['Campaign: Retarget 90d', 'Warning', '$200/ngày', '18.4K', '320K', '$3,100', 'retarget'],
-                ['Campaign: Brand Awareness', 'Inactive', '$0', '0', '0', '$0', 'brand'],
-              ]}
-            />
-          </div>
-        </BrowserFrame>
+        <BrowserFrame><AdsManagementPreview /></BrowserFrame>
       </Container>
     </Section>
   )
@@ -439,104 +281,26 @@ function AdsManagement() {
 
 function Shield() {
   const { t: translate } = useLanguage()
-  const labels = ['Website', 'Fanpage', 'Budget', 'Keyword', 'Country', 'Suspicious Activity']
-  return (
-    <Section
-      className="relative overflow-hidden"
-      bg="var(--surface-soft)"
-    >
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 60% 60% at 50% 50%, rgba(40,209,124,0.07) 0%, transparent 70%)',
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 35% 35% at 50% 50%, rgba(61,224,209,0.05) 0%, transparent 60%)',
-          }}
-        />
-      </div>
-      <Container className="relative">
-        <div className="text-center mb-16">
-          <Eyebrow>{translate("Shield")}</Eyebrow>
-          <Heading className="mt-4">{translate("Không chỉ quản lý tài sản.")}<br />
+  return <Section className="relative overflow-hidden">
+    <Container className="relative">
+      <div className="shield-section-heading text-center">
+          <Heading>{translate("Không chỉ quản lý tài sản.")}<br />
             <Green>{translate("Hãy bảo vệ chúng.")}</Green>
           </Heading>
-        </div>
-        <div className="flex items-center justify-center">
-          <div className="relative w-72 h-72 md:w-96 md:h-96">
-            <div className="absolute inset-0 rounded-full border border-az-green/10" />
-            <div className="absolute inset-6 rounded-full border border-az-green/15" />
-            <div className="absolute inset-14 rounded-full border border-az-green/20" />
-            {/* Center shield */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-az-green/15 border-2 border-az-green/50 flex flex-col items-center justify-center gap-1.5 shadow-lg shadow-az-green/10">
-                <svg
-                  className="w-8 h-8 text-az-green"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                  />
-                </svg>
-                <span className="text-az-green text-[9px] font-bold tracking-widest">{translate("PROTECTED")}</span>
-              </div>
-            </div>
-            {/* Orbital labels */}
-            {labels.map((label, i) => {
-              const angle = (i / labels.length) * 360 - 90
-              const rad = (angle * Math.PI) / 180
-              const r = 135
-              const cx = 144
-              const cy = 144
-              const x = Math.cos(rad) * r + cx
-              const y = Math.sin(rad) * r + cy
-              return (
-                <div
-                  key={label}
-                  className="absolute transform -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: x, top: y }}
-                >
-                  <div className="px-2.5 py-1 rounded-full bg-az-card border border-az-green/30 text-az-green text-[10px] font-medium whitespace-nowrap shadow-sm">
-                    {translate(label)}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-        <div className="text-center mt-10">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-az-green/15 border border-az-green/40">
-            <span className="w-2 h-2 rounded-full bg-az-green animate-pulse" />
-            <span className="text-az-green font-semibold text-sm">{translate("Hệ thống đang được bảo vệ — PROTECTED")}</span>
-          </div>
-        </div>
-      </Container>
-    </Section>
-  )
+      </div>
+      <ShieldIllustration />
+    </Container>
+  </Section>
 }
-
-// ─── S8: Workspace ────────────────────────────────────────────────────────────
 
 function Workspace() {
   const { t: translate } = useLanguage()
   return (
     <Section>
       <Container>
-        <div className="grid lg:grid-cols-2 gap-14 items-center">
+        <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-2 gap-14 items-center">
           <div>
-            <Eyebrow>{translate("Client Workspace")}</Eyebrow>
-            <Heading className="mt-4">{translate("Từ khách hàng đến TKQC thuê,")}{' '}
+            <Heading>{translate("Từ khách hàng đến TKQC thuê,")}{' '}
               <Green>{translate("mọi dòng tiền")}</Green>{translate(" và trách nhiệm đều có thể theo dõi.")}</Heading>
             <p className="mt-5 text-az-muted leading-relaxed text-sm">{translate("Workspace giúp bạn gán tài khoản cho đúng nhóm và khách hàng, theo dõi hạn mức chi tiêu, và hiểu rõ ai đang dùng tài sản nào.")}</p>
           </div>
@@ -551,8 +315,8 @@ function Workspace() {
                         {i + 1}
                       </div>
                       <div
-                        className="flex-1 rounded-lg px-4 py-2 border border-[var(--border)]"
-                        style={{ background: 'var(--surface-soft)' }}
+                        className="az-ui-card flex-1 rounded-lg px-4 py-2 border border-[var(--border)]"
+
                       >
                         <span className="text-az-text text-xs font-medium">{translate(step)}</span>
                       </div>
@@ -583,11 +347,10 @@ function Workspace() {
 function Finance() {
   const { t: translate } = useLanguage()
   return (
-    <Section bg="var(--bg-secondary)">
+    <Section>
       <Container>
         <div className="text-center mb-12">
-          <Eyebrow>{translate("Finance")}</Eyebrow>
-          <Heading className="mt-4">{translate("Biết tiền đang đi đâu ")}<Green>{translate("trước khi nó trở thành vấn đề.")}</Green>
+          <Heading>{translate("Biết tiền đang đi đâu ")}<Green>{translate("trước khi nó trở thành vấn đề.")}</Green>
           </Heading>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -597,7 +360,7 @@ function Finance() {
             { l: 'Cards Connected', v: '14', c: 'var(--cyan-accent)', d: '12 active' },
             { l: 'Payment Threshold', v: '$500', c: 'var(--green-soft)', d: 'Mức hiện tại' },
           ].map((m) => (
-            <div key={m.l} className="bg-az-card border border-[var(--border)] rounded-2xl p-5">
+            <div key={m.l} className="az-ui-card bg-az-card border border-[var(--border)] rounded-2xl p-5">
               <div className="text-az-muted text-xs mb-2">{translate(m.l)}</div>
               <div className="font-bold text-2xl" style={{ color: m.c }}>
                 {translate(m.v)}
@@ -609,7 +372,7 @@ function Finance() {
         <BrowserFrame>
           <div className="p-5">
             <div className="grid md:grid-cols-3 gap-4">
-              <div className="md:col-span-2 rounded-xl border border-[var(--border)] p-4" style={{ background: 'var(--surface-soft)' }}>
+              <div className="az-ui-card md:col-span-2 rounded-xl border border-[var(--border)] p-4" >
                 <div className="text-xs text-az-muted mb-3">{translate("Chi tiêu theo ngày — 30 ngày")}</div>
                 <svg viewBox="0 0 300 100" className="w-full h-24" preserveAspectRatio="none">
                   <defs>
@@ -631,8 +394,8 @@ function Finance() {
                 </svg>
               </div>
               <div
-                className="rounded-xl border border-[var(--border)] p-4 flex flex-col items-center justify-center"
-                style={{ background: 'var(--surface-soft)' }}
+                className="az-ui-card rounded-xl border border-[var(--border)] p-4 flex flex-col items-center justify-center"
+
               >
                 <div className="text-xs text-az-muted mb-3">{translate("Budget Usage")}</div>
                 <svg viewBox="0 0 80 80" className="w-20 h-20">
@@ -682,10 +445,9 @@ function TeamPermission() {
   return (
     <Section>
       <Container>
-        <div className="grid lg:grid-cols-2 gap-14 items-center">
+        <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-2 gap-14 items-center">
           <div>
-            <Eyebrow>{translate("Team & Permission")}</Eyebrow>
-            <Heading className="mt-4">{translate("Đúng người. ")}<Green>{translate("Đúng quyền.")}</Green>
+            <Heading>{translate("Đúng người. ")}<Green>{translate("Đúng quyền.")}</Green>
               <br />{translate("Đúng phạm vi cần quản lý.")}</Heading>
             <p className="mt-5 text-az-muted leading-relaxed text-sm">{translate("Phân quyền chi tiết theo vai trò — từ Admin toàn quyền đến CS chỉ xem khách hàng. Mọi hành động đều được ghi nhật ký.")}</p>
           </div>
@@ -731,11 +493,10 @@ function TeamPermission() {
 function ActivityHistory() {
   const { t: translate } = useLanguage()
   return (
-    <Section bg="var(--bg-secondary)">
+    <Section>
       <Container>
         <div className="text-center mb-10">
-          <Eyebrow>{translate("Activity Log")}</Eyebrow>
-          <Heading className="mt-4">{translate("Biết ai đã làm gì.")}<br />
+          <Heading>{translate("Biết ai đã làm gì.")}<br />
             <Green>{translate("Và điều gì đã thay đổi.")}</Green>
           </Heading>
         </div>
@@ -826,20 +587,19 @@ function Benefits() {
     <Section>
       <Container>
         <div className="text-center mb-14">
-          <Eyebrow>{translate("Lợi ích")}</Eyebrow>
-          <Heading className="mt-4">{translate("Ít thao tác thủ công hơn.")}<br />
+          <Heading>{translate("Ít thao tác thủ công hơn.")}<br />
             <Green>{translate("Nhiều quyền kiểm soát hơn.")}</Green>
           </Heading>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {BENEFITS.map((b) => (
-            <div key={b.n} className="relative">
-              <div className="text-7xl font-black opacity-[0.06] leading-none mb-4" style={{ color: b.c }}>
+            <div key={b.n} className="benefit-glass-card relative">
+              <div className="benefit-glass-number text-7xl font-black leading-none mb-4">
                 {translate(b.n)}
               </div>
-              <div className="text-lg font-bold text-az-text mb-2">{translate(b.title)}</div>
-              <p className="text-az-muted text-sm leading-relaxed">{translate(b.desc)}</p>
-              <div className="mt-5 w-8 h-0.5 rounded-full" style={{ background: b.c }} />
+              <div className="benefit-glass-title text-lg font-bold mb-2">{translate(b.title)}</div>
+              <p className="benefit-glass-description text-sm leading-relaxed">{translate(b.desc)}</p>
+              <div className="benefit-glass-line mt-5 w-8 h-0.5 rounded-full" />
             </div>
           ))}
         </div>
@@ -851,34 +611,18 @@ function Benefits() {
 // ─── S13: Final CTA ───────────────────────────────────────────────────────────
 
 function FinalCTA() {
-  const { t: translate } = useLanguage()
+  const { t: translate, locale } = useLanguage()
+  const featuresDestination = landingNavItems.find(item => item.href === '#features')!.href
   return (
-    <Section className="relative overflow-hidden" bg="var(--surface-soft)">
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 70% 60% at 50% 110%, rgba(40,209,124,0.1) 0%, transparent 70%)',
-          }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(40,209,124,0.6) 39px, rgba(40,209,124,0.6) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(40,209,124,0.6) 39px, rgba(40,209,124,0.6) 40px)',
-          }}
-        />
-      </div>
+    <Section className="relative overflow-hidden">
       <Container className="relative text-center">
-        <Eyebrow>{translate("Bắt đầu ngay hôm nay")}</Eyebrow>
-        <h2 className="mt-6 text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-az-text">{translate("Đưa toàn bộ vận hành quảng cáo")}<br />
+        <h2 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-az-text">{translate("Đưa toàn bộ vận hành quảng cáo")}<br />
           <Green>{translate("về một nơi.")}</Green>
         </h2>
         <p className="mt-6 text-az-muted text-lg max-w-lg mx-auto leading-relaxed">{translate("Hơn 500 team đang dùng AezCheck để kiểm soát quảng cáo Meta hiệu quả hơn mỗi ngày.")}</p>
         <div className="mt-10 flex flex-wrap gap-4 justify-center">
           <Btn className="text-base px-8 py-3.5">{translate("Bắt đầu trải nghiệm")}</Btn>
-          <Btn variant="outline" className="text-base px-8 py-3.5">{translate("Khám phá tính năng →")}</Btn>
+          <Btn href={localizedHref(featuresDestination, locale)} variant="outline" className="text-base px-8 py-3.5">{translate("Khám phá tính năng →")}</Btn>
         </div>
       </Container>
     </Section>
@@ -888,14 +632,14 @@ function FinalCTA() {
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
 function Footer() {
-  const { t: translate } = useLanguage()
+  const { t: translate, locale } = useLanguage()
+  const supportText = (text: string) => footerSupportCopy[locale][text] ?? translate(text)
   return (
     <footer
-      className="border-t border-[var(--border)] py-16 px-6"
-      style={{ background: 'var(--surface-soft)' }}
+      className="py-16 px-6"
     >
       <Container>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <Brand variant="footer" />
@@ -904,27 +648,23 @@ function Footer() {
           </div>
           {[
             {
-              title: 'Sản phẩm',
-              links: ['Control Center', 'Asset Management', 'Ads Manager', 'Shield'],
-            },
-            {
-              title: 'Giải pháp',
-              links: ['Agency', 'Media Buyer', 'Enterprise', 'Freelancer'],
+              title: 'AezCheck',
+              links: landingFooterItems,
             },
             {
               title: 'Hỗ trợ',
-              links: ['Documentation', 'Changelog', 'Status', 'Contact'],
+              links: landingSupportItems,
             },
           ].map((col) => (
-            <div key={col.title}>
-              <div className="text-az-text font-semibold text-sm mb-3">{translate(col.title)}</div>
+            <div key={col.title} className={col.title === 'Hỗ trợ' ? 'min-w-0 [overflow-wrap:anywhere]' : undefined}>
+              <div className="text-az-text font-semibold text-sm mb-3">{col.title === 'Hỗ trợ' ? supportText(col.title) : translate(col.title)}</div>
               {col.links.map((l) => (
                 <a
-                  key={l}
-                  href="#"
-                  className="block text-az-muted text-sm hover:text-az-text transition-colors mb-2"
+                  key={l.label}
+                  href={localizedHref(l.href, locale)}
+                  className="flex items-center min-h-11 text-az-muted text-sm hover:text-az-text transition-colors"
                 >
-                  {translate(l)}
+                  {col.title === 'Hỗ trợ' ? supportText(l.label) : translate(l.label)}
                 </a>
               ))}
             </div>
@@ -932,13 +672,6 @@ function Footer() {
         </div>
         <div className="border-t border-[var(--border)] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-az-muted text-xs">{translate("© 2026 AezCheck. All rights reserved.")}</span>
-          <div className="flex gap-6">
-            {['Terms', 'Privacy'].map((l) => (
-              <a key={l} href="#" className="text-az-muted text-xs hover:text-az-text transition-colors">
-                {translate(l)}
-              </a>
-            ))}
-          </div>
         </div>
       </Container>
     </footer>
@@ -948,9 +681,38 @@ function Footer() {
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
+  const { language } = useLanguage()
+  const [location, setLocation] = useState(() => ({ hash: window.location.hash, pathname: window.location.pathname }))
+  const { hash, pathname } = location
+  const route = getSiteRoute(hash, pathname)
+  const isPricing = route.page === 'pricing'
+  const isGuide = route.page === 'guide'
+  const legalPage = getLegalPage(hash, pathname)
+  const isTerms = legalPage === 'terms'
+  const isPrivacy = legalPage === 'privacy'
+  useEffect(() => {
+    const updateView = () => setLocation({ hash: window.location.hash, pathname: window.location.pathname })
+    window.addEventListener('hashchange', updateView)
+    window.addEventListener('popstate', updateView)
+    return () => { window.removeEventListener('hashchange', updateView); window.removeEventListener('popstate', updateView) }
+  }, [])
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      if (isGuide || ((isTerms || isPrivacy) && route.anchor)) return // Content pages own anchor scrolling.
+      if (isPricing || isTerms || isPrivacy || isGuide) window.scrollTo({ top: 0, behavior: 'instant' })
+      else if (hash.startsWith('#') && hash.length > 1) document.getElementById(hash.slice(1))?.scrollIntoView()
+      else window.scrollTo({ top: 0, behavior: 'instant' })
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [hash, isPricing, isTerms, isPrivacy, isGuide, route.anchor])
   return (
-    <div className="az-page" style={{ background: 'var(--bg-main)', color: 'var(--text-primary)', fontFamily: 'Inter, sans-serif' }}>
+    <div className="az-page" style={{ color: 'var(--text-primary)', fontFamily: 'Inter, sans-serif' }}>
+      <LandingBackground />
+      <PageMetadata page={route.page} locale={language} found={route.found} />
+      <a className="az-skip-link" href="#page-content">{language === 'vi' ? 'Bỏ qua điều hướng' : 'Skip to content'}</a>
       <Navbar />
+      <div id="page-content" tabIndex={-1}>
+      {!route.found ? <main className="relative mx-auto max-w-4xl px-6 py-24"><h1 className="text-4xl font-bold">404 — {language === 'vi' ? 'Không tìm thấy trang' : 'Page not found'}</h1><a className="mt-8 inline-block text-az-green" href={`/${language}/`}>{language === 'vi' ? 'Về trang chủ' : 'Back to home'}</a></main> : isPricing ? <PricingPage /> : isTerms ? <TermsPage /> : isPrivacy ? <PrivacyPage /> : isGuide ? <Suspense fallback={<main role="status" style={{ minHeight: 'calc(100dvh - var(--header-height))', padding: '64px 24px', textAlign: 'center' }}>{language === 'vi' ? 'Đang tải hướng dẫn…' : 'Loading guide…'}</main>}><GuidePage /></Suspense> : <main>
       <Hero />
       <ProductEcosystemSection />
       <ChallengeSection />
@@ -965,6 +727,8 @@ export default function App() {
       <ActivityHistory />
       <div id="benefits" className="az-section-anchor"><Benefits /></div>
       <div id="contact" className="az-section-anchor"><FinalCTA /></div>
+      </main>}
+      </div>
       <Footer />
     </div>
   )

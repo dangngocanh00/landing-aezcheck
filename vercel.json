@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "node scripts/check-toolchain.mjs && corepack pnpm install --frozen-lockfile",
+  "buildCommand": "node scripts/check-toolchain.mjs && corepack pnpm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/:locale(vi|en|ru|th|zh)", "destination": "/index.html" },
+    { "source": "/:locale(vi|en|ru|th|zh)/", "destination": "/index.html" },
+    { "source": "/:locale(vi|en|ru|th|zh)/:page(pricing|guide|terms|privacy)", "destination": "/index.html" },
+    { "source": "/:locale(vi|en|ru|th|zh)/:page(pricing|guide|terms|privacy)/", "destination": "/index.html" },
+    { "source": "/:page(pricing|guide|terms|privacy)", "destination": "/index.html" },
+    { "source": "/:page(pricing|guide|terms|privacy)/", "destination": "/index.html" }
+  ]
+}

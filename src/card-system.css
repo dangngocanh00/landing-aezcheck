@@ -1,0 +1,93 @@
+/* Explicit card allowlist excludes LED signs, raster images, tabs, table rows,
+   section backgrounds and accordion visibility wrappers. */
+.az-page {
+  --card-bg-start: #0a1b25;
+  --card-bg-end: #0b2924;
+  --card-bg: linear-gradient(145deg,var(--card-bg-start),var(--card-bg-end));
+  --card-bg-hover: linear-gradient(145deg,#0b2230,#0d3029);
+  --card-active-start: #155c3f;
+  --card-active-end: #1d734e;
+  --card-bg-active: linear-gradient(145deg,var(--card-active-start),var(--card-active-end));
+  --card-border: rgba(73,214,146,.50);
+  --card-border-hover: rgba(73,214,146,.42);
+  --card-border-active: rgba(123,230,178,.68);
+  --card-brand: #49d692;
+  --card-brand-bright: #48e098;
+  --card-text: #f4fbf8;
+  --card-secondary: rgba(200,220,210,.70);
+  --card-muted: rgba(150,175,164,.66);
+  --card-warning: #e1b55a;
+  --card-danger: #d97a68;
+  --card-glow: rgba(73,214,146,.12);
+  --card-active-glow: rgba(73,214,146,.20);
+  --card-shadow: 0 0 26px rgba(73,214,146,.12);
+  --card-shadow-hover: 0 18px 42px rgba(0,0,0,.24),0 0 22px var(--card-glow),inset 0 1px 0 rgba(73,214,146,.06);
+  --card-shadow-active: 0 0 28px var(--card-active-glow),inset 0 0 24px rgba(73,214,146,.06);
+}
+.az-page.az-page .az-landing-section :is(.az-ui-card, .az-browser-frame, .eco-info, .eco-stage, .challenge-card, .ccb-card, .aw-product, .feature-floating-card, .aw-metric-card, .core-asset-node, .spot-product, .spot-float, .spot-metrics > :where(div), .monitor-preview, .analytics-main, .analytics-surface, .analytics-chart, .analytics-risk, .analytics-float, .cc-browser, .cc-kpis > :where(div), .cc-status-grid > :where(div), .cc-spend-grid > :where(div), .cc-risk-grid > :where(div), .cc-small-stats > :where(div), .cc-overview-insights > :where(div), .cc-chart-grid > :where(section), .cc-alerts) {
+  --text-primary: var(--card-text);
+  --text-secondary: var(--card-secondary);
+  --text-muted: var(--card-muted);
+  --green: var(--card-brand);
+  --green-soft: var(--card-brand-bright);
+  --cyan-accent: var(--card-brand);
+  --border: var(--card-border);
+  --bg-secondary: #0a2023;
+  --surface-highlight: rgba(73,214,146,.05);
+  --ccb-accent: var(--card-brand);
+  background: var(--card-bg);
+  border-color: var(--card-border);
+  box-shadow: var(--card-shadow);
+  color: var(--card-text);
+}
+@media (hover: hover) and (pointer: fine) {
+  .az-page.az-page .az-landing-section :is(.az-ui-card, .az-browser-frame, .eco-info, .eco-stage, .challenge-card, .ccb-card, .aw-product, .feature-floating-card, .aw-metric-card, .core-asset-node, .spot-product, .spot-float, .spot-metrics > :where(div), .monitor-preview, .analytics-main, .analytics-surface, .analytics-chart, .analytics-risk, .analytics-float, .cc-browser, .cc-kpis > :where(div), .cc-status-grid > :where(div), .cc-spend-grid > :where(div), .cc-risk-grid > :where(div), .cc-small-stats > :where(div), .cc-overview-insights > :where(div), .cc-chart-grid > :where(section), .cc-alerts):hover {
+    background: var(--card-bg-hover);
+    border-color: var(--card-border-hover);
+    box-shadow: var(--card-shadow-hover);
+  }
+}
+.az-page.az-page .az-landing-section :is(.az-ui-card, .az-browser-frame, .eco-info, .eco-stage, .challenge-card, .ccb-card, .aw-product, .feature-floating-card, .aw-metric-card, .core-asset-node, .spot-product, .spot-float, .spot-metrics > :where(div), .monitor-preview, .analytics-main, .analytics-surface, .analytics-chart, .analytics-risk, .analytics-float, .cc-browser, .cc-kpis > :where(div), .cc-status-grid > :where(div), .cc-spend-grid > :where(div), .cc-risk-grid > :where(div), .cc-small-stats > :where(div), .cc-overview-insights > :where(div), .cc-chart-grid > :where(section), .cc-alerts):focus-visible,
+.az-page.az-page .az-landing-section .eco-stage-destination {
+  background: var(--card-bg-active);
+  border-color: var(--card-border-active);
+  box-shadow: var(--card-shadow-active);
+}
+.az-page.az-page .az-landing-section :is(.az-ui-card, .az-browser-frame, .eco-info, .eco-stage, .challenge-card, .ccb-card, .aw-product, .feature-floating-card, .aw-metric-card, .core-asset-node, .spot-product, .spot-float, .spot-metrics > :where(div), .monitor-preview, .analytics-main, .analytics-surface, .analytics-chart, .analytics-risk, .analytics-float, .cc-browser, .cc-kpis > :where(div), .cc-status-grid > :where(div), .cc-spend-grid > :where(div), .cc-risk-grid > :where(div), .cc-small-stats > :where(div), .cc-overview-insights > :where(div), .cc-chart-grid > :where(section), .cc-alerts):focus-visible { outline: 2px solid var(--card-border-active); outline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) {
+  .az-page.az-page .az-landing-section .eco-stage-destination:hover {
+    background: var(--card-bg-active);
+    border-color: rgba(123,230,178,.74);
+    box-shadow: 0 0 28px rgba(73,214,146,.22),inset 0 0 24px rgba(73,214,146,.07);
+  }
+}
+.az-page .az-ui-card {
+  transition: border-color 260ms ease, box-shadow 260ms ease, background-color 260ms ease;
+}
+/* Semantic accents stay separate from the shared surface. */
+.az-page.az-page .az-landing-section :is(.cc-alerts,.ccb-card--risk) {
+  --ccb-accent: var(--card-warning);
+  border-color: rgba(225,181,90,.35);
+}
+.az-page.az-page .az-landing-section .core-change-card { border-color: rgba(217,122,104,.35); }
+.az-page.az-page .az-landing-section :is(.eco-stage,.eco-info,.challenge-card,.ccb-card,.feature-floating-card,.spot-float,.analytics-float) :is(h3,h4) { color: var(--card-text); }
+.az-page.az-page .az-landing-section :is(.eco-stage,.eco-info,.challenge-card,.ccb-card,.feature-floating-card,.spot-float,.analytics-float) p { color: var(--card-secondary); }
+.az-page.az-page .az-landing-section :is(.aw-metric-value,.core-account,.spot-float strong,.analytics-float strong,.cc-kpis strong) { color: var(--card-text); }
+.az-page.az-page .az-landing-section :is(.eco-info li,.core-card-subtitle,.spot-float > span:not(.spot-float-symbol),.analytics-float > span) { color: var(--card-secondary); }
+.az-page.az-page .az-landing-section :is(.spot-float small,.core-change-time) { color: var(--card-muted); }
+.az-page.az-page .az-landing-section :is(.eco-stage > svg,.eco-info > svg,.challenge-icon,.spot-float-symbol,.ccb-number) { color: var(--card-brand); }
+.az-page.az-page .az-landing-section :is(.core-asset-node svg,.core-bell,.aw-metric-heading svg,.analytics-float-shield) { stroke: var(--card-brand); }
+.az-page.az-page .az-landing-section .cc-alerts b { color: var(--card-warning); }
+@media (hover: hover) and (pointer: fine) {
+  .az-page.az-page .az-landing-section :is(.eco-stage,.eco-info,.challenge-card,.spot-float):hover :is(.challenge-icon,.spot-float-symbol),
+  .az-page.az-page .az-landing-section :is(.eco-stage,.eco-info):hover > svg { color: var(--card-brand-bright); }
+}
+/* Preserve existing transforms on positioned previews and floating card tilts. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .az-page.az-page .az-landing-section :is(.eco-stage,.challenge-card,.ccb-card,.feature-floating-card,.spot-support-card,.analytics-float):hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+@media (max-width: 767px) {
+  .az-page { --card-active-glow: rgba(73,214,146,.16); --card-glow: rgba(73,214,146,.10); }
+}

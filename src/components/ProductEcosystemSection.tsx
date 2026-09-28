@@ -56,10 +56,9 @@ export function ProductEcosystemSection() {
       document.removeEventListener('visibilitychange', update)
     }
   }, [])
-  return <section className="eco-section" aria-labelledby="ecosystem-heading">
+  return <section className="eco-section az-landing-section" aria-labelledby="ecosystem-heading">
     <div className="eco-inner">
       <header className="eco-header">
-        <p className="eco-eyebrow"><span aria-hidden="true" />{t('TỪ TÀI KHOẢN ĐẾN DOANH THU')}</p>
         <h2 id="ecosystem-heading" className="eco-heading">
           <span>{t('Không chỉ kiểm tra tài khoản.')}</span>
           <span><em>{t('AezCheck kết nối')}</em>{' '}{t('toàn bộ quy trình vận hành.')}</span>

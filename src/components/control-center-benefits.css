@@ -1,0 +1,59 @@
+.ccb-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.ccb-card { --ccb-accent: #7bdfba; position: relative; isolation: isolate; overflow: hidden; min-width: 0; min-height: 166px; padding: 20px; border-radius: 20px; border: 1px solid #48e6a026; background: linear-gradient(135deg,#123329dd,#0a1916ed); box-shadow: 0 10px 26px #00140e20,inset 0 1px 0 #b5fbe00d; transition: transform 260ms cubic-bezier(.22,1,.36,1),border-color 260ms ease,box-shadow 260ms ease,background-color 260ms ease; }
+.ccb-card--trend { --ccb-accent: #83d8cc; }.ccb-card--risk { --ccb-accent: #ccb789; background: radial-gradient(ellipse at 95% 5%,#bd97500b,transparent 60%),linear-gradient(135deg,#123329dd,#0a1916ed); }.ccb-card--network { --ccb-accent: #8abfb2; }
+.ccb-index { display: block; margin-bottom: 17px; font-family: ui-monospace,monospace; font-size: 11px; font-weight: 800; letter-spacing: .12em; color: #81dcb5; }
+.ccb-card h3 { position: relative; margin: 0 0 9px; font-size: 16px; line-height: 1.4; font-weight: 750; letter-spacing: -.015em; color: #e0f1e9; }
+.ccb-card p { position: relative; margin: 0; font-size: 12px; line-height: 1.6; color: #98b7a8; }
+.ccb-visual { position: absolute; pointer-events: none; z-index: -1; width: 120px; height: 54px; top: -4px; right: 6px; color: var(--ccb-accent); transition: transform 280ms ease; }
+.ccb-decoration { position: relative; width: 100%; height: 100%; stroke: currentColor; stroke-width: 1.4; opacity: .25; transition: opacity 280ms ease; }
+.ccb-ambient { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(ellipse,currentColor,transparent 70%); opacity: .07; filter: blur(8px); transition: opacity 280ms ease; }
+.ccb-secondary { opacity: .35; stroke-width: .8; }.ccb-rings circle:last-child { opacity: .35; }
+.ccb-radar-sweep { transform-origin: 80px 34px; }.ccb-ripple { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.ccb-shield { transform-box: fill-box; transform-origin: center; transition: transform 280ms ease,filter 280ms ease; }
+.ccb-trend-node,.ccb-endpoint { fill: currentColor; transform-box: fill-box; transform-origin: center; }.ccb-trend-shimmer { opacity: 0; stroke: #e0fff2; stroke-width: 2; }
+.ccb-trend-fill { opacity: .65; transition: opacity 280ms ease; }.ccb-network-halo { opacity: .25; }.ccb-node { transform-box: fill-box; transform-origin: center; }
+.ccb-connectors { opacity: .7; transition: opacity 280ms ease; }
+.ccb-live-dot,.ccb-risk-dot,.ccb-node { fill: currentColor; }.ccb-rings { opacity: .65; }.ccb-shield { stroke-width: 1.3; }.ccb-endpoint { transition: transform 260ms ease; }
+.ccb-card::before { content: ''; position: absolute; z-index: -1; inset: 0; background: #91e9c9; opacity: 0; pointer-events: none; transition: opacity 260ms ease; }
+.ccb-card::after { content: ''; position: absolute; pointer-events: none; inset-block: 0; left: -30%; width: 22%; opacity: 0; transform: skewX(-18deg); background: linear-gradient(90deg,transparent,#cbffe712,transparent); }
+.ccb-card:focus-visible { outline: 2px solid #87deb9; outline-offset: 3px; border-color: #81dfb877; box-shadow: 0 0 0 5px #7bdcb510,0 14px 28px #00140e30; }
+.ccb-card:focus-visible::before { opacity: .05; }
+@media (hover: hover) and (pointer: fine) {
+  .ccb-card:hover { transform: translateY(-6px) scale(1.01); border-color: #81dfb865; box-shadow: 0 18px 34px #00140e40,0 0 18px #64d9aa12,inset 0 1px 0 #b5fbe01c; }
+  .ccb-card:hover::before { opacity: .06; }.ccb-card:hover::after { animation: ccbSweep 700ms ease-out both; }
+  .ccb-card:hover .ccb-decoration { opacity: .4; }.ccb-card--live:hover .ccb-live-dot { animation: ccbPulse 1100ms ease-out; }
+  .ccb-card--trend:hover .ccb-trend-line { animation: ccbDraw 600ms ease-out; }.ccb-card--trend:hover .ccb-endpoint { transform: translateY(-2px); }
+  .ccb-card--risk:hover .ccb-shield { transform: scale(1.03); filter: drop-shadow(0 0 4px #ccb78950); }.ccb-card--risk:hover .ccb-risk-dot { fill: #f1d395; }
+  .ccb-card--network:hover .ccb-node { animation: ccbNode 450ms ease-out both; }.ccb-card--network:hover .ccb-node-1 { animation-delay: 80ms; }.ccb-card--network:hover .ccb-node-2 { animation-delay: 160ms; }.ccb-card--network:hover .ccb-node-3 { animation-delay: 240ms; }.ccb-card--network:hover .ccb-node-4 { animation-delay: 320ms; }
+}
+@keyframes ccbSweep { 0% { left: -30%; opacity: 0; } 15%,75% { opacity: 1; } 100% { left: 110%; opacity: 0; } }
+@media (hover: hover) and (pointer: fine) {
+  .ccb-card:hover .ccb-visual { transform: translate(-2px,-1px); }
+  .ccb-card:hover .ccb-ambient { opacity: .1; }
+  .ccb-card--live:hover .ccb-radar-sweep { animation: ccbRadar 1100ms ease-out; }
+  .ccb-card--live:hover .ccb-ripple, .ccb-card--risk:hover .ccb-ripple { animation: ccbRipple 1100ms ease-out; }
+  .ccb-card--trend:hover .ccb-trend-fill { opacity: 1; }
+  .ccb-card--trend:hover .ccb-trend-shimmer { animation: ccbShimmer 800ms ease-out; }
+  .ccb-card--trend:hover .ccb-trend-node { animation: ccbNode 500ms ease-out; }
+  .ccb-card--trend:hover .ccb-trend-node-2 { animation-delay: 100ms; }
+  .ccb-card--trend:hover .ccb-trend-node-3 { animation-delay: 180ms; }
+  .ccb-card--trend:hover .ccb-trend-node-4 { animation-delay: 260ms; }
+  .ccb-card--trend:hover .ccb-endpoint { filter: drop-shadow(0 0 3px currentColor); }
+  .ccb-card--risk:hover .ccb-risk-blink { animation: ccbBlink 700ms ease-out; }
+  .ccb-card--network:hover .ccb-connectors { opacity: 1; }
+  .ccb-card--network:hover .ccb-network-halo { animation: ccbRipple 900ms ease-out; transform-box: fill-box; transform-origin: center; }
+}
+@keyframes ccbRadar { to { transform: rotate(360deg); } }
+@keyframes ccbRipple { 0% { opacity: .6; transform: scale(.85); } 100% { opacity: 0; transform: scale(1.2); } }
+@keyframes ccbShimmer { 0% { opacity: 0; stroke-dasharray: 8 100; stroke-dashoffset: 8; } 20%,70% { opacity: .65; } 100% { opacity: 0; stroke-dasharray: 8 100; stroke-dashoffset: -100; } }
+@keyframes ccbBlink { 45% { opacity: .25; } 75% { opacity: 1; filter: drop-shadow(0 0 4px #f1d395); } }
+@keyframes ccbPulse { 50% { opacity: .5; stroke-width: 5; filter: drop-shadow(0 0 5px currentColor); } }
+@keyframes ccbDraw { from { stroke-dasharray: 100; stroke-dashoffset: 100; } to { stroke-dasharray: 100; stroke-dashoffset: 0; } }
+@keyframes ccbNode { 40% { transform: scale(1.12); fill: #dcffef; filter: drop-shadow(0 0 4px currentColor); } }
+@media (max-width: 1199px) { .ccb-grid { gap: 14px; }.ccb-card { padding: 18px; } }
+@media (max-width: 599px) { .ccb-grid { grid-template-columns: 1fr; }.ccb-card { min-height: 145px; }.ccb-card p { font-size: 15px; }.ccb-visual { width: 100px; height: 48px; }.ccb-ambient { opacity: .045; } }
+@media (hover: none), (pointer: coarse) { .ccb-card:active { border-color: #81dfb865; }.ccb-card:active::before { opacity: .04; } }
+@media (prefers-reduced-motion: reduce) {
+  .ccb-card, .ccb-card *, .ccb-card::before, .ccb-card::after { animation: none !important; transition: none !important; }
+  .ccb-card:hover, .ccb-card:hover .ccb-visual, .ccb-card:hover .ccb-shield, .ccb-card--trend:hover .ccb-endpoint { transform: none; }.ccb-card::after { display: none; }
+}

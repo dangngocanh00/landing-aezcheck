@@ -1,0 +1,60 @@
+/* One continuous canvas; no per-section backgrounds or seams. */
+.az-page { position: relative; isolation: isolate; background: #061526; }
+.az-global-background {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 40% at 20% 10%,#24dc8f52 0%,#169c762e 35%,transparent 72%),
+    radial-gradient(ellipse 65% 38% at 82% 34%,#23a0be38 0%,#1267871f 42%,transparent 75%),
+    radial-gradient(ellipse 75% 42% at 28% 68%,#1bc17933 0%,#095b4c1f 45%,transparent 76%),
+    radial-gradient(ellipse 70% 40% at 80% 88%,#22b08933,transparent 74%),
+    linear-gradient(180deg,#061526 0%,#082c32 22%,#073229 42%,#061e22 62%,#071b27 80%,#06140f 100%);
+}
+.az-page > section, .az-page > .az-section-anchor, .az-page > footer { position: relative; z-index: 2; }
+.az-page section.az-landing-section, .az-page > footer { background: transparent; }
+.az-landing-section { position: relative; isolation: isolate; }
+.az-global-background::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(#b2eedb08 1px,transparent 1px),linear-gradient(90deg,#b2eedb08 1px,transparent 1px); background-size: 110px 110px; mask-image: linear-gradient(90deg,#0008,transparent 30%,transparent 70%,#0008); }
+.az-cosmic-edges { position: absolute; inset: 0; z-index: 1; pointer-events: none; mask-image: linear-gradient(90deg,#000 0%,#000 8%,#000b 18%,transparent 35%,transparent 65%,#000b 82%,#000 92%); }
+.az-edge-beams,.az-edge-stars,.az-edge-diamonds,.az-color-bands { position: absolute; inset: 0; pointer-events: none; }
+.az-edge-beam { position: absolute; width: 600px; height: 110px; filter: blur(28px); background: linear-gradient(90deg,transparent,#ffffff0a 12%,#dcfff673 46%,#ffffff45 62%,transparent); mix-blend-mode: screen; }
+.az-edge-beam::after { content: ''; position: absolute; left: 35px; top: 120px; width: 440px; height: 36px; background: linear-gradient(90deg,transparent,#dcfff694 48%,#ffffff45 62%,transparent); opacity: .4; filter: blur(16px); }
+.az-edge-beam-0 { left: -120px; top: 180px; rotate: -24deg; opacity: .85; }
+.az-edge-beam-1 { right: -150px; top: 620px; rotate: 27deg; opacity: .7; }
+.az-edge-beam-2 { left: -180px; top: 42%; rotate: -30deg; opacity: .65; }
+.az-edge-beam-3 { right: -180px; bottom: 9%; rotate: 24deg; opacity: .65; }
+.az-color-bands { z-index: 1; mask-image: linear-gradient(90deg,#000, #0009 20%,#0002 40%,#0002 60%,#0009 80%,#000); }
+.az-color-band { position: absolute; width: min(1100px,95vw); height: 420px; border-radius: 50%; filter: blur(70px); background: radial-gradient(ellipse,#22db8e,transparent 72%); opacity: .25; }
+.az-color-band-0 { top: 3%; left: -26%; rotate: -22deg; }
+.az-color-band-1 { top: 31%; right: -25%; rotate: 24deg; background: radial-gradient(ellipse,#239ebe,transparent 72%); opacity: .22; }
+.az-color-band-2 { top: 70%; left: -22%; rotate: -18deg; background: radial-gradient(ellipse,#22b089,transparent 72%); opacity: .22; }
+.az-edge-stars i { position: absolute; width: var(--star-size); height: var(--star-size); border-radius: 50%; background: #edfff9; }
+.az-edge-diamonds i { position: absolute; width: 8px; height: 8px; background: #dcfff6; opacity: .65; filter: drop-shadow(0 0 6px #7cffd659); clip-path: polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%); }
+@media (max-width: 1199px) {
+  .az-edge-beam-1 { display: none; }
+  .az-edge-beam { width: 500px; }
+  .az-edge-stars i:nth-child(3n), .az-edge-diamonds i:nth-child(4n) { display: none; }
+  .az-color-band { width: 85vw; height: 340px; filter: blur(50px); }
+}
+@media (max-width: 599px) {
+  .az-global-background::before { display: none; }
+  .az-edge-beam-2 { display: none; }
+  .az-edge-beam { width: 420px; height: 80px; filter: blur(22px); }
+  .az-edge-beam-0 { left: -200px; }.az-edge-beam-3 { right: -220px; }
+  .az-edge-beam::after { display: none; }
+  .az-edge-stars i:nth-child(3n+1) { display: none; }
+  .az-edge-diamonds i:nth-child(n+4) { display: none; }
+  .az-color-band-1 { display: none; }.az-color-band { width: 110vw; height: 280px; filter: blur(35px); }
+}
+/* Preserve the existing light theme while keeping its sections transparent. */
+[data-theme='light'] .az-page { background: #f5faf7; }
+[data-theme='light'] .az-global-background { background: radial-gradient(ellipse 70% 40% at 15% 10%,#28b67512,transparent 75%),radial-gradient(ellipse 65% 40% at 85% 65%,#239ebe10,transparent 75%),linear-gradient(180deg,#eef8f1,#f0f8f5 45%,#f5faf7); }
+[data-theme='light'] .az-cosmic-edges,[data-theme='light'] .az-color-bands { opacity: .2; }
+/* These two sections previously relied on opaque dark slabs in both themes.
+   Their surrounding copy now follows the canvas; embedded visuals stay dark. */
+[data-theme='light'] .eco-heading > span,
+[data-theme='light'] .spot-item h2 button,
+[data-theme='light'] .spot-copy h3 { color: var(--text-primary); }
+[data-theme='light'] .eco-heading em,
+[data-theme='light'] .spot-item.is-active em { color: var(--green); text-shadow: none; }
+[data-theme='light'] .eco-description,
+[data-theme='light'] .spot-copy p,
+[data-theme='light'] .spot-copy ul { color: var(--text-secondary); }

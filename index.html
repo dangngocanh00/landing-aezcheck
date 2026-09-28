@@ -8,8 +8,12 @@
         let theme = 'dark', language = 'vi';
         try {
           if (localStorage.getItem('aezcheck-theme') === 'light') theme = 'light';
-          if (localStorage.getItem('aezcheck-language') === 'en') language = 'en';
+          const storedLanguage = localStorage.getItem('aezcheck-language');
+          if (storedLanguage === 'vi' || storedLanguage === 'en') language = storedLanguage;
+          else if (storedLanguage) language = 'en';
         } catch {}
+        const routeLocale = /^\/(vi|en|ru|th|zh)(?:\/|$)/.exec(location.pathname)?.[1];
+        if (routeLocale) language = routeLocale === 'vi' ? 'vi' : 'en';
         document.documentElement.dataset.theme = theme;
         document.documentElement.lang = language;
         document.documentElement.style.colorScheme = theme;
@@ -17,6 +21,7 @@
       })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/logo-removebg-128.png" />
     <title><!-- figma:title --></title>
     <!-- figma:head-end -->
   </head>
