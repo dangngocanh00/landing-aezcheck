@@ -27,7 +27,8 @@ export function getLegalPage(hash: string, pathname = '/'): 'terms' | 'privacy' 
   const { page } = getSiteRoute(hash, pathname)
   return page === 'terms' || page === 'privacy' ? page : null
 }
-export const landingExperienceDestination = '#contact'
+export const landingExperienceDestination = 'https://aezcheck.com'
+export const landingContactDestination = 'https://t.me/sophie_aezcheck'
 
 export const landingNavItems = [
   { label: 'Tính năng', href: '#features' },
@@ -52,5 +53,5 @@ export const landingSupportItems = [
   { label: 'Hướng dẫn sử dụng', href: '#/guide' },
   { label: 'Điều khoản dịch vụ', href: termsDestination },
   { label: 'Chính sách bảo mật', href: privacyDestination },
-  { label: 'Liên hệ', href: landingExperienceDestination },
+  { label: 'Liên hệ', href: landingContactDestination },
 ]

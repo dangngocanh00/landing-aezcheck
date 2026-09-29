@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Brand } from './Brand'
 import { supportedLocales, localeNames } from '../i18n/locales'
 import { useHeroMotion } from './useHeroMotion'
-import { landingHome, landingNavItems, landingExperienceDestination, pricingDestination, getHeaderActiveNav, getSiteRoute, localizedHref } from '../landing-navigation'
+import { landingHome, landingNavItems, landingExperienceDestination, landingContactDestination, pricingDestination, getHeaderActiveNav, getSiteRoute, localizedHref } from '../landing-navigation'
 
 function ContactArrow() {
   return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -124,7 +124,7 @@ export function Navbar() {
         <div className="az-navbar-desktop">
           <div className="az-nav-links">{navigation}</div>
           <div className="az-nav-actions">
-            <a href={destination('#contact')} className="az-contact">{translate("Liên hệ")}<ContactArrow /></a>
+            <a href={landingContactDestination} target="_blank" rel="noopener noreferrer" className="az-contact">{translate("Liên hệ")}<ContactArrow /></a>
             <NavbarUtilities />
           </div>
         </div>
@@ -134,7 +134,7 @@ export function Navbar() {
       </div>
       <div id="mobile-navigation" hidden={!open} className="az-mobile-navigation">
         <div className="az-mobile-links">{navigation}</div>
-        <a href={destination('#contact')} className="az-contact" onClick={() => setOpen(false)}>{translate("Liên hệ")}<ContactArrow /></a>
+        <a href={landingContactDestination} target="_blank" rel="noopener noreferrer" className="az-contact" onClick={() => setOpen(false)}>{translate("Liên hệ")}<ContactArrow /></a>
         <div className="az-mobile-utilities">{open && <NavbarUtilities />}</div>
       </div>
     </nav>

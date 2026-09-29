@@ -1,7 +1,7 @@
 ﻿import { useLanguage } from '../i18n/LanguageContext'
 import { footerSupportCopy } from '../i18n/footer-support'
 import { termsCopy } from '../i18n/terms'
-import { landingExperienceDestination, privacyDestination, termsDestination, localizedHref } from '../landing-navigation'
+import { landingContactDestination, privacyDestination, termsDestination, localizedHref } from '../landing-navigation'
 import { LegalPageLayout } from './LegalPageLayout'
 
 export function TermsPage() {
@@ -18,7 +18,7 @@ export function TermsPage() {
       <p>{section.body}</p>
       {index === 4 && <p>{copy.limits}</p>}
       {index === 5 && <a className="legal-link" href={localizedHref(privacyDestination, locale)}>{copy.privacyLink} →</a>}
-      {index === 10 && <a className="legal-link" href={localizedHref(landingExperienceDestination, locale)}>{copy.contactLink} →</a>}
+      {index === 10 && <a className="legal-link" href={landingContactDestination} target="_blank" rel="noopener noreferrer">{copy.contactLink} →</a>}
     </section>)}
   </LegalPageLayout>
 }

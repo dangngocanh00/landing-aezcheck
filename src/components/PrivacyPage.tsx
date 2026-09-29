@@ -1,6 +1,6 @@
 import { useLanguage } from '../i18n/LanguageContext'
 import { privacyCopy, privacySlugs } from '../i18n/privacy'
-import { landingExperienceDestination, privacyDestination, termsDestination, localizedHref } from '../landing-navigation'
+import { landingContactDestination, privacyDestination, termsDestination, localizedHref } from '../landing-navigation'
 import { LegalPageLayout } from './LegalPageLayout'
 
 export function PrivacyPage() {
@@ -19,7 +19,7 @@ export function PrivacyPage() {
           {paragraphs.map((paragraph, paragraphIndex) => index === 1 ? <div className="legal-data-group" key={paragraphIndex}>
             <h3>{paragraph.split(' — ')[0]}</h3><p>{paragraph.split(' — ')[1]}</p>
           </div> : <p key={paragraphIndex}>{paragraph}</p>)}
-          {(index === 3 || index === 13) && <a className="legal-link" href={localizedHref(landingExperienceDestination, locale)}>{copy.contact} <span aria-hidden="true">→</span></a>}
+          {(index === 3 || index === 13) && <a className="legal-link" href={landingContactDestination} target="_blank" rel="noopener noreferrer">{copy.contact} <span aria-hidden="true">→</span></a>}
           {index === 0 && <a className="legal-link" href={localizedHref(termsDestination, locale)}>{copy.terms} <span aria-hidden="true">→</span></a>}
         </section>
       })}

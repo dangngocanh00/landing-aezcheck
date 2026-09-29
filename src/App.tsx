@@ -13,7 +13,7 @@ import { Navbar, Hero } from './components/LandingOpening'
 import { Brand } from './components/Brand'
 import { AdsManagementPreview } from './components/AdsManagementPreview'
 import { ShieldIllustration } from './components/ShieldIllustration'
-import { landingFooterItems, landingSupportItems, landingNavItems, getLegalPage, getSiteRoute, localizedHref } from './landing-navigation'
+import { landingFooterItems, landingSupportItems, landingNavItems, landingExperienceDestination, landingContactDestination, getLegalPage, getSiteRoute, localizedHref } from './landing-navigation'
 import { TermsPage } from './components/TermsPage'
 import { PrivacyPage } from './components/PrivacyPage'
 import { footerSupportCopy } from './i18n/footer-support'
@@ -621,7 +621,7 @@ function FinalCTA() {
         </h2>
         <p className="mt-6 text-az-muted text-lg max-w-lg mx-auto leading-relaxed">{translate("Hơn 500 team đang dùng AezCheck để kiểm soát quảng cáo Meta hiệu quả hơn mỗi ngày.")}</p>
         <div className="mt-10 flex flex-wrap gap-4 justify-center">
-          <Btn className="text-base px-8 py-3.5">{translate("Bắt đầu trải nghiệm")}</Btn>
+          <Btn href={landingExperienceDestination} className="text-base px-8 py-3.5">{translate("Bắt đầu trải nghiệm")}</Btn>
           <Btn href={localizedHref(featuresDestination, locale)} variant="outline" className="text-base px-8 py-3.5">{translate("Khám phá tính năng →")}</Btn>
         </div>
       </Container>
@@ -662,6 +662,8 @@ function Footer() {
                 <a
                   key={l.label}
                   href={localizedHref(l.href, locale)}
+                  target={l.href === landingContactDestination ? '_blank' : undefined}
+                  rel={l.href === landingContactDestination ? 'noopener noreferrer' : undefined}
                   className="flex items-center min-h-11 text-az-muted text-sm hover:text-az-text transition-colors"
                 >
                   {col.title === 'Hỗ trợ' ? supportText(l.label) : translate(l.label)}
