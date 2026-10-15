@@ -1,3 +1,4 @@
+import { localizeNode, translateText } from '../../i18n/localize'
 import logo from '../../../assets/logo-removebg-640.png'
 import { PricingIcon } from './PricingIcon'
 
@@ -12,7 +13,7 @@ export function DecorativeLogoScene() {
     </svg>
     <div className="pricing-pedestal"><span /></div>
     <div className="pricing-logo-glass">
-      <img src={logo} alt="AezCheck" />
+      <img src={logo} alt={translateText("AezCheck")} />
     </div>
     <div className="pricing-mini pricing-mini--chart"><PricingIcon name="chart" /><span /><span /></div>
     <div className="pricing-mini pricing-mini--shield"><PricingIcon name="shield" /></div>

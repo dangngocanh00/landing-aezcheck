@@ -5,10 +5,10 @@
   "buildCommand": "node scripts/check-toolchain.mjs && corepack pnpm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/:locale(vi|en|ru|th|zh)", "destination": "/index.html" },
-    { "source": "/:locale(vi|en|ru|th|zh)/", "destination": "/index.html" },
-    { "source": "/:locale(vi|en|ru|th|zh)/:page(pricing|guide|terms|privacy)", "destination": "/index.html" },
-    { "source": "/:locale(vi|en|ru|th|zh)/:page(pricing|guide|terms|privacy)/", "destination": "/index.html" },
+    { "source": "/:locale(vi|en|ru|th|zh|lo)", "destination": "/index.html" },
+    { "source": "/:locale(vi|en|ru|th|zh|lo)/", "destination": "/index.html" },
+    { "source": "/:locale(vi|en|ru|th|zh|lo)/:page(pricing|guide|terms|privacy)", "destination": "/index.html" },
+    { "source": "/:locale(vi|en|ru|th|zh|lo)/:page(pricing|guide|terms|privacy)/", "destination": "/index.html" },
     { "source": "/:page(pricing|guide|terms|privacy)", "destination": "/index.html" },
     { "source": "/:page(pricing|guide|terms|privacy)/", "destination": "/index.html" }
   ]

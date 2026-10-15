@@ -1,3 +1,4 @@
+import { localizeNode, translateText } from '../../i18n/localize'
 ﻿import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import type { GuideImage } from './GuideFigure'
@@ -14,8 +15,8 @@ export function GuideLightbox({ image, onClose }: { image: GuideImage; onClose: 
     modal?.showModal()
     return () => { modal?.close(); document.body.style.overflow = overflow; previousFocus?.focus({ preventScroll: true }) }
   }, [])
-  return createPortal(<dialog ref={dialog} className="guide-lightbox" aria-label={labels.image} onCancel={event => { event.preventDefault(); onClose() }} onClick={event => { if (event.target === event.currentTarget) onClose() }}>
-    <button className="guide-lightbox-close" onClick={onClose} aria-label={labels.close}>×</button>
-    <img src={image.src} alt={image.alt} />
+  return createPortal(<dialog ref={dialog} className="guide-lightbox" aria-label={translateText(labels.image)} onCancel={event => { event.preventDefault(); onClose() }} onClick={event => { if (event.target === event.currentTarget) onClose() }}>
+    <button className="guide-lightbox-close" onClick={onClose} aria-label={translateText(labels.close)}>{localizeNode("×")}</button>
+    <img src={image.src} alt={translateText(image.alt)} />
   </dialog>, document.body)
 }

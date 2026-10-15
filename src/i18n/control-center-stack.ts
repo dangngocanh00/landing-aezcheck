@@ -1,3 +1,4 @@
+import { withLocales } from './localize'
 import type { Locale } from './LanguageContext'
 
 type StackCopy = {
@@ -7,7 +8,7 @@ type StackCopy = {
   risks: string[]; riskValues: string[]; billing: string; spendLabels: string[]; cardLabels: string[];
   progress: string; classified: string; other: string;
 }
-export const controlCenterStackCopy: Record<Locale, StackCopy> = {
+export const controlCenterStackCopy: Record<Locale, StackCopy> = withLocales({
   vi: {
     navigation: 'Góc nhìn trung tâm điều hành', views: ['Tổng quan', 'Phân tích', 'Chi tiêu'],
     titles: ['Tổng quan hệ thống', 'Xu hướng & phân tích trạng thái', 'Chi tiêu & thanh toán'], open: 'Xem {view}',
@@ -28,4 +29,4 @@ export const controlCenterStackCopy: Record<Locale, StackCopy> = {
     billing: 'Spend statistics', spendLabels: ['Ad spend', 'Total invoiced', 'Total balance', 'Payment due'],
     cardLabels: ['Connected cards', 'Actual balance', 'Near threshold', 'Accounts due soon'], progress: 'Invoices paid', classified: 'Accounts', other: 'Other',
   },
-}
+})

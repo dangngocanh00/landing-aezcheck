@@ -1,7 +1,9 @@
+import { localizeNode, translateText } from '../i18n/localize'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useEffect, useRef, useState } from 'react'
 import { Brand } from './Brand'
-import { supportedLocales, localeNames } from '../i18n/locales'
+import { LanguageFlag } from './LanguageFlag'
+import { supportedLocales, localizedLocaleNames } from '../i18n/locales'
 import { useHeroMotion } from './useHeroMotion'
 import { landingHome, landingNavItems, landingExperienceDestination, landingContactDestination, pricingDestination, getHeaderActiveNav, getSiteRoute, localizedHref } from '../landing-navigation'
 
@@ -11,6 +13,7 @@ function ContactArrow() {
 
 function NavbarUtilities() {
   const { t: translate, locale: language, setLanguage } = useLanguage()
+  const names = localizedLocaleNames[language]
   const [languageOpen, setLanguageOpen] = useState(false)
   const selector = useRef<HTMLDivElement>(null)
   const trigger = useRef<HTMLButtonElement>(null)
@@ -40,16 +43,14 @@ function NavbarUtilities() {
           options[next]?.focus()
         }
       }}>
-        <button ref={trigger} type="button" className="az-language-button" aria-label={`${language.toUpperCase()} — ${translate('Chọn ngôn ngữ')}`} aria-haspopup="menu" aria-expanded={languageOpen} onClick={() => setLanguageOpen(!languageOpen)}>
-          {language.toUpperCase()}<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="m5 7.5 5 5 5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        <button ref={trigger} type="button" className="az-language-button" title={names[language]} aria-label={`${names[language]} — ${translate('Chọn ngôn ngữ')}`} aria-haspopup="menu" aria-expanded={languageOpen} onClick={() => setLanguageOpen(!languageOpen)}>
+          <LanguageFlag locale={language} /><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="m5 7.5 5 5 5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
-        {languageOpen && <div className="az-language-menu" role="menu" aria-label={translate('Chọn ngôn ngữ')}>
-          {supportedLocales.map((locale) => <button key={locale} type="button" role="menuitemradio" aria-checked={language === locale} lang={locale} onClick={() => {
+        {localizeNode(languageOpen && <div className="az-language-menu" role="menu" aria-label={translateText(translate('Chọn ngôn ngữ'))}>
+          {localizeNode(supportedLocales.map((locale) => <button key={locale} type="button" role="menuitemradio" aria-checked={language === locale} lang={language} onClick={() => {
             setLanguage(locale); setLanguageOpen(false); trigger.current?.focus()
-          }}><span><svg width="18" height="12" viewBox="0 0 30 20" aria-hidden="true" style={{ display: 'inline-block', marginRight: 8, verticalAlign: 'middle' }}>
-            {locale === 'en' ? <><rect width="30" height="20" fill="white" /><path d="M12 0h6v20h-6zM0 7h30v6H0z" fill="#CE1124" /></> : <><rect width="30" height="20" fill="#DA251D" /><path d="m15 3 1.6 4.9h5.2l-4.2 3 1.6 4.9-4.2-3-4.2 3 1.6-4.9-4.2-3h5.2z" fill="#FFDF00" /></>}
-          </svg>{localeNames[locale]}</span><span aria-hidden="true">{language === locale ? '✓' : ''}</span></button>)}
-        </div>}
+          }}><span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}><LanguageFlag locale={locale} />{names[locale]}</span><span aria-hidden="true">{localizeNode(language === locale ? '✓' : '')}</span></button>))}
+        </div>)}
       </div>
     </div>
   )
@@ -109,33 +110,33 @@ export function Navbar() {
   const navigation = landingNavItems.map(({ label, href }) => (
     <a key={label} href={destination(href)} className="az-nav-link" aria-current={active === label ? (href === pricingDestination ? 'page' : 'location') : undefined} onClick={() => {
       setOpen(false)
-    }}>{translate(label)}</a>
+    }}>{localizeNode(translate(label))}</a>
   ))
 
   return (
-    <nav className="az-navbar" aria-label={translate("Điều hướng chính")} onKeyDown={(event) => {
+    <nav className="az-navbar" aria-label={translateText(translate("Điều hướng chính"))} onKeyDown={(event) => {
       if (event.key === 'Escape' && open) {
         setOpen(false)
         document.getElementById('mobile-menu-toggle')?.focus()
       }
     }}>
       <div className="az-navbar-inner">
-        <a href={destination(landingHome.href)} className="az-navbar-brand" onClick={() => setOpen(false)} aria-label={translate("AezCheck — Trang chủ")}><Brand /></a>
+        <a href={destination(landingHome.href)} className="az-navbar-brand" onClick={() => setOpen(false)} aria-label={translateText(translate("AezCheck — Trang chủ"))}><Brand /></a>
         <div className="az-navbar-desktop">
-          <div className="az-nav-links">{navigation}</div>
+          <div className="az-nav-links">{localizeNode(navigation)}</div>
           <div className="az-nav-actions">
-            <a href={landingContactDestination} target="_blank" rel="noopener noreferrer" className="az-contact">{translate("Liên hệ")}<ContactArrow /></a>
+            <a href={landingContactDestination} target="_blank" rel="noopener noreferrer" className="az-contact">{localizeNode(translate("Liên hệ"))}<ContactArrow /></a>
             <NavbarUtilities />
           </div>
         </div>
-        <button id="mobile-menu-toggle" type="button" className="az-menu-toggle" aria-label={translate(open ? 'Đóng menu' : 'Mở menu')} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>
+        <button id="mobile-menu-toggle" type="button" className="az-menu-toggle" aria-label={translateText(translate(open ? 'Đóng menu' : 'Mở menu'))} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>
           <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeWidth="1.5" d={open ? 'M6 18L18 6M6 6l12 12' : 'M4 7h16M4 12h16M4 17h16'} /></svg>
         </button>
       </div>
       <div id="mobile-navigation" hidden={!open} className="az-mobile-navigation">
-        <div className="az-mobile-links">{navigation}</div>
-        <a href={landingContactDestination} target="_blank" rel="noopener noreferrer" className="az-contact" onClick={() => setOpen(false)}>{translate("Liên hệ")}<ContactArrow /></a>
-        <div className="az-mobile-utilities">{open && <NavbarUtilities />}</div>
+        <div className="az-mobile-links">{localizeNode(navigation)}</div>
+        <a href={landingContactDestination} target="_blank" rel="noopener noreferrer" className="az-contact" onClick={() => setOpen(false)}>{localizeNode(translate("Liên hệ"))}<ContactArrow /></a>
+        <div className="az-mobile-utilities">{localizeNode(open && <NavbarUtilities />)}</div>
       </div>
     </nav>
   )
@@ -229,27 +230,27 @@ export function Hero() {
           <span className="az-sign-spark-track" aria-hidden="true"><span className="az-sign-spark" /></span>
           <span className="az-sign-sweep-track" aria-hidden="true"><span className="az-sign-sweep" /></span>
           <span className="az-product-name az-sign-content">
-            <span className="az-product-brand"><span className="az-product-aez">AEZ</span><span className="az-product-check">CHECK</span></span>
-            {' '}<span className="az-product-pro"><span className="az-product-pro-text">PRO</span></span>
+            <span className="az-product-brand"><span className="az-product-aez">{localizeNode("AEZ")}</span><span className="az-product-check">{localizeNode("CHECK")}</span></span>
+            {localizeNode(' ')}<span className="az-product-pro"><span className="az-product-pro-text">{localizeNode("PRO")}</span></span>
           </span>
         </div>
         </div>
         <div className="az-hero-text-motion">
         <h1 id="hero-heading" className="az-hero-heading">
-          <span className="az-hero-heading-intro">{translate("KIỂM SOÁT TOÀN BỘ")}</span>{' '}
-          <span className="az-hero-heading-main">{translate("HỆ THỐNG QUẢNG CÁO")}</span>
+          <span className="az-hero-heading-intro">{localizeNode(translate("KIỂM SOÁT TOÀN BỘ"))}</span>{localizeNode(' ')}
+          <span className="az-hero-heading-main">{localizeNode(translate("HỆ THỐNG QUẢNG CÁO"))}</span>
         </h1>
         <p className="az-hero-assets">
-          {['VIA', 'BM', 'TKQC', 'Fanpage', 'Campaign', 'Ads'].map((asset, index) => (
+          {localizeNode(['VIA', 'BM', 'TKQC', 'Fanpage', 'Campaign', 'Ads'].map((asset, index) => (
             <span className="inline-block whitespace-nowrap" key={asset}>
-              {translate(asset)}{index < 5 && <>{' '}<span className="az-hero-asset-dot">·</span>{' '}</>}
+              {localizeNode(translate(asset))}{localizeNode(index < 5 && <>{localizeNode(' ')}<span className="az-hero-asset-dot">{localizeNode("·")}</span>{localizeNode(' ')}</>)}
             </span>
-          ))}
+          )))}
         </p>
-        <p className="az-hero-description">{translate("Tất cả được quản lý trên một nền tảng duy nhất.")}</p>
+        <p className="az-hero-description">{localizeNode(translate("Tất cả được quản lý trên một nền tảng duy nhất."))}</p>
         </div>
         <div className="az-hero-actions">
-          <a href={landingExperienceDestination} className="az-hero-button az-hero-primary">{translate("BẮT ĐẦU TRẢI NGHIỆM")}<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
+          <a href={landingExperienceDestination} className="az-hero-button az-hero-primary">{localizeNode(translate("BẮT ĐẦU TRẢI NGHIỆM"))}<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg></a>
         </div>
       </div>
     </section>

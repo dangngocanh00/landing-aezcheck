@@ -1,3 +1,4 @@
+import { localizeNode, translateText } from '../i18n/localize'
 import { useCallback, useEffect, useRef, useState, type MouseEvent } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 import { getGuideContent } from '../content/guide'
@@ -58,9 +59,9 @@ export function GuidePage() {
   return <main ref={page} className="guide-page" lang={content.locale} aria-labelledby="guide-title">
     <GuideToc content={content} destination={guideDestination(locale)} active={active} onNavigate={onNavigate} />
     <article className="guide-article">
-      <header className="guide-intro"><h1 id="guide-title">{content.title}</h1><GuideBlocks blocks={content.intro} title={content.title} onImage={setImage} /></header>
-      {content.modules.map(module => <GuideSection key={module.id} module={module} onImage={setImage} />)}
+      <header className="guide-intro"><h1 id="guide-title">{localizeNode(content.title)}</h1><GuideBlocks blocks={content.intro} title={translateText(content.title)} onImage={setImage} /></header>
+      {localizeNode(content.modules.map(module => <GuideSection key={module.id} module={module} onImage={setImage} />))}
     </article>
-    {image && <GuideLightbox image={image} onClose={closeImage} />}
+    {localizeNode(image && <GuideLightbox image={image} onClose={closeImage} />)}
   </main>
 }

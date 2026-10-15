@@ -1,3 +1,4 @@
+import { localizeNode, translateText } from '../i18n/localize'
 import { useEffect, useId, useRef, useState, type CSSProperties } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 import { Brand } from './Brand'
@@ -47,47 +48,47 @@ export function ChallengeSection() {
     <div className="challenge-inner">
       <header className="challenge-header">
         <h2 id="challenge-heading">
-          <span>{t('Quản lý quảng cáo càng nhiều,')}</span>
-          <span>{t('mọi thứ càng dễ mất kiểm soát.')}</span>
+          <span>{localizeNode(t('Quản lý quảng cáo càng nhiều,'))}</span>
+          <span>{localizeNode(t('mọi thứ càng dễ mất kiểm soát.'))}</span>
         </h2>
       </header>
       <ol className="challenge-journey">
-        {PAINS.map((pain, index) => <li key={pain.title} style={{ '--step': index } as CSSProperties}>
-          <span className="challenge-number" aria-hidden="true">0{index + 1}<span className="challenge-number-wave">0{index + 1}</span></span>
+        {localizeNode(PAINS.map((pain, index) => <li key={pain.title} style={{ '--step': index } as CSSProperties}>
+          <span className="challenge-number" aria-hidden="true">{localizeNode("0")}{localizeNode(index + 1)}<span className="challenge-number-wave">{localizeNode("0")}{localizeNode(index + 1)}</span></span>
           <article className="challenge-card" tabIndex={0} aria-labelledby={`challenge-title-${index}`}>
             <span className="challenge-icon" aria-hidden="true">
-              {pain.icon}
+              {localizeNode(pain.icon)}
               <svg className="challenge-icon-wave" viewBox="0 0 24 24" fill="none" stroke={`url(#${gradientId}-icon-${index})`}>
                 <defs><linearGradient id={`${gradientId}-icon-${index}`} x1="0" y1="0" x2="1" y2="0">
                   <stop stopColor="#49d692" /><stop offset=".5" stopColor="#48e098" /><stop offset="1" stopColor="#8ef0c0" />
                 </linearGradient></defs>
-                {pain.icon.props.children}
+                {localizeNode(pain.icon.props.children)}
               </svg>
             </span>
-            <h3 id={`challenge-title-${index}`}>{t(pain.title)}</h3>
-            <p>{t(pain.desc)}</p>
+            <h3 id={`challenge-title-${index}`}>{localizeNode(t(pain.title))}</h3>
+            <p>{localizeNode(t(pain.desc))}</p>
           </article>
-          {index < PAINS.length - 1 && <span className="challenge-connector" aria-hidden="true"><i /></span>}
-        </li>)}
+          {localizeNode(index < PAINS.length - 1 && <span className="challenge-connector" aria-hidden="true"><i /></span>)}
+        </li>))}
       </ol>
       <div ref={convergenceRef} className="challenge-convergence" data-entered="false" data-active-asset={activeAsset !== null} data-logo-active={logoActive}>
         <ul className="challenge-assets">
-          {assets.map((asset, index) => <li key={asset} style={{ '--step': index } as CSSProperties}>
+          {localizeNode(assets.map((asset, index) => <li key={asset} style={{ '--step': index } as CSSProperties}>
             <span tabIndex={0} className={`challenge-asset ${activeAsset === index ? 'is-active' : ''}`}
               onPointerEnter={event => { if (event.pointerType === 'mouse') setHoveredAsset(index) }}
               onPointerLeave={() => setHoveredAsset(null)} onFocus={() => setFocusedAsset(index)} onBlur={() => setFocusedAsset(null)}>
-              {t(asset)}
+              {localizeNode(t(asset))}
             </span>
-          </li>)}
+          </li>))}
         </ul>
         <svg className="challenge-streams" viewBox="0 0 1000 150" preserveAspectRatio="none" fill="none" aria-hidden="true">
           <defs><linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="150" gradientUnits="userSpaceOnUse">
             <stop stopColor="#609d8c" stopOpacity=".5" /><stop offset="1" stopColor="#4fe39a" stopOpacity=".7" />
           </linearGradient></defs>
-          {streams.map((path, index) => <g key={path} className={activeAsset === index ? 'is-active' : ''} style={{ '--step': index } as CSSProperties} stroke={`url(#${gradientId})`}>
+          {localizeNode(streams.map((path, index) => <g key={path} className={activeAsset === index ? 'is-active' : ''} style={{ '--step': index } as CSSProperties} stroke={`url(#${gradientId})`}>
             <path className="challenge-stream" d={path} />
             <path className="challenge-asset-dot" d={path} pathLength="100" />
-          </g>)}
+          </g>))}
           <path d="m494 136 6 7 6-7" stroke="#4fe39a" strokeOpacity=".65" />
         </svg>
         <div className="challenge-solution" tabIndex={0}
@@ -97,7 +98,7 @@ export function ChallengeSection() {
           <span key={activeAsset ?? 'idle'} className={`challenge-solution-glow ${activeAsset !== null ? 'is-active' : ''}`} aria-hidden="true" />
           <Brand />
         </div>
-        <p className="challenge-control-caption">{t('Quản lý tài sản tập trung')}</p>
+        <p className="challenge-control-caption">{localizeNode(t('Quản lý tài sản tập trung'))}</p>
       </div>
     </div>
   </section>

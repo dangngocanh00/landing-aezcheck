@@ -1,4 +1,5 @@
 import type { AppLocale } from './locales'
+import { withLocales } from './localize'
 
 // Vietnamese source keys integrate with the existing t(text) API. Product names stay invariant.
 const entries: Record<string, string> = {
@@ -37,5 +38,5 @@ const entries: Record<string, string> = {
 }
 
 export const pricingTranslations: Record<string, Record<AppLocale, string>> = Object.fromEntries(
-  Object.entries(entries).map(([vi, en]) => [vi, { vi, en }]),
+  Object.entries(entries).map(([vi, en]) => [vi, withLocales({ vi, en })]),
 )

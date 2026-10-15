@@ -1,3 +1,4 @@
+import { localizeNode, translateText } from '../i18n/localize'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import './legal-page.css'
 
@@ -57,10 +58,10 @@ export function LegalPageLayout({ pageId, locale, destination, tocLabel, items, 
   return <main ref={page} id={pageId} lang={locale} aria-labelledby={`${pageId}-heading`} className="legal-page">
     <aside className="legal-sidebar">
       <details className="legal-toc" open={tocOpen} onToggle={event => setTocOpen(event.currentTarget.open)}>
-        <summary>{tocLabel}<span aria-hidden="true">⌄</span></summary>
-        <nav aria-label={tocLabel}>
-          <h2>{tocLabel}</h2>
-          <ol>{items.map(item => <li key={item.id}><a href={`${destination}#${item.id}`} aria-current={active === item.id ? 'location' : undefined} onClick={event => {
+        <summary>{localizeNode(tocLabel)}<span aria-hidden="true">{localizeNode("⌄")}</span></summary>
+        <nav aria-label={translateText(tocLabel)}>
+          <h2>{localizeNode(tocLabel)}</h2>
+          <ol>{localizeNode(items.map(item => <li key={item.id}><a href={`${destination}#${item.id}`} aria-current={active === item.id ? 'location' : undefined} onClick={event => {
             if (!window.matchMedia('(min-width: 960px)').matches) setTocOpen(false)
             if (`${window.location.pathname}${window.location.hash}` === `${destination}#${item.id}`) {
               event.preventDefault()
@@ -70,10 +71,10 @@ export function LegalPageLayout({ pageId, locale, destination, tocLabel, items, 
                 target?.focus({ preventScroll: true })
               })
             }
-          }}>{item.title}</a></li>)}</ol>
+          }}>{localizeNode(item.title)}</a></li>))}</ol>
         </nav>
       </details>
     </aside>
-    <article className="legal-article">{children}</article>
+    <article className="legal-article">{localizeNode(children)}</article>
   </main>
 }

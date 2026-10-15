@@ -1,3 +1,4 @@
+import { withLocales } from './localize'
 import type { Locale } from './LanguageContext'
 
 type MonitoringCopy = {
@@ -5,7 +6,7 @@ type MonitoringCopy = {
   columns: string[]; enabled: string; disabled: string; statuses: Record<'active' | 'attention', string>;
   permissions: Record<'bill' | 'spend' | 'via' | 'bm', string>; remaining: string; summary: string; sample: string; id: string; uid: string;
 }
-export const monitoringPreviewCopy: Record<Locale, MonitoringCopy> = {
+export const monitoringPreviewCopy: Record<Locale, MonitoringCopy> = withLocales({
   vi: {
     title: 'Giám sát tài sản', subtitle: 'Theo dõi trạng thái VIA, token và quyền chạy quảng cáo',
     tabs: ['VIA', 'Tài khoản quảng cáo', 'BM', 'Fanpage'],
@@ -24,4 +25,4 @@ export const monitoringPreviewCopy: Record<Locale, MonitoringCopy> = {
     permissions: { bill: 'Check bill', spend: 'Check spend', via: 'Check VIA account', bm: 'Check BM account' },
     remaining: '{days} days left', summary: '4 sample VIAs', sample: 'Illustrative data', id: 'ID', uid: 'UID',
   },
-}
+})

@@ -1,3 +1,4 @@
+import { normalizeLocale } from './i18n/locales'
 export const landingHome = { label: 'Trang chủ', href: '#hero' }
 export const pricingDestination = '#/pricing'
 export const termsDestination = '#/terms'
@@ -6,13 +7,11 @@ export type SitePage = 'home' | 'guide' | 'terms' | 'privacy' | 'pricing'
 export function getSiteRoute(hash: string, pathname = '/') {
   const route = hash.startsWith('#/') ? hash.split('#')[1] : pathname
   const anchor = hash.startsWith('#/') ? hash.split('#')[2] ?? '' : hash.slice(1)
-  // Removed locales are accepted only as legacy input and normalized to English.
-  const match = /^\/(?:(vi|en|ru|th|zh)(?:\/|$))?(guide|terms|privacy|pricing)?\/?$/.exec(route ?? '')
-  const oldPrefix = /^\/(ru|th|zh)(?:\/|$)/.test(route ?? '')
-  const prefix = /^\/(vi|en|ru|th|zh)(?:\/|$)/.exec(route ?? '')?.[1]
-  return { found: Boolean(match), page: (match?.[2] ?? 'home') as SitePage, locale: prefix ? (prefix === 'vi' ? 'vi' : 'en') : oldPrefix ? 'en' : null, anchor }
+  const match = /^\/(?:(vi|en|ru|th|zh|lo)(?:\/|$))?(guide|terms|privacy|pricing)?\/?$/.exec(route ?? '')
+  const prefix = /^\/(vi|en|ru|th|zh|lo)(?:\/|$)/.exec(route ?? '')?.[1]
+  return { found: Boolean(match), page: (match?.[2] ?? 'home') as SitePage, locale: prefix ? normalizeLocale(prefix) : null, anchor }
 }
-export const siteDestination = (locale: string, page: SitePage = 'home', anchor = '') => `/${locale === 'vi' ? 'vi' : 'en'}${page === 'home' ? '/' : `/${page}`}${anchor ? `#${anchor}` : ''}`
+export const siteDestination = (locale: string, page: SitePage = 'home', anchor = '') => `/${normalizeLocale(locale)}${page === 'home' ? '/' : `/${page}`}${anchor ? `#${anchor}` : ''}`
 export function localizedHref(href: string, locale: string) {
   if (!href.startsWith('#')) return href
   const route = getSiteRoute(href)
@@ -22,7 +21,7 @@ export function getGuideRoute(hash: string, pathname = '/') {
   const route = getSiteRoute(hash, pathname)
   return route.page === 'guide' ? route : null
 }
-export const guideDestination = (locale: string) => `/${locale === 'vi' ? 'vi' : 'en'}/guide`
+export const guideDestination = (locale: string) => siteDestination(locale, 'guide')
 export function getLegalPage(hash: string, pathname = '/'): 'terms' | 'privacy' | null {
   const { page } = getSiteRoute(hash, pathname)
   return page === 'terms' || page === 'privacy' ? page : null

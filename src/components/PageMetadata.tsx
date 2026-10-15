@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import type { SitePage } from '../landing-navigation'
 import logo from '../../assets/logo-removebg-128.png'
+import { translateText } from '../i18n/localize'
 
 const titles: Record<SitePage, [string, string]> = {
   home: ['AezCheck — Nền tảng vận hành quảng cáo Meta', 'AezCheck — Meta ad operations platform'],
@@ -12,7 +13,7 @@ const titles: Record<SitePage, [string, string]> = {
 
 export function PageMetadata({ page, locale, found }: { page: SitePage; locale: string; found: boolean }) {
   useEffect(() => {
-    const title = found ? titles[page][locale === 'vi' ? 0 : 1] : locale === 'vi' ? 'Không tìm thấy trang — AezCheck' : 'Page not found — AezCheck'
+    const title = translateText(found ? titles[page][locale === 'vi' ? 0 : 1] : locale === 'vi' ? 'Không tìm thấy trang — AezCheck' : 'Page not found — AezCheck', locale)
     document.title = title
     const meta = (attribute: 'name' | 'property', key: string, value: string) => {
       let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`)
@@ -20,6 +21,7 @@ export function PageMetadata({ page, locale, found }: { page: SitePage; locale: 
       element.content = value
     }
     meta('property', 'og:title', title)
+    meta('property', 'og:locale', ({ vi: 'vi_VN', en: 'en_US', ru: 'ru_RU', zh: 'zh_CN', th: 'th_TH', lo: 'lo_LA' } as Record<string, string>)[locale] ?? 'en_US')
     // Reuse visible page copy; do not invent commercial or legal claims.
     const description = () => {
       const selector = page === 'home' ? '.az-hero-description' : page === 'pricing' ? '.pricing-description' : page === 'guide' ? '.guide-page > article p' : '.legal-page article p'

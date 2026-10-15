@@ -1,3 +1,4 @@
+import { withLocales } from './localize'
 import type { Locale } from './LanguageContext'
 
 type AnalyticsCopy = {
@@ -9,7 +10,7 @@ type AnalyticsCopy = {
   floatingTrendTitle: string; stable: string; floatingTrendCaption: string; zeroWarnings: string; floatingRiskCaption: string;
 }
 
-export const analyticsPreviewCopy: Record<Locale, AnalyticsCopy> = {
+export const analyticsPreviewCopy: Record<Locale, AnalyticsCopy> = withLocales({
   vi: {
     title: 'Báo cáo & phân tích', subtitle: 'Theo dõi toàn cảnh tài sản, trạng thái TKQC và tín hiệu rủi ro theo thời gian thực',
     sample: 'MINH HỌA • DỮ LIỆU MẪU', connected: 'Số lượng VIA đã kết nối', operating: 'Đang hoạt động',
@@ -32,4 +33,4 @@ export const analyticsPreviewCopy: Record<Locale, AnalyticsCopy> = {
     floatingTrendTitle: 'Status trends', stable: 'Active stays stable', floatingTrendCaption: 'Track account changes over time',
     zeroWarnings: '0 warnings', floatingRiskCaption: 'Access loss and hidden admins remain at safe levels',
   },
-}
+})

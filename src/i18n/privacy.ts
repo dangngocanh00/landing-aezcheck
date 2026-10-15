@@ -1,3 +1,4 @@
+import { withLocales } from './localize'
 import type { AppLocale } from './locales'
 
 export const privacySlugs = ['scope', 'data-collected', 'processing-purpose', 'user-rights', 'edit-delete', 'security-storage', 'sync-data', 'data-sharing', 'cross-border', 'cookies', 'data-incidents', 'user-obligations', 'policy-changes', 'contact'] as const
@@ -6,7 +7,7 @@ type PrivacyCopy = { title: string; introTitle: string; toc: string; intro: stri
 
 // Product-specific policy text supplied by the owner, rewritten for AezCheck.
 // Topic order verified against https://nolimitadsmanager.com/vi/privacy.
-export const privacyCopy: Record<AppLocale, PrivacyCopy> = {
+export const privacyCopy: Record<AppLocale, PrivacyCopy> = withLocales({
   vi: {
     title: 'Chính sách bảo mật AezCheck', introTitle: 'Giới thiệu', toc: 'Nội dung trang', contact: 'Liên hệ AezCheck', terms: 'Điều khoản dịch vụ',
     intro: [
@@ -56,4 +57,4 @@ export const privacyCopy: Record<AppLocale, PrivacyCopy> = {
       ['Contact information', 'Please contact AezCheck through the Contact page with any questions, requests or complaints concerning personal data or this Privacy Policy.'],
     ],
   },
-}
+})

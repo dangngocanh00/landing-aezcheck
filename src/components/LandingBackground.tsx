@@ -1,3 +1,4 @@
+import { localizeNode, translateText } from '../i18n/localize'
 import type { CSSProperties } from 'react'
 
 // Fixed, sparse edge coordinates: no random positions or hydration shifts.
@@ -11,11 +12,11 @@ const diamonds = [[8, 5], [93, 19], [4, 37], [96, 57], [7, 76], [91, 94], [95, 9
 
 export function LandingBackground() {
   return <div className="az-global-background" aria-hidden="true">
-    <div className="az-color-bands">{[0, 1, 2].map(i => <i key={i} className={`az-color-band az-color-band-${i}`} />)}</div>
+    <div className="az-color-bands">{localizeNode([0, 1, 2].map(i => <i key={i} className={`az-color-band az-color-band-${i}`} />))}</div>
     <div className="az-cosmic-edges">
-    <div className="az-edge-beams">{[0, 1, 2, 3].map(i => <i key={i} className={`az-edge-beam az-edge-beam-${i}`} />)}</div>
-    <div className="az-edge-stars">{stars.map((star, i) => <i key={i} style={{ left: `${star.x}%`, top: `${star.y}%`, '--star-size': `${star.size}px`, opacity: star.opacity } as CSSProperties} />)}</div>
-    <div className="az-edge-diamonds">{diamonds.map(([x, y], i) => <i key={i} style={{ left: `${x}%`, top: `${y}%` }} />)}</div>
+    <div className="az-edge-beams">{localizeNode([0, 1, 2, 3].map(i => <i key={i} className={`az-edge-beam az-edge-beam-${i}`} />))}</div>
+    <div className="az-edge-stars">{localizeNode(stars.map((star, i) => <i key={i} style={{ left: `${star.x}%`, top: `${star.y}%`, '--star-size': `${star.size}px`, opacity: star.opacity } as CSSProperties} />))}</div>
+    <div className="az-edge-diamonds">{localizeNode(diamonds.map(([x, y], i) => <i key={i} style={{ left: `${x}%`, top: `${y}%` }} />))}</div>
     </div>
   </div>
 }

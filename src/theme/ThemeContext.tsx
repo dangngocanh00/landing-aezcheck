@@ -1,3 +1,4 @@
+import { localizeNode, translateText } from '../i18n/localize'
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 
 type Theme = 'dark' | 'light'
@@ -11,7 +12,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.style.backgroundColor = 'var(--bg-main)'
     try { localStorage.setItem('aezcheck-theme', theme) } catch { /* Theme still works without storage. */ }
   }, [theme])
-  return <ThemeContext.Provider value={{ theme, toggleTheme: () => setTheme((value) => value === 'dark' ? 'light' : 'dark') }}>{children}</ThemeContext.Provider>
+  return <ThemeContext.Provider value={{ theme, toggleTheme: () => setTheme((value) => value === 'dark' ? 'light' : 'dark') }}>{localizeNode(children)}</ThemeContext.Provider>
 }
 
 export function useTheme() {

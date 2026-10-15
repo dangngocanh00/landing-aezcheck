@@ -1,7 +1,9 @@
+import { withLocales } from '../i18n/localize'
+import type { AppLocale } from '../i18n/locales'
 export type FeatureId = 'workspace' | 'core' | 'finance' | 'monitoring' | 'reports'
 export type FeatureCopy = { id: FeatureId; title: string; kicker: string; headline: string; description: string; details: string[]; cta: string; href: string }
 
-export const spotlightCopy: Record<'vi' | 'en', FeatureCopy[]> = {
+export const spotlightCopy: Record<AppLocale, FeatureCopy[]> = withLocales({
   vi: [
     { id: 'workspace', title: 'Agency Workspace', kicker: 'Lợi ích:', headline: 'Tất cả trong một nơi. Vận hành dễ dàng hơn.', description: 'Agency Workspace là không gian làm việc tập trung cho toàn bộ quy trình cho thuê tài khoản quảng cáo, giúp bạn tổ chức nhóm, quản lý nhân sự, khách hàng, tài khoản quảng cáo cho thuê và theo dõi chi tiêu — tất cả trong một nền tảng duy nhất.', details: ['Nhóm, Nhân sự, Khách hàng, TKQC cho thuê, Chi tiêu TKQC.'], cta: 'Dùng thử miễn phí', href: '#contact' },
     { id: 'core', title: 'Cụm tính năng quản lý cốt lõi', kicker: 'QUẢN LÝ TÀI SẢN & QUẢNG CÁO', headline: 'Tập trung tài sản quảng cáo vào một nơi', description: 'Quản lý các tài sản Facebook và theo dõi các tài khoản quảng cáo trên cùng hệ thống.', details: ['Via, Tài khoản quảng cáo, BM và Fanpage', 'Theo dõi trạng thái, token và thông tin liên quan', 'Tra cứu, lọc, tùy chỉnh cột và xuất dữ liệu'], cta: 'Xem tính năng cốt lõi', href: '#asset-management' },
@@ -16,4 +18,4 @@ export const spotlightCopy: Record<'vi' | 'en', FeatureCopy[]> = {
     { id: 'monitoring', title: 'Monitoring & operational safety', kicker: 'STATUS & RISK', headline: 'See issues before operations are interrupted', description: 'Bring important asset statuses together so operators can quickly identify accounts that need attention.', details: ['VIA status and advertising permissions', '2FA, tokens and token expiration', 'TKQC status and related assets'], cta: 'Explore monitoring', href: '#shield' },
     { id: 'reports', title: 'Reporting & analytics', kicker: 'SPEND & RECONCILIATION', headline: 'Turn operational data into figures you can check', description: 'Track daily spend, compare figures and export data for checking, reconciliation and reporting.', details: ['Daily TKQC spend throughout the month', 'Compare Auto and CS figures', 'Filter by criteria and export data'], cta: 'Explore reporting & analytics', href: '#control-center' },
   ],
-}
+})

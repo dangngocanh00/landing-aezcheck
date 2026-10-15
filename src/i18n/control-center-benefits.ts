@@ -1,7 +1,8 @@
+import { withLocales } from './localize'
 import type { Locale } from './LanguageContext'
 
 export type ControlBenefitId = 'live' | 'trend' | 'risk' | 'network'
-export const controlCenterBenefitsCopy: Record<Locale, Record<ControlBenefitId, { title: string; description: string }>> = {
+export const controlCenterBenefitsCopy: Record<Locale, Record<ControlBenefitId, { title: string; description: string }>> = withLocales({
   vi: {
     live: { title: 'Trạng thái trực tiếp', description: 'Xem trạng thái thực tế của từng tài khoản, từng VIA — không cần refresh thủ công.' },
     trend: { title: 'Theo dõi xu hướng', description: 'Phát hiện xu hướng chi tiêu, hiệu suất và rủi ro trước khi chúng trở thành sự cố.' },
@@ -14,4 +15,4 @@ export const controlCenterBenefitsCopy: Record<Locale, Record<ControlBenefitId, 
     risk: { title: 'Risk overview', description: 'Bring alerts and risk indicators together in a single dashboard.' },
     network: { title: 'Asset distribution', description: 'Track advertising assets across teams, staff and clients.' },
   },
-}
+})

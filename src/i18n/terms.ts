@@ -1,3 +1,4 @@
+import { withLocales } from './localize'
 import type { AppLocale } from './locales'
 
 type TermsSection = { title: string; body: string }
@@ -10,7 +11,7 @@ type TermsCopy = {
 // VI reference was unavailable; its indexed EN version confirmed the topic order:
 // https://nolimitadsmanager.com/en/terms
 // No unverified payment, refund or liability-cap policy is added.
-export const termsCopy: Record<AppLocale, TermsCopy> = {
+export const termsCopy: Record<AppLocale, TermsCopy> = withLocales({
   vi: {
     introTitle: 'Giới thiệu', contents: 'Nội dung điều khoản',
     intro: 'Điều khoản này quy định việc truy cập và sử dụng nền tảng AezCheck, workspace AezCheck cùng các sản phẩm, dịch vụ liên quan. Khi sử dụng dịch vụ, bạn đồng ý tuân thủ các điều khoản dưới đây. Nếu sử dụng thay mặt một tổ chức, bạn cần có thẩm quyền phù hợp để đại diện cho tổ chức đó.',
@@ -53,4 +54,4 @@ export const termsCopy: Record<AppLocale, TermsCopy> = {
     ctaTitle: 'Need tailored terms for your organization?',
     ctaBody: 'If your organization needs specific operational, security or service commitments, contact AezCheck to discuss your requirements.',
   },
-}
+})

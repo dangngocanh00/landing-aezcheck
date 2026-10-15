@@ -49,6 +49,8 @@
   right: 0;
   top: calc(100% + 10px);
   min-width: 165px;
+  width: max-content;
+  max-width: calc(100vw - 32px);
   padding: 6px;
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -57,7 +59,7 @@
   color: var(--text-primary);
   z-index: 60;
 }
-.az-language-menu button { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; padding: 10px 12px; border-radius: 8px; font-size: 14px; cursor: pointer; text-align: left; }
+.az-language-menu button { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; padding: 10px 12px; border-radius: 8px; font-size: 14px; cursor: pointer; text-align: left; white-space: nowrap; }
 .az-language-menu button:hover, .az-language-menu button:focus-visible { background: var(--surface-highlight); }
 .az-language-menu button[aria-checked='true'] { color: var(--green); font-weight: 600; }
 .az-language-button { cursor: pointer; }

@@ -1,3 +1,4 @@
+import { localizeNode, translateText } from '../i18n/localize'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useEffect, useRef, type CSSProperties } from 'react'
 import './product-ecosystem.css'
@@ -26,7 +27,7 @@ function FlowIcon({ name }: { name: IconName }) {
     target: <><circle cx="16" cy="16" r="12" /><circle cx="16" cy="16" r="7" fill="none" /><circle cx="16" cy="16" r="2" /><path d="m16 16 13-13M23 3h6v6" fill="none" /></>,
     check: <path d="m8 16 5 5 11-11" fill="none" />,
   }
-  return <svg viewBox="0 0 32 32" fill="currentColor" fillOpacity=".16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>
+  return <svg viewBox="0 0 32 32" fill="currentColor" fillOpacity=".16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{localizeNode(paths[name])}</svg>
 }
 
 function InfoCard({ outcome = false }: { outcome?: boolean }) {
@@ -36,7 +37,7 @@ function InfoCard({ outcome = false }: { outcome?: boolean }) {
     : ['Quản lý tập trung', 'Đồng bộ dữ liệu', 'Theo dõi trạng thái']
   return <aside className={`eco-info ${outcome ? 'eco-info-outcome' : 'eco-info-intro'}`}>
     <FlowIcon name={outcome ? 'chart' : 'users'} />
-    <ul>{lines.map(line => <li key={line}>{t(line)}</li>)}</ul>
+    <ul>{localizeNode(lines.map(line => <li key={line}>{localizeNode(t(line))}</li>))}</ul>
   </aside>
 }
 
@@ -60,23 +61,23 @@ export function ProductEcosystemSection() {
     <div className="eco-inner">
       <header className="eco-header">
         <h2 id="ecosystem-heading" className="eco-heading">
-          <span>{t('Không chỉ kiểm tra tài khoản.')}</span>
-          <span><em>{t('AezCheck kết nối')}</em>{' '}{t('toàn bộ quy trình vận hành.')}</span>
+          <span>{localizeNode(t('Không chỉ kiểm tra tài khoản.'))}</span>
+          <span><em>{localizeNode(t('AezCheck kết nối'))}</em>{localizeNode(' ')}{localizeNode(t('toàn bộ quy trình vận hành.'))}</span>
         </h2>
-        <p className="eco-description">{t('Toàn bộ quy trình quảng cáo trong một hệ thống — không cần chuyển tab, không mất dữ liệu.')}</p>
+        <p className="eco-description">{localizeNode(t('Toàn bộ quy trình quảng cáo trong một hệ thống — không cần chuyển tab, không mất dữ liệu.'))}</p>
       </header>
       <div className="eco-flow">
         <InfoCard />
         <ol ref={flowRef} className="eco-stages" data-motion-paused="true">
-          {stages.map((stage, index) => <li key={stage.title} tabIndex={0}
+          {localizeNode(stages.map((stage, index) => <li key={stage.title} tabIndex={0}
             style={{ '--card-delay': `${index * .6}s` } as CSSProperties}
             className={`eco-stage ${index === 0 ? 'eco-stage-source' : index === stages.length - 1 ? 'eco-stage-destination' : ''}`}>
             <span className="eco-card-light" aria-hidden="true" />
             <FlowIcon name={stage.icon} />
-            <h3>{t(stage.title)}</h3>
-            <p>{t(stage.subtitle)}</p>
-            {index < stages.length - 1 && <span className="eco-arrow" aria-hidden="true">›</span>}
-          </li>)}
+            <h3>{localizeNode(t(stage.title))}</h3>
+            <p>{localizeNode(t(stage.subtitle))}</p>
+            {localizeNode(index < stages.length - 1 && <span className="eco-arrow" aria-hidden="true">{localizeNode("›")}</span>)}
+          </li>))}
         </ol>
         <InfoCard outcome />
       </div>
@@ -85,10 +86,10 @@ export function ProductEcosystemSection() {
           <path d="M20 120 Q700 -90 1380 120" />
         </svg>
         <ul className="eco-checkpoints">
-          {['Liên kết liền mạch', 'Đồng bộ thời gian thực', 'Kiểm soát toàn diện'].map(label => <li key={label}>
+          {localizeNode(['Liên kết liền mạch', 'Đồng bộ thời gian thực', 'Kiểm soát toàn diện'].map(label => <li key={label}>
             <span className="eco-check"><FlowIcon name="check" /></span>
-            <span>{t(label)}</span>
-          </li>)}
+            <span>{localizeNode(t(label))}</span>
+          </li>))}
         </ul>
       </div>
     </div>
